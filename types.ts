@@ -1,3 +1,4 @@
+
 export enum AppMode {
   // Studio Utama
   TEXT_TO_IMAGE = 'text-to-image',
@@ -18,6 +19,10 @@ export enum AppMode {
   DOUBLE_EXPOSURE = 'double-exposure',
   HDR_LANDSCAPE = 'hdr-landscape',
   GEN_FILL = 'gen-fill',
+  
+  // NEW ADDITIONS
+  FASHION_EDITORIAL = 'fashion-editorial', // Renamed from VIRTUAL_FASHION
+  LOGO_MASCOT = 'logo-mascot',
 
   // Studio Pelukis
   PAINTING_GENERATOR = 'painting-generator',
@@ -522,5 +527,33 @@ export interface GenFillOptions {
   };
 }
 
+// --- NEW FEATURE 2 REVISION: FASHION EDITORIAL ---
+// Replaces "Virtual Fashion Swap" with a high-end magazine concept
+export interface FashionEditorialOptions {
+  editorialStyle: string; // Haute Couture, Streetwear, Avant-Garde
+  location: string; // Runway, Neon City, Desert, Industrial
+  era: string; // Modern, Y2K, 90s, Victorian
+  fixes: {
+    hauteCoutureFit: boolean; // Perfect tailoring, no loose pixels
+    textileSimulation: boolean; // Realistic silk/leather/denim physics
+    dynamicPosing: boolean; // Make the outfit move (wind/motion)
+    makeupHairSync: boolean; // Update hair/makeup to match the fashion vibe
+    magazineColorGrade: boolean; // High-contrast editorial grading
+  };
+}
+
+// --- NEW FEATURE 4: LOGO & MASCOT WIZARD ---
+export interface LogoMascotOptions {
+  style: string; // Minimalist, Mascot, Emblem
+  complexity: string; // Simple, Medium, Detailed
+  fixes: {
+    vectorFlatness: boolean; // No gradients, clean color
+    negativeSpaceBalance: boolean; // Good spacing
+    colorPaletteLimit: boolean; // Max 3-4 colors
+    mascotExpressiveness: boolean; // If mascot, good emotion
+    printReadiness: boolean; // Thick lines, good contrast
+  };
+}
+
 // Union Type for flexibility
-export type GenerationOptions = CarouselOptions | PhotoshootOptions | NewbornOptions | PreweddingOptions | FamilyOptions | ProductOptions | RecoveryOptions | DetailingOptions | CinematicRelightingOptions | AnalogFilmOptions | HeadshotOptions | StagingOptions | DoubleExposureOptions | HDROptions | GenFillOptions;
+export type GenerationOptions = CarouselOptions | PhotoshootOptions | NewbornOptions | PreweddingOptions | FamilyOptions | ProductOptions | RecoveryOptions | DetailingOptions | CinematicRelightingOptions | AnalogFilmOptions | HeadshotOptions | StagingOptions | DoubleExposureOptions | HDROptions | GenFillOptions | FashionEditorialOptions | LogoMascotOptions;
