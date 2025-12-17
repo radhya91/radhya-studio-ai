@@ -106,6 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMode, setActiveMode }) => {
             Object.entries(groupedModes).map(([category, modes]) => {
                 const isOpen = isSearching || expandedCategories[category];
                 const Icon = CATEGORY_ICONS[category] || <LayoutGrid size={18} />;
+                const modeList = modes as ModeConfig[];
                 
                 return (
                   <div key={category} className="mb-1">
@@ -129,7 +130,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMode, setActiveMode }) => {
                           {/* Vertical line connector */}
                           <div className="absolute left-[1.15rem] top-0 bottom-2 w-px bg-gray-200/70" />
                           
-                          {modes.map(mode => (
+                          {modeList.map(mode => (
                             <button
                               key={mode.id}
                               onClick={() => setActiveMode(mode.id)}

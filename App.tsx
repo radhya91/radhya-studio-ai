@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { AlertTriangle, Menu } from 'lucide-react';
+import { AlertTriangle, Menu, ShieldAlert, X } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import InputPanel from './components/InputPanel';
 import ImageModal from './components/ImageModal';
@@ -14,6 +14,7 @@ const App: React.FC = () => {
   const [textContent, setTextContent] = useState('');
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<{title: string, message: string} | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const activeConfig = useMemo(() => MODES.find(m => m.id === activeMode) || MODES[0], [activeMode]);
@@ -23,14 +24,15 @@ const App: React.FC = () => {
     setGeneratedImages([]);
     setTextContent('');
     setError(null);
+    setValidationError(null);
     setIsMobileMenuOpen(false);
   };
 
   const handleGenerate = async (prompt: string, img1: File | null, img2: File | null, ratio: string, options?: GenerationOptions) => {
     setIsGenerating(true);
     setError(null);
+    setValidationError(null);
     
-    // Clear previous results to show loading state cleanly
     setGeneratedImages([]);
     setTextContent('');
 
@@ -49,7 +51,16 @@ const App: React.FC = () => {
       const errorMessage = (err && typeof err === 'object' && 'message' in err) 
         ? String(err.message) 
         : 'An unexpected error occurred while processing your request.';
-      setError(errorMessage);
+      
+      // Handle Specific Validation Errors
+      if (errorMessage.includes("VALIDATION_NO_BABY_DETECTED")) {
+        setValidationError({
+            title: "No Baby Detected",
+            message: "Our AI analysis suggests the uploaded photo does not contain a baby. For the 'Newborn Photo' feature to work correctly, please upload a photo where a baby or infant is clearly visible."
+        });
+      } else {
+        setError(errorMessage);
+      }
     } finally {
       setIsGenerating(false);
     }
@@ -103,7 +114,7 @@ const App: React.FC = () => {
             </div>
         </div>
 
-        {/* Error Toast */}
+        {/* Error Toast (Generic) */}
         {error && (
             <div className="fixed bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-96 p-4 bg-red-50 border border-red-100 text-red-800 rounded-xl flex items-start gap-3 shadow-lg animate-in fade-in slide-in-from-bottom-2 z-50">
                 <AlertTriangle size={20} className="mt-0.5 flex-shrink-0 text-red-500" />
@@ -113,12 +124,39 @@ const App: React.FC = () => {
                 </div>
                 <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600">
                     <span className="sr-only">Close</span>
-                    <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
+                    <X size={20} />
                 </button>
             </div>
         )}
 
       </main>
+
+      {/* Validation Warning Modal */}
+      {validationError && (
+          <div className="fixed inset-0 z-[60] bg-gray-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in zoom-in-95 duration-200">
+                  <div className="p-6 text-center space-y-4">
+                      <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto">
+                          <ShieldAlert size={32} className="text-amber-600" />
+                      </div>
+                      <div>
+                          <h3 className="text-xl font-bold text-gray-900">{validationError.title}</h3>
+                          <p className="text-gray-600 mt-2 text-sm leading-relaxed">
+                              {validationError.message}
+                          </p>
+                      </div>
+                  </div>
+                  <div className="bg-gray-50 px-6 py-4 flex justify-center">
+                      <button 
+                          onClick={() => setValidationError(null)}
+                          className="bg-gray-900 text-white hover:bg-gray-800 px-6 py-2.5 rounded-xl text-sm font-semibold transition-colors w-full sm:w-auto"
+                      >
+                          I Understand
+                      </button>
+                  </div>
+              </div>
+          </div>
+      )}
 
       <ImageModal
         images={generatedImages}
