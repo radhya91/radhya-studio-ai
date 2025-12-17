@@ -1,5 +1,5 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
-import { AppMode, GenerationResult, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, GenerationOptions } from '../types';
+import { AppMode, GenerationResult, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, GenerationOptions } from '../types';
 import { MODES } from '../constants';
 
 // --- SYSTEM INSTRUCTIONS UNTUK TEXT TOOLS (AI TOOLS) ---
@@ -34,7 +34,7 @@ const getSystemInstruction = (mode: AppMode): string => {
 
 // --- SYSTEM INSTRUCTIONS UNTUK PROMPT ENHANCEMENT (STUDIO UTAMA) ---
 const getPromptEnhancementInstruction = (mode: AppMode, options?: GenerationOptions): string => {
-  const baseInstruction = "You are a world-class AI Prompt Engineer for a generative image model (Imagen 4.0). Your goal is to rewrite the user's simple input into a highly detailed, professional prompt. OUTPUT ONLY THE ENGLISH PROMPT.";
+  const baseInstruction = "You are a world-class AI Prompt Engineer for a generative image model (Imagen). Your goal is to rewrite the user's simple input into a highly detailed, professional prompt. OUTPUT ONLY THE ENGLISH PROMPT.";
 
   switch (mode) {
     case AppMode.TEXT_TO_IMAGE:
@@ -458,14 +458,224 @@ const getPromptEnhancementInstruction = (mode: AppMode, options?: GenerationOpti
         return detInstruction;
     }
     
-    case AppMode.DETAILING:
-      return `${baseInstruction} Context: Image Upscaling/Detailing. Focus on: Hallucinating realistic high-frequency details (pores, fabric weave, foliage) without changing the core subject. Sharpness, clarity, HDR.`;
+    case AppMode.CINEMATIC_RELIGHTING: {
+        const opts = options as CinematicRelightingOptions;
+        let cineInstruction = `${baseInstruction}
+        CONTEXT: VIRTUAL DIRECTOR & COLORIST SUITE.
+        OBJECTIVE: Completely transform the lighting, color grade, and atmosphere of the input image to match high-end cinema standards.
+        
+        USER CONFIGURATION:
+        - Lighting Setup: ${opts?.lightingStyle}
+        - Color Grading: ${opts?.colorGrade}
+        - Lens Type: ${opts?.lensType}
+        
+        ACTIVE CINEMATOGRAPHY FIXES (25 POINTS):
+        `;
+
+        // Group 1: Lighting (The Gaffer)
+        if (opts?.fixes.rembrandtTriangle) cineInstruction += `\n- LIGHTING SETUP: REMBRANDT. Create a distinct triangle of light on the shadowed side of the face.`;
+        if (opts?.fixes.rimLightSeparation) cineInstruction += `\n- RIM LIGHT: Strong back-light to separate subject from background with a glowing edge.`;
+        if (opts?.fixes.volumetricFog) cineInstruction += `\n- VOLUMETRICS: Add visible shafts of light (God Rays) cutting through atmospheric dust/haze.`;
+        if (opts?.fixes.practicalLights) cineInstruction += `\n- PRACTICALS: Ensure light sources within the frame (lamps, neon) actually emit glow.`;
+        if (opts?.fixes.catchlights) cineInstruction += `\n- CATCHLIGHTS: Add sharp reflection of the key light in the eyes to bring life to the subject.`;
+
+        // Group 2: Color (The Colorist)
+        if (opts?.fixes.tealOrangePush) cineInstruction += `\n- COLOR GRADE: TEAL & ORANGE. Push shadows towards teal/cyan and highlights towards warm orange/skin tones. High contrast separation.`;
+        if (opts?.fixes.skinToneProtection) cineInstruction += `\n- SKIN TONE: Mask skin tones to remain natural while heavily grading the environment.`;
+        if (opts?.fixes.deepBlacks) cineInstruction += `\n- CONTRAST: CRUSH BLACKS. Lower the black point for a moody, high-contrast Noir look.`;
+        if (opts?.fixes.highlightRollOff) cineInstruction += `\n- ROLL-OFF: Soft, creamy highlight clipping (film simulation), not harsh digital white clipping.`;
+        if (opts?.fixes.vibranceBoost) cineInstruction += `\n- VIBRANCE: Boost secondary colors without oversaturating skin tones.`;
+
+        // Group 3: Atmosphere (The VFX)
+        if (opts?.fixes.filmGrain) cineInstruction += `\n- TEXTURE: Add organic 35mm film grain structure. Not digital noise.`;
+        if (opts?.fixes.anamorphicFlares) cineInstruction += `\n- LENS FLARE: Horizontal blue streak flares (Anamorphic lens characteristic) on bright light sources.`;
+        if (opts?.fixes.halation) cineInstruction += `\n- HALATION: Add red/orange glow bleeding around bright highlights (film emulsion effect).`;
+        if (opts?.fixes.vignette) cineInstruction += `\n- VIGNETTE: Darken corners to draw focus to the center subject.`;
+        if (opts?.fixes.chromaticAbberation) cineInstruction += `\n- OPTICS: Slight color fringing on edges to simulate vintage lens glass.`;
+
+        // Group 4: Shadows (The DP)
+        if (opts?.fixes.softShadows) cineInstruction += `\n- SHADOW QUALITY: Soft, diffused shadow edges (Large light source). Avoid harsh lines unless specified.`;
+        if (opts?.fixes.silhouetteDrama) cineInstruction += `\n- SILHOUETTE: Expose for the highlights, leaving the subject in near-total silhouette against a bright background.`;
+        if (opts?.fixes.subsurfaceScattering) cineInstruction += `\n- SUBSURFACE SCATTERING: Ears/fingers should glow red where strong light passes through them.`;
+        if (opts?.fixes.ambientOcclusion) cineInstruction += `\n- AMBIENT OCCLUSION: Deepen shadows in crevices and corners for 3D depth.`;
+        if (opts?.fixes.depthOfField) cineInstruction += `\n- BOKEH: Shallow depth of field. Background should be creamy blur (f/1.4).`;
+
+        // Group 5: Genre
+        if (opts?.fixes.cyberpunkNeon) cineInstruction += `\n- STYLE: CYBERPUNK. Neon pink and blue lighting. Wet streets reflection. High contrast.`;
+        if (opts?.fixes.horrorGloom) cineInstruction += `\n- STYLE: HORROR. Underexposed, greenish tint, heavy shadows, uneasy atmosphere.`;
+        if (opts?.fixes.goldenHourWarmth) cineInstruction += `\n- STYLE: GOLDEN HOUR. Low sun angle, long shadows, warm gold/amber wash over the scene.`;
+        if (opts?.fixes.moonlightCoolness) cineInstruction += `\n- STYLE: MOONLIGHT. Blue-tinted key light, deep shadows, night ambiance.`;
+        if (opts?.fixes.dreamyGlow) cineInstruction += `\n- STYLE: DREAMY. Add a 'Pro-Mist' filter diffusion glow to highlights. Ethereal look.`;
+
+        cineInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A cinematic movie shot of the subject in the input image. [USER PROMPT].
+        Lighting: ${opts?.lightingStyle}, Lens: ${opts?.lensType}, Grade: ${opts?.colorGrade}.
+        Style: Masterpiece Cinematography, Arri Alexa, Anamorphic.`;
+
+        return cineInstruction;
+    }
     
-    case AppMode.CINEMATIC_RELIGHTING:
-      return `${baseInstruction} Context: Cinematic Movie Scene. Focus on: Dramatic lighting, color grading (teal & orange, noir, neon), atmospheric fog, storytelling shadows, cinematic aspect ratio feel, master shot.`;
-    
-    case AppMode.ANALOG_FILM:
-      return `${baseInstruction} Context: Analog Photography Simulation. Focus on: Specific film stocks (Portra 400, Kodak Gold), authentic film grain, light leaks, slight chromatic aberration, vintage color cast, nostalgic mood.`;
+    case AppMode.ANALOG_FILM: {
+        const opts = options as AnalogFilmOptions;
+        let analogInstruction = `${baseInstruction}
+        CONTEXT: VIRTUAL DARKROOM & ANALOG FILM SIMULATION.
+        OBJECTIVE: Emulate the exact chemical color science, grain structure, and optical characteristics of specific analog film stocks.
+        
+        USER CONFIGURATION:
+        - Film Stock: ${opts?.filmStock}
+        - Format: ${opts?.filmFormat}
+        
+        ACTIVE ANALOG ARTIFACTS (25 POINTS):
+        `;
+
+        // Group 1: Chemistry
+        if (opts?.fixes.halation) analogInstruction += `\n- HALATION: Add characteristic red-orange glow/bloom around bright highlights (Cinestill effect).`;
+        if (opts?.fixes.filmGrain) analogInstruction += `\n- GRAIN: Apply realistic silver halide grain structure appropriate for the film ISO. Not digital noise.`;
+        if (opts?.fixes.colorShift) analogInstruction += `\n- COLOR SHIFT: Apply the specific color bias of the film stock (e.g., Green for Fuji, Gold for Kodak).`;
+        if (opts?.fixes.bleachBypass) analogInstruction += `\n- BLEACH BYPASS: High contrast, low saturation, retained silver look.`;
+        if (opts?.fixes.crossProcess) analogInstruction += `\n- CROSS PROCESS: Shift colors unnaturally (e.g., blue shadows, yellow highlights) as if developed in wrong chemicals.`;
+
+        // Group 2: Optical
+        if (opts?.fixes.lightLeaks) analogInstruction += `\n- LIGHT LEAKS: Add random red/orange burns on the edges of the frame.`;
+        if (opts?.fixes.vignette) analogInstruction += `\n- VIGNETTE: Natural lens light falloff at the corners.`;
+        if (opts?.fixes.softFocus) analogInstruction += `\n- OPTICS: Soft vintage lens rendering, slightly reduced sharpness.`;
+        if (opts?.fixes.chromaticAberration) analogInstruction += `\n- ABERRATION: Slight color separation/fringing at the frame edges.`;
+        if (opts?.fixes.bloom) analogInstruction += `\n- BLOOM: Highlights should diffuse into shadows (Pro-Mist effect).`;
+
+        // Group 3: Wear
+        if (opts?.fixes.dustScratches) analogInstruction += `\n- DAMAGE: Add subtle white dust specks and micro-scratches on the negative.`;
+        if (opts?.fixes.motionBlur) analogInstruction += `\n- SHUTTER: Slight motion blur to suggest slow shutter speed.`;
+        if (opts?.fixes.dateStamp) analogInstruction += `\n- DATE STAMP: Add a glowing orange digital date stamp in the corner (e.g., '98 12 25').`;
+        if (opts?.fixes.filmBorder) analogInstruction += `\n- BORDER: Include black film rebate/sprockets or white polaroid frame.`;
+        if (opts?.fixes.fadedPrint) analogInstruction += `\n- AGING: Lift the blacks and desaturate colors to simulate an old print found in a shoebox.`;
+
+        // Group 4: Exposure
+        if (opts?.fixes.overexposure) analogInstruction += `\n- EXPOSURE: Overexposed. Blown out highlights, pastel colors, airy look.`;
+        if (opts?.fixes.underexposure) analogInstruction += `\n- EXPOSURE: Underexposed. Crushed muddy shadows, gritty look.`;
+        if (opts?.fixes.highContrast) analogInstruction += `\n- CONTRAST: Push processing. High contrast, deep blacks.`;
+        if (opts?.fixes.lowContrast) analogInstruction += `\n- CONTRAST: Pull processing. Flat, low contrast, wide dynamic range.`;
+        if (opts?.fixes.flashBurn) analogInstruction += `\n- FLASH: Direct, hard on-camera flash. Harsh shadows, bright foreground, dark background.`;
+
+        analogInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        An analog photograph taken on ${opts?.filmStock} film in ${opts?.filmFormat} format. [USER PROMPT].
+        Description: Authentic film look, organic grain, chemical color science.`;
+
+        return analogInstruction;
+    }
+
+    case AppMode.PROFESSIONAL_HEADSHOT: {
+        const opts = options as HeadshotOptions;
+        let hsInstruction = `${baseInstruction}
+        CONTEXT: PROFESSIONAL PROFILE PICTURE & HEADSHOT PHOTOGRAPHY.
+        OBJECTIVE: Transform the input selfie/photo into a high-end studio headshot suitable for LinkedIn, Social Media, or Professional Profiles.
+        
+        USER CONFIGURATION:
+        - Outfit: ${opts?.outfit}
+        - Background: ${opts?.background}
+        
+        ACTIVE ENHANCEMENTS:`;
+        if (opts?.fixes.skinTexture) hsInstruction += `\n- SKIN: Professional retouching. Even skin tone, remove blemishes, but keep natural pores. Matte finish (no oily shine).`;
+        if (opts?.fixes.eyeContact) hsInstruction += `\n- EYES: Ensure sharp focus on irises. Direct, confident eye contact with the camera.`;
+        if (opts?.fixes.lightingMatch) hsInstruction += `\n- LIGHTING: 'Rembrandt' or 'Butterfly' studio lighting setup. Soft shadows, defined jawline.`;
+        if (opts?.fixes.hairCleanup) hsInstruction += `\n- HAIR: Neat and tidy hair. Remove flyaways. Professional styling.`;
+
+        hsInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A high-quality profile picture of the person in the input image.
+        Wearing: ${opts?.outfit}. Background: ${opts?.background}.
+        Style: High-end professional photography, 85mm lens, f/2.8 bokeh, confidence, leadership.`;
+        return hsInstruction;
+    }
+
+    case AppMode.VIRTUAL_STAGING: {
+        const opts = options as StagingOptions;
+        let stgInstruction = `${baseInstruction}
+        CONTEXT: REAL ESTATE VIRTUAL STAGING.
+        OBJECTIVE: Furnish the empty room in the input image with realistic, scale-accurate furniture.
+        
+        USER CONFIGURATION:
+        - Room Type: ${opts?.roomType}
+        - Interior Style: ${opts?.style}
+        
+        ACTIVE PHYSICS & DESIGN RULES:`;
+        if (opts?.fixes.perspectiveMatch) stgInstruction += `\n- PERSPECTIVE: Furniture must align perfectly with the floor plane and vanishing points of the original room.`;
+        if (opts?.fixes.shadowCast) stgInstruction += `\n- SHADOWS: Furniture must cast realistic contact shadows on the floor based on the room's window light direction.`;
+        if (opts?.fixes.scaleLogic) stgInstruction += `\n- SCALE: Furniture size must be realistic relative to the room height and windows. No miniature sofas.`;
+        if (opts?.fixes.colorHarmony) stgInstruction += `\n- HARMONY: Color palette of furniture should complement the existing wall/floor colors.`;
+
+        stgInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A fully furnished ${opts?.roomType} with ${opts?.style} interior design.
+        The room structure (walls, windows, floor) matches the input image exactly.
+        Style: Architectural Digest, bright, airy, welcoming.`;
+        return stgInstruction;
+    }
+
+    case AppMode.DOUBLE_EXPOSURE: {
+        const opts = options as DoubleExposureOptions;
+        let deInstruction = `${baseInstruction}
+        CONTEXT: ARTISTIC DOUBLE EXPOSURE PHOTOGRAPHY.
+        OBJECTIVE: Blend the subject's silhouette with a secondary scenery element.
+        
+        USER CONFIGURATION:
+        - Blend Mode: ${opts?.blendMode}
+        - Secondary Element: ${opts?.secondaryElement}
+        
+        ARTISTIC RULES:`;
+        if (opts?.fixes.edgeDetection) deInstruction += `\n- SILHOUETTE: Keep the sharp outline of the main subject (profile/face). The scenery should fill the body area.`;
+        if (opts?.fixes.contrastBoost) deInstruction += `\n- CONTRAST: High contrast between the subject and the white/clean background.`;
+        if (opts?.fixes.colorGrade) deInstruction += `\n- COLOR: Unify the color palette of the subject and the nature element. Dreamy, surreal tones.`;
+
+        deInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A double exposure art piece combining the person in the input image with ${opts?.secondaryElement}.
+        Technique: ${opts?.blendMode}. [USER PROMPT].
+        Style: Fine art photography, ethereal, moody, highly detailed.`;
+        return deInstruction;
+    }
+
+    case AppMode.HDR_LANDSCAPE: {
+        const opts = options as HDROptions;
+        let hdrInstruction = `${baseInstruction}
+        CONTEXT: LANDSCAPE PHOTOGRAPHY & HDR PROCESSING.
+        OBJECTIVE: Maximize dynamic range, detail, and visual impact of the landscape photo.
+        
+        USER CONFIGURATION:
+        - Style: ${opts?.style}
+        - Sky Enhancement: ${opts?.skyEnhancement ? 'Active' : 'Inactive'}
+        
+        PROCESSING STEPS:`;
+        if (opts?.fixes.shadowRecovery) hdrInstruction += `\n- SHADOWS: Lift crushed blacks to reveal details in dark areas (rocks, forests).`;
+        if (opts?.fixes.highlightSave) hdrInstruction += `\n- HIGHLIGHTS: Recover blown-out skies or bright reflections.`;
+        if (opts?.fixes.saturationBoost) hdrInstruction += `\n- COLOR: Vibrance boost. Make greens greener and skies bluer without neon artifacts.`;
+        if (opts?.fixes.noiseReduction) hdrInstruction += `\n- CLEAN: Remove sensor noise from low-light areas.`;
+
+        hdrInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        An award-winning landscape photograph of the scene in the input image.
+        Style: ${opts?.style} HDR, National Geographic style, dramatic lighting, ultra-detailed.
+        [USER PROMPT]`;
+        return hdrInstruction;
+    }
+
+    case AppMode.GEN_FILL: {
+        const opts = options as GenFillOptions;
+        let gfInstruction = `${baseInstruction}
+        CONTEXT: GENERATIVE EXPANSION (OUTPAINTING).
+        OBJECTIVE: Expand the canvas of the input image, inventing new consistent scenery around it.
+        
+        USER CONFIGURATION:
+        - Direction: ${opts?.direction}
+        - Zoom: ${opts?.zoomLevel}
+        
+        CONSISTENCY RULES:`;
+        if (opts?.fixes.seamlessTransition) gfInstruction += `\n- SEAMLESS: The border between old and new image must be invisible.`;
+        if (opts?.fixes.resolutionMatch) gfInstruction += `\n- RESOLUTION: The new generated areas must match the grain and sharpness of the original photo.`;
+        if (opts?.fixes.lightingConsistency) gfInstruction += `\n- LIGHTING: Continue the lighting direction and shadows from the original image into the new areas.`;
+
+        gfInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A wide-angle view of the scene in the input image, zoomed out by ${opts?.zoomLevel}.
+        Extend the scenery logically in ${opts?.direction} direction.
+        [USER PROMPT].
+        Style: Seamless extension, consistent texture.`;
+        return gfInstruction;
+    }
 
     default:
       return `${baseInstruction} Focus on: Artistic style consistency, high visual impact, correct anatomy/perspective, and detailed description of the medium (e.g., oil painting, digital art).`;
@@ -515,7 +725,7 @@ const validateSubject = async (base64Image: string, expectedSubject: 'baby'): Pr
     
     Response format: JUST "YES" or "NO".`;
 
-    const result = await callGeminiText('gemini-2.5-flash-latest', prompt, [base64Image], "You are an AI Image Classifier.");
+    const result = await callGeminiText('gemini-2.0-flash', prompt, [base64Image], "You are an AI Image Classifier.");
     return result.trim().toUpperCase().includes("YES");
 };
 
@@ -593,15 +803,29 @@ export const generateCreativeContent = async (
              contextPrompt = `Here is the damaged photo. Analyze the damage (scratches, blur, fading) and the content (people, setting). Write a prompt that describes the scene as if it were a high-quality, undamaged modern photo. Keep the original people's identities and the setting's details intact. User request: "${prompt}".`;
         } else if (activeMode === AppMode.DETAILING) {
              contextPrompt = `Here is a low-resolution or blurry photo. Analyze the subject and materials (skin, fabric, background). Write a prompt that describes this exact image but in 8K Ultra-HD resolution with hyper-realistic textures. Focus on the details that are currently missing or blurry. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.CINEMATIC_RELIGHTING) {
+             contextPrompt = `Here is an input photo. Analyze the composition and subject. Write a prompt to RE-LIGHT and COLOR GRADE this exact scene to look like a high-budget movie shot. Apply the lighting style and color grade requested by the system instructions. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.ANALOG_FILM) {
+             contextPrompt = `Here is a digital input photo. Analyze the content. Write a prompt to recreate this EXACT image but as if it was shot on the requested ANALOG FILM STOCK. Apply the specific grain, color shift, and chemical imperfections associated with that film. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.PROFESSIONAL_HEADSHOT) {
+             contextPrompt = `Here is a casual photo of a person. Analyze their facial features, hair color, and ethnicity. Write a prompt to generate a HIGH-END PROFESSIONAL HEADSHOT of this person. Change their outfit to the requested style and place them in the requested background. Keep the face recognizable. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.VIRTUAL_STAGING) {
+             contextPrompt = `Here is a photo of an empty or sparsely furnished room. Analyze the perspective, window position, and lighting. Write a prompt to fill this room with furniture in the requested style. Maintain the original room structure (walls/floors). User request: "${prompt}".`;
+        } else if (activeMode === AppMode.DOUBLE_EXPOSURE) {
+             contextPrompt = `Here is a portrait photo. Analyze the silhouette. Write a prompt to create a DOUBLE EXPOSURE art piece where this silhouette is filled with the requested scenery. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.HDR_LANDSCAPE) {
+             contextPrompt = `Here is a landscape photo. Analyze the scene (mountains, sky, water). Write a prompt to re-generate this scene with HDR quality, enhanced lighting, and dramatic atmosphere. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.GEN_FILL) {
+             contextPrompt = `Here is an input image. Analyze the content at the edges. Write a prompt to generate a WIDER version of this image, effectively 'zooming out' and inventing plausible scenery that continues seamlessly from the edges. User request: "${prompt}".`;
         } else {
              contextPrompt = `Analyze the visual content of the attached image(s). Then, write a NEW, highly detailed generation prompt based on the user's request: "${prompt}". Ensure you incorporate the style/subject of the reference image but apply the specific visual enhancements required by the current mode.`;
         }
         
-        const result = await callGeminiText('gemini-2.5-flash-latest', contextPrompt, base64Images, enhancementInstruction);
+        const result = await callGeminiText('gemini-2.0-flash', contextPrompt, base64Images, enhancementInstruction);
         if (result) enhancedPrompt = result;
     } else {
         const contextPrompt = `User request: "${prompt}". Rewrite this into a master-quality image generation prompt.`;
-        const result = await callGeminiText('gemini-2.5-flash-latest', contextPrompt, [], enhancementInstruction);
+        const result = await callGeminiText('gemini-2.0-flash', contextPrompt, [], enhancementInstruction);
         if (result) enhancedPrompt = result;
     }
 
@@ -618,7 +842,7 @@ export const generateCreativeContent = async (
   } else {
     // --- TEXT / ANALYSIS TOOLS ---
     const systemInstruction = getSystemInstruction(activeMode);
-    const text = await callGeminiText('gemini-2.5-flash-latest', prompt, base64Images, systemInstruction);
+    const text = await callGeminiText('gemini-2.0-flash', prompt, base64Images, systemInstruction);
     return {
       images: [],
       text: text

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Loader2, Image as ImageIcon, Type, Square, RectangleHorizontal, RectangleVertical, Settings2, Trash2, Camera, Sun, Zap, Crosshair, Box, Palette, Aperture, Users, Mountain, Building2, Armchair, Hand, Eye, Layers, Fingerprint, Baby, Heart, ShieldCheck, Moon, Microscope, ScanFace, Scale, Video, CloudRain, Wind, UserCheck, Flame, Infinity, Clapperboard, Film, Users2, Home, Shirt, UploadCloud, X, Footprints, Smile, UserPlus, Droplets, Target, ShoppingBag, History, Bandage, User, Wand2, ZoomIn, Cpu, Maximize2 } from 'lucide-react';
-import { ModeConfig, GeneratedImage, AppMode, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, GenerationOptions } from '../types';
+import { Sparkles, Loader2, Image as ImageIcon, Type, Square, RectangleHorizontal, RectangleVertical, Settings2, Trash2, Camera, Sun, Zap, Crosshair, Box, Palette, Aperture, Users, Mountain, Building2, Armchair, Hand, Eye, Layers, Fingerprint, Baby, Heart, ShieldCheck, Moon, Microscope, ScanFace, Scale, Video, CloudRain, Wind, UserCheck, Flame, Infinity, Clapperboard, Film, Users2, Home, Shirt, UploadCloud, X, Footprints, Smile, UserPlus, Droplets, Target, ShoppingBag, History, Bandage, User, Wand2, ZoomIn, Cpu, Maximize2, Lightbulb, Scissors, Briefcase, Expand } from 'lucide-react';
+import { ModeConfig, GeneratedImage, AppMode, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, GenerationOptions } from '../types';
 import ImageUploader from './ImageUploader';
 import Gallery from './Gallery';
 
@@ -258,7 +258,124 @@ const InputPanel: React.FC<InputPanelProps> = ({
     noArtifacts: true,
   });
 
+  // Cinematic Relighting States (New - 25 Fixes)
+  const [relightStyle, setRelightStyle] = useState('rembrandt');
+  const [relightColor, setRelightColor] = useState('teal-orange');
+  const [relightLens, setRelightLens] = useState('anamorphic');
+  const [relightFixes, setRelightFixes] = useState({
+    rembrandtTriangle: true,
+    rimLightSeparation: true,
+    volumetricFog: true,
+    practicalLights: true,
+    catchlights: true,
+    tealOrangePush: true,
+    skinToneProtection: true,
+    deepBlacks: true,
+    highlightRollOff: true,
+    vibranceBoost: true,
+    filmGrain: true,
+    anamorphicFlares: true,
+    halation: true,
+    vignette: true,
+    chromaticAbberation: true,
+    softShadows: true,
+    silhouetteDrama: false,
+    subsurfaceScattering: true,
+    ambientOcclusion: true,
+    depthOfField: true,
+    cyberpunkNeon: false,
+    horrorGloom: false,
+    goldenHourWarmth: false,
+    moonlightCoolness: false,
+    dreamyGlow: true,
+  });
+
+  // Analog Film States (New - 30 Films)
+  const [filmStock, setFilmStock] = useState('portra400');
+  const [filmFormat, setFilmFormat] = useState('35mm');
+  const [filmFixes, setFilmFixes] = useState({
+    halation: true,
+    filmGrain: true,
+    colorShift: true,
+    bleachBypass: false,
+    crossProcess: false,
+    lightLeaks: true,
+    vignette: true,
+    softFocus: false,
+    chromaticAberration: true,
+    bloom: true,
+    dustScratches: true,
+    motionBlur: false,
+    dateStamp: true,
+    filmBorder: false,
+    fadedPrint: false,
+    overexposure: false,
+    underexposure: false,
+    highContrast: false,
+    lowContrast: false,
+    flashBurn: false,
+  });
+
+  // --- NEW STATES FOR ADDED FEATURES ---
+
+  // Professional Headshot
+  const [hsOutfit, setHsOutfit] = useState('suit');
+  const [hsBackground, setHsBackground] = useState('office');
+  const [hsFixes, setHsFixes] = useState({
+    skinTexture: true,
+    eyeContact: true,
+    lightingMatch: true,
+    hairCleanup: true
+  });
+
+  // Virtual Staging
+  const [stgRoom, setStgRoom] = useState('living');
+  const [stgStyle, setStgStyle] = useState('modern');
+  const [stgFixes, setStgFixes] = useState({
+    perspectiveMatch: true,
+    shadowCast: true,
+    scaleLogic: true,
+    colorHarmony: true
+  });
+
+  // Double Exposure
+  const [deBlend, setDeBlend] = useState('silhouette');
+  const [deSecond, setDeSecond] = useState('nature');
+  const [deFixes, setDeFixes] = useState({
+    edgeDetection: true,
+    contrastBoost: true,
+    colorGrade: true
+  });
+
+  // HDR Landscape
+  const [hdrStyle, setHdrStyle] = useState('natural');
+  const [hdrSky, setHdrSky] = useState(true);
+  const [hdrFixes, setHdrFixes] = useState({
+    shadowRecovery: true,
+    highlightSave: true,
+    saturationBoost: true,
+    noiseReduction: true
+  });
+
+  // Gen Fill
+  const [gfDir, setGfDir] = useState('horizontal');
+  const [gfZoom, setGfZoom] = useState('1.5x');
+  const [gfFixes, setGfFixes] = useState({
+    seamlessTransition: true,
+    resolutionMatch: true,
+    lightingConsistency: true
+  });
+
+
   const hasResults = generatedImages.length > 0 || !!textContent;
+  
+  // Helpers
+  const isHeadshot = config.id === AppMode.PROFESSIONAL_HEADSHOT;
+  const isStaging = config.id === AppMode.VIRTUAL_STAGING;
+  const isDoubleExposure = config.id === AppMode.DOUBLE_EXPOSURE;
+  const isHDR = config.id === AppMode.HDR_LANDSCAPE;
+  const isGenFill = config.id === AppMode.GEN_FILL;
+  
   const isPhotoCarousel = config.id === AppMode.PHOTO_CAROUSEL;
   const isPhotoshoot = config.id === AppMode.PHOTOSHOOT_AI;
   const isNewborn = config.id === AppMode.NEWBORN;
@@ -267,6 +384,8 @@ const InputPanel: React.FC<InputPanelProps> = ({
   const isProduct = config.id === AppMode.PRODUCT;
   const isRecovery = config.id === AppMode.RECOVERY;
   const isDetailing = config.id === AppMode.DETAILING;
+  const isCinematicRelighting = config.id === AppMode.CINEMATIC_RELIGHTING;
+  const isAnalogFilm = config.id === AppMode.ANALOG_FILM;
 
   useEffect(() => {
     // Reset inputs only when mode changes, not when generating
@@ -285,66 +404,35 @@ const InputPanel: React.FC<InputPanelProps> = ({
     let options: GenerationOptions | undefined;
     
     if (isPhotoCarousel) {
-        options = {
-            lighting: carouselLighting,
-            angle: carouselAngle,
-            fixes: carouselFixes
-        } as CarouselOptions;
+        options = { lighting: carouselLighting, angle: carouselAngle, fixes: carouselFixes } as CarouselOptions;
     } else if (isPhotoshoot) {
-        options = {
-            vibe: shootVibe,
-            lighting: shootLighting,
-            composition: shootComposition,
-            modelGaze: shootGaze,
-            gripType: shootGrip,
-            fixes: shootFixes
-        } as PhotoshootOptions;
+        options = { vibe: shootVibe, lighting: shootLighting, composition: shootComposition, modelGaze: shootGaze, gripType: shootGrip, fixes: shootFixes } as PhotoshootOptions;
     } else if (isNewborn) {
-        options = {
-            pose: newbornPose,
-            setting: newbornSetting,
-            skinTone: newbornSkin,
-            state: newbornState,
-            fixes: newbornFixes
-        } as NewbornOptions;
+        options = { pose: newbornPose, setting: newbornSetting, skinTone: newbornSkin, state: newbornState, fixes: newbornFixes } as NewbornOptions;
     } else if (isPrewedding) {
-        options = {
-            visualStyle: prewedStyle,
-            theme: prewedTheme,
-            timeOfDay: prewedTime,
-            shotType: prewedShot,
-            fixes: prewedFixes
-        } as PreweddingOptions;
+        options = { visualStyle: prewedStyle, theme: prewedTheme, timeOfDay: prewedTime, shotType: prewedShot, fixes: prewedFixes } as PreweddingOptions;
     } else if (isFamily) {
-        options = {
-            familyType: familyType,
-            setting: familySetting,
-            outfitStyle: familyOutfit,
-            files: familyImages,
-            fixes: familyFixes
-        } as FamilyOptions;
+        options = { familyType: familyType, setting: familySetting, outfitStyle: familyOutfit, files: familyImages, fixes: familyFixes } as FamilyOptions;
     } else if (isProduct) {
-        options = {
-            materialType: prodMaterial,
-            lightingStyle: prodLight,
-            placement: prodPlace,
-            files: productImages,
-            fixes: productFixes
-        } as ProductOptions;
+        options = { materialType: prodMaterial, lightingStyle: prodLight, placement: prodPlace, files: productImages, fixes: productFixes } as ProductOptions;
     } else if (isRecovery) {
-        options = {
-            damageLevel: recDamage,
-            colorMode: recColor,
-            enhanceStrength: recStrength,
-            fixes: recFixes
-        } as RecoveryOptions;
+        options = { damageLevel: recDamage, colorMode: recColor, enhanceStrength: recStrength, fixes: recFixes } as RecoveryOptions;
     } else if (isDetailing) {
-        options = {
-            resolutionTarget: detRes,
-            creativityLevel: detCreative,
-            sharpnessMode: detSharp,
-            fixes: detFixes
-        } as DetailingOptions;
+        options = { resolutionTarget: detRes, creativityLevel: detCreative, sharpnessMode: detSharp, fixes: detFixes } as DetailingOptions;
+    } else if (isCinematicRelighting) {
+        options = { lightingStyle: relightStyle, colorGrade: relightColor, lensType: relightLens, fixes: relightFixes } as CinematicRelightingOptions;
+    } else if (isAnalogFilm) {
+        options = { filmStock: filmStock, filmFormat: filmFormat, fixes: filmFixes } as AnalogFilmOptions;
+    } else if (isHeadshot) {
+        options = { outfit: hsOutfit, background: hsBackground, fixes: hsFixes } as HeadshotOptions;
+    } else if (isStaging) {
+        options = { roomType: stgRoom, style: stgStyle, fixes: stgFixes } as StagingOptions;
+    } else if (isDoubleExposure) {
+        options = { blendMode: deBlend, secondaryElement: deSecond, fixes: deFixes } as DoubleExposureOptions;
+    } else if (isHDR) {
+        options = { style: hdrStyle, skyEnhancement: hdrSky, fixes: hdrFixes } as HDROptions;
+    } else if (isGenFill) {
+        options = { direction: gfDir, zoomLevel: gfZoom, fixes: gfFixes } as GenFillOptions;
     }
 
     onGenerate(prompt, image1, image2, aspectRatio, options);
@@ -359,6 +447,13 @@ const InputPanel: React.FC<InputPanelProps> = ({
   const toggleProductFix = (key: keyof typeof productFixes) => setProductFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleRecFix = (key: keyof typeof recFixes) => setRecFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleDetFix = (key: keyof typeof detFixes) => setDetFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleRelightFix = (key: keyof typeof relightFixes) => setRelightFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleFilmFix = (key: keyof typeof filmFixes) => setFilmFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleHsFix = (key: keyof typeof hsFixes) => setHsFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleStgFix = (key: keyof typeof stgFixes) => setStgFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleDeFix = (key: keyof typeof deFixes) => setDeFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleHdrFix = (key: keyof typeof hdrFixes) => setHdrFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleGfFix = (key: keyof typeof gfFixes) => setGfFixes(prev => ({...prev, [key]: !prev[key]}));
 
   // Multi-Image Handler for Family
   const handleFamilyFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -433,12 +528,12 @@ const InputPanel: React.FC<InputPanelProps> = ({
                             <div className="space-y-3">
                                 <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider">
                                     <ImageIcon size={14} className="text-indigo-500" />
-                                    {isPhotoshoot ? 'Product Reference' : (isRecovery || isDetailing) ? 'Input Photo' : 'Reference Content'}
+                                    {isPhotoshoot ? 'Product Reference' : (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill) ? 'Input Photo' : 'Reference Content'}
                                 </label>
                             
                                 <div className={`grid gap-4 ${config.inputType === 'dual-image' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
                                     <ImageUploader
-                                        label={isPhotoshoot ? "Product Image" : (config.inputType === 'dual-image' ? 'First Image' : (isRecovery || isDetailing) ? 'Original Photo' : 'Reference Image')}
+                                        label={isPhotoshoot ? "Product Image" : (config.inputType === 'dual-image' ? 'First Image' : (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill) ? 'Original Photo' : 'Reference Image')}
                                         imageFile={image1}
                                         onFileChange={setImage1}
                                     />
@@ -449,6 +544,198 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                             onFileChange={setImage2}
                                         />
                                     )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- PHOTO PROFILE UI (RENAMED FROM PROFESSIONAL HEADSHOT) --- */}
+                        {isHeadshot && (
+                            <div className="bg-blue-50/50 p-5 rounded-xl border border-blue-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-blue-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Briefcase size={14} /> Profile Picture Studio
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Outfit Style</label>
+                                        <select value={hsOutfit} onChange={(e) => setHsOutfit(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="suit">Business Suit (Formal)</option>
+                                            <option value="blazer">Smart Blazer (Business Casual)</option>
+                                            <option value="casual">Tech Casual (T-Shirt/Hoodie)</option>
+                                            <option value="polo">Polo Shirt (Semi-Formal)</option>
+                                            <option value="turtle-neck">Turtle Neck (Creative/Modern)</option>
+                                            <option value="sweater">Sweater / Knitwear (Cozy)</option>
+                                            <option value="leather-jacket">Leather Jacket (Edgy)</option>
+                                            <option value="denim-jacket">Denim Jacket (Casual)</option>
+                                            <option value="traditional">Traditional (Batik/Kebaya/Kimono)</option>
+                                            <option value="medical-coat">Medical White Coat (Doctor)</option>
+                                            <option value="uniform-pilot">Pilot Uniform</option>
+                                            <option value="uniform-chef">Chef Uniform</option>
+                                            <option value="sportswear">Sportswear / Gym</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Background</label>
+                                        <select value={hsBackground} onChange={(e) => setHsBackground(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="office">Modern Office Blur</option>
+                                            <option value="studio-grey">Studio Grey (Classic)</option>
+                                            <option value="studio-white">Studio White (High Key)</option>
+                                            <option value="studio-black">Studio Black (Low Key)</option>
+                                            <option value="city">City Skyline Bokeh</option>
+                                            <option value="nature">Nature / Park (Greenery)</option>
+                                            <option value="library">Library / Bookshelf</option>
+                                            <option value="cafe">Coffee Shop / Cafe</option>
+                                            <option value="minimal-blue">Solid Blue (Professional)</option>
+                                            <option value="minimal-yellow">Solid Yellow (Vibrant)</option>
+                                            <option value="gradient">Gradient Abstract</option>
+                                            <option value="brick-wall">Brick Wall (Industrial)</option>
+                                            <option value="neon">Neon Lights (Cyberpunk)</option>
+                                            <option value="luxury-living">Luxury Living Room</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-blue-200/50">
+                                    {Object.entries(hsFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => toggleHsFix(key as keyof typeof hsFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- VIRTUAL STAGING UI --- */}
+                        {isStaging && (
+                            <div className="bg-emerald-50/50 p-5 rounded-xl border border-emerald-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-emerald-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Armchair size={14} /> Interior Design Studio
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Room Type</label>
+                                        <select value={stgRoom} onChange={(e) => setStgRoom(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="living">Living Room</option>
+                                            <option value="bedroom">Bedroom</option>
+                                            <option value="dining">Dining Room</option>
+                                            <option value="office">Home Office</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Interior Style</label>
+                                        <select value={stgStyle} onChange={(e) => setStgStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="modern">Modern Contemporary</option>
+                                            <option value="scandinavian">Scandinavian (Light/Airy)</option>
+                                            <option value="industrial">Industrial (Raw/Brick)</option>
+                                            <option value="luxury">Luxury Classic</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-emerald-200/50">
+                                    {Object.entries(stgFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => toggleStgFix(key as keyof typeof stgFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- DOUBLE EXPOSURE UI --- */}
+                        {isDoubleExposure && (
+                            <div className="bg-purple-50/50 p-5 rounded-xl border border-purple-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-purple-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Layers size={14} /> Artistic Blending
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Blend Mode</label>
+                                        <select value={deBlend} onChange={(e) => setDeBlend(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="silhouette">Silhouette Fill</option>
+                                            <option value="overlay">Soft Overlay</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Secondary Element</label>
+                                        <select value={deSecond} onChange={(e) => setDeSecond(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="nature">Nature (Forest/Ocean)</option>
+                                            <option value="city">City Architecture</option>
+                                            <option value="galaxy">Space / Galaxy</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-purple-200/50">
+                                    {Object.entries(deFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => toggleDeFix(key as keyof typeof deFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- HDR LANDSCAPE UI --- */}
+                        {isHDR && (
+                            <div className="bg-yellow-50/50 p-5 rounded-xl border border-yellow-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-yellow-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Sun size={14} /> Dynamic Range Master
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">HDR Style</label>
+                                        <select value={hdrStyle} onChange={(e) => setHdrStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="natural">Natural Balanced</option>
+                                            <option value="dramatic">Dramatic Contrast</option>
+                                            <option value="surreal">Surreal Vivid</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Sky Enhancement</label>
+                                        <div className="flex items-center gap-3">
+                                            <label className="text-xs flex items-center gap-2">
+                                                <input type="checkbox" checked={hdrSky} onChange={(e) => setHdrSky(e.target.checked)} className="rounded text-yellow-600" />
+                                                Auto-Enhance Sky
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-yellow-200/50">
+                                    {Object.entries(hdrFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => toggleHdrFix(key as keyof typeof hdrFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-yellow-100 text-yellow-800 border-yellow-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- GENERATIVE FILL UI --- */}
+                        {isGenFill && (
+                            <div className="bg-indigo-50/50 p-5 rounded-xl border border-indigo-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-indigo-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Expand size={14} /> Smart Canvas Expand
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Expansion Direction</label>
+                                        <select value={gfDir} onChange={(e) => setGfDir(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="horizontal">Horizontal (Panorama)</option>
+                                            <option value="vertical">Vertical (Tall)</option>
+                                            <option value="surround">All Around (Zoom Out)</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Zoom Level</label>
+                                        <select value={gfZoom} onChange={(e) => setGfZoom(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="1.5x">1.5x Expansion</option>
+                                            <option value="2x">2.0x Expansion</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-indigo-200/50">
+                                    {Object.entries(gfFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => toggleGfFix(key as keyof typeof gfFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-indigo-100 text-indigo-800 border-indigo-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                         )}
@@ -691,180 +978,271 @@ const InputPanel: React.FC<InputPanelProps> = ({
                              </div>
                         )}
 
-                        {/* --- PRODUCT MODE UI (NEW - 30 FIXES + 5 IMAGES) --- */}
-                        {isProduct && (
-                             <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-5">
-                                {/* ... existing product UI ... */}
-                                <h3 className="text-xs font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
-                                    <ShoppingBag size={14} />
-                                    Commercial Product Engine
+                        {/* --- CINEMATIC RELIGHTING MODE UI (NEW - 25 FIXES) --- */}
+                        {isCinematicRelighting && (
+                             <div className="bg-violet-50/50 p-5 rounded-xl border border-violet-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-violet-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Clapperboard size={14} />
+                                    Director's Suite: Lighting & Color
                                 </h3>
-
-                                {/* Multi-Image Upload Section for Product */}
-                                <div className="space-y-3">
-                                    <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center justify-between">
-                                        <span className="flex items-center gap-2"><ImageIcon size={12} /> Product Angles / Details</span>
-                                        <span className="text-slate-600">{productImages.length} / 5 Photos</span>
-                                    </label>
-                                    
-                                    <div className="grid grid-cols-4 md:grid-cols-5 gap-2">
-                                        {/* Upload Button */}
-                                        <div 
-                                            onClick={() => productFileInputRef.current?.click()}
-                                            className="aspect-square border-2 border-dashed border-slate-300 bg-slate-100 hover:bg-slate-200 rounded-xl flex flex-col items-center justify-center cursor-pointer transition-colors"
-                                        >
-                                            <UploadCloud size={20} className="text-slate-500 mb-1" />
-                                            <span className="text-[9px] font-bold text-slate-600">ADD</span>
-                                            <input 
-                                                type="file" 
-                                                ref={productFileInputRef} 
-                                                className="hidden" 
-                                                multiple 
-                                                accept="image/*" 
-                                                onChange={handleProductFiles}
-                                            />
-                                        </div>
-
-                                        {/* Image Previews */}
-                                        {productImages.map((file, idx) => (
-                                            <div key={idx} className="relative aspect-square group">
-                                                <img 
-                                                    src={URL.createObjectURL(file)} 
-                                                    alt="ref" 
-                                                    className="w-full h-full object-cover rounded-xl border border-gray-200" 
-                                                />
-                                                <button 
-                                                    onClick={() => removeProductImage(idx)}
-                                                    className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-0.5 shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
-                                                >
-                                                    <X size={10} />
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
 
                                 {/* Selectors */}
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Box size={10} /> Main Material</label>
-                                        <select value={prodMaterial} onChange={(e) => setProdMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="glass">Glass / Transparent</option>
-                                            <option value="metal">Metal / Reflective</option>
-                                            <option value="plastic">Plastic / Matte</option>
-                                            <option value="fabric">Fabric / Texture</option>
-                                            <option value="leather">Leather / Organic</option>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Lightbulb size={10} /> Lighting Setup</label>
+                                        <select value={relightStyle} onChange={(e) => setRelightStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="rembrandt">Rembrandt (Classic)</option>
+                                            <option value="split">Split Lighting (Drama)</option>
+                                            <option value="butterfly">Butterfly (Glamour)</option>
+                                            <option value="rim">Rim Light (Silhouette)</option>
+                                            <option value="broad">Broad Lighting (Soft)</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Sun size={10} /> Lighting Style</label>
-                                        <select value={prodLight} onChange={(e) => setProdLight(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="softbox">Studio Softbox (Clean)</option>
-                                            <option value="hard">Hard Sunlight (Trendy)</option>
-                                            <option value="neon">Neon / Cyberpunk</option>
-                                            <option value="rim">Dark Rim Light (Luxury)</option>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Palette size={10} /> Color Grading</label>
+                                        <select value={relightColor} onChange={(e) => setRelightColor(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="teal-orange">Teal & Orange (Action)</option>
+                                            <option value="noir">Noir B&W (Mystery)</option>
+                                            <option value="matrix">Matrix Green (Sci-Fi)</option>
+                                            <option value="wes-anderson">Pastel Palette (Quirky)</option>
+                                            <option value="natural">Natural / Rec.709</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Target size={10} /> Placement</label>
-                                        <select value={prodPlace} onChange={(e) => setProdPlace(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="podium">Geometric Podium</option>
-                                            <option value="surface">Flat Surface</option>
-                                            <option value="floating">Floating / Levitating</option>
-                                            <option value="water">In Water / Splash</option>
-                                            <option value="nature">Nature / Rock</option>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Aperture size={10} /> Lens Type</label>
+                                        <select value={relightLens} onChange={(e) => setRelightLens(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="anamorphic">Anamorphic (Cinematic)</option>
+                                            <option value="prime-50mm">Prime 50mm (Portrait)</option>
+                                            <option value="vintage">Vintage 70s Glass</option>
+                                            <option value="fisheye">Fisheye (Music Video)</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                {/* 30 Blind Spots - Grouped */}
-                                <div className="space-y-4 pt-2 border-t border-slate-200/50">
+                                {/* 25 Blind Spots - Grouped */}
+                                <div className="space-y-4 pt-2 border-t border-violet-200/50">
                                      <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-2">
-                                        <ShieldCheck size={12} />
-                                        Pro-Commercial Fixes (30 Points)
+                                        <Film size={12} />
+                                        Cinematography Control (25 Points)
                                      </label>
 
-                                     {/* Group 1: Physics */}
+                                     {/* Group 1: Lighting */}
                                      <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1"><Scale size={10} /> Physics & Structure</p>
+                                         <p className="text-[9px] font-bold text-violet-700 uppercase tracking-widest flex items-center gap-1"><Lightbulb size={10} /> The Gaffer (Light)</p>
                                          <div className="flex flex-wrap gap-2">
                                             {[
-                                                { id: 'gravityFix', label: 'Gravity Lock', active: productFixes.gravityFix },
-                                                { id: 'perspectiveCorrect', label: 'Perspective Fix', active: productFixes.perspectiveCorrect },
-                                                { id: 'scaleLogic', label: 'Real Scale', active: productFixes.scaleLogic },
-                                                { id: 'surfaceContact', label: 'Contact Shadows', active: productFixes.surfaceContact },
-                                                { id: 'lensDistortionFix', label: 'No Fish-Eye', active: productFixes.lensDistortionFix },
-                                                { id: 'symmetryLock', label: 'Symmetry Lock', active: productFixes.symmetryLock },
+                                                { id: 'rembrandtTriangle', label: 'Rembrandt Triangle', active: relightFixes.rembrandtTriangle },
+                                                { id: 'rimLightSeparation', label: 'Rim Separation', active: relightFixes.rimLightSeparation },
+                                                { id: 'volumetricFog', label: 'God Rays', active: relightFixes.volumetricFog },
+                                                { id: 'practicalLights', label: 'Practical Lamps', active: relightFixes.practicalLights },
+                                                { id: 'catchlights', label: 'Eye Catchlights', active: relightFixes.catchlights },
                                             ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleProductFix(fix.id as keyof typeof productFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
+                                                <button key={fix.id} onClick={() => toggleRelightFix(fix.id as keyof typeof relightFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-violet-100 text-violet-800 border-violet-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
                                             ))}
                                          </div>
                                      </div>
 
-                                     {/* Group 2: Material */}
+                                     {/* Group 2: Color */}
                                      <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1"><Layers size={10} /> Material & Texture</p>
+                                         <p className="text-[9px] font-bold text-violet-700 uppercase tracking-widest flex items-center gap-1"><Palette size={10} /> The Colorist</p>
                                          <div className="flex flex-wrap gap-2">
                                             {[
-                                                { id: 'glassCaustics', label: 'Glass Caustics', active: productFixes.glassCaustics },
-                                                { id: 'metalAnisotropy', label: 'Brushed Metal', active: productFixes.metalAnisotropy },
-                                                { id: 'liquidRefraction', label: 'Liquid Physics', active: productFixes.liquidRefraction },
-                                                { id: 'plasticSubsurface', label: 'Plastic SSS', active: productFixes.plasticSubsurface },
-                                                { id: 'fabricWeave', label: 'Fabric Weave', active: productFixes.fabricWeave },
-                                                { id: 'condensationDrops', label: 'Condensation', active: productFixes.condensationDrops },
+                                                { id: 'tealOrangePush', label: 'Teal/Orange Push', active: relightFixes.tealOrangePush },
+                                                { id: 'skinToneProtection', label: 'Protect Skin Tone', active: relightFixes.skinToneProtection },
+                                                { id: 'deepBlacks', label: 'Crush Blacks', active: relightFixes.deepBlacks },
+                                                { id: 'highlightRollOff', label: 'Film Roll-off', active: relightFixes.highlightRollOff },
+                                                { id: 'vibranceBoost', label: 'Pop Vibrance', active: relightFixes.vibranceBoost },
                                             ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleProductFix(fix.id as keyof typeof productFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
+                                                <button key={fix.id} onClick={() => toggleRelightFix(fix.id as keyof typeof relightFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
                                             ))}
                                          </div>
                                      </div>
 
-                                     {/* Group 3: Light */}
+                                     {/* Group 3: Atmosphere */}
                                      <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1"><Sun size={10} /> Light & Atmosphere</p>
+                                         <p className="text-[9px] font-bold text-violet-700 uppercase tracking-widest flex items-center gap-1"><Wind size={10} /> Atmosphere & FX</p>
                                          <div className="flex flex-wrap gap-2">
                                             {[
-                                                { id: 'rimLighting', label: 'Rim Separation', active: productFixes.rimLighting },
-                                                { id: 'softboxSimulation', label: 'Softbox Sim', active: productFixes.softboxSimulation },
-                                                { id: 'hardSunlight', label: 'Hard Shadows', active: productFixes.hardSunlight },
-                                                { id: 'reflectionContinuity', label: 'Reflection Map', active: productFixes.reflectionContinuity },
-                                                { id: 'ambientOcclusion', label: 'Deep Corners', active: productFixes.ambientOcclusion },
-                                                { id: 'globalIllumination', label: 'Bounce Light', active: productFixes.globalIllumination },
+                                                { id: 'filmGrain', label: 'Film Grain', active: relightFixes.filmGrain },
+                                                { id: 'anamorphicFlares', label: 'Lens Flares', active: relightFixes.anamorphicFlares },
+                                                { id: 'halation', label: 'Red Halation', active: relightFixes.halation },
+                                                { id: 'vignette', label: 'Vignette', active: relightFixes.vignette },
+                                                { id: 'chromaticAbberation', label: 'Chromatic Abb.', active: relightFixes.chromaticAbberation },
                                             ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleProductFix(fix.id as keyof typeof productFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-amber-100 text-amber-700 border-amber-200' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
+                                                <button key={fix.id} onClick={() => toggleRelightFix(fix.id as keyof typeof relightFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-indigo-100 text-indigo-800 border-indigo-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
                                             ))}
                                          </div>
                                      </div>
 
-                                     {/* Group 4: Brand */}
+                                     {/* Group 4: Shadows */}
                                      <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1"><Type size={10} /> Brand & Fidelity</p>
+                                         <p className="text-[9px] font-bold text-violet-700 uppercase tracking-widest flex items-center gap-1"><Moon size={10} /> The D.P. (Shadows)</p>
                                          <div className="flex flex-wrap gap-2">
                                             {[
-                                                { id: 'logoPreservation', label: 'Logo Clarity', active: productFixes.logoPreservation },
-                                                { id: 'colorAccuracy', label: 'True Color', active: productFixes.colorAccuracy },
-                                                { id: 'labelFlatness', label: 'Label Curve', active: productFixes.labelFlatness },
-                                                { id: 'negativeSpace', label: 'Ad Copy Space', active: productFixes.negativeSpace },
-                                                { id: 'noHallucinations', label: 'No Artifacts', active: productFixes.noHallucinations },
-                                                { id: 'cleanEdges', label: 'Easy Cutout', active: productFixes.cleanEdges },
+                                                { id: 'softShadows', label: 'Soft Shadows', active: relightFixes.softShadows },
+                                                { id: 'silhouetteDrama', label: 'Silhouette', active: relightFixes.silhouetteDrama },
+                                                { id: 'subsurfaceScattering', label: 'Skin Glow (SSS)', active: relightFixes.subsurfaceScattering },
+                                                { id: 'ambientOcclusion', label: 'Deep Corners', active: relightFixes.ambientOcclusion },
+                                                { id: 'depthOfField', label: 'Bokeh', active: relightFixes.depthOfField },
                                             ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleProductFix(fix.id as keyof typeof productFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-red-50 text-red-600 border-red-100' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
+                                                <button key={fix.id} onClick={() => toggleRelightFix(fix.id as keyof typeof relightFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-slate-200 text-slate-800 border-slate-400' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
                                             ))}
                                          </div>
                                      </div>
 
-                                     {/* Group 5: Aesthetics */}
+                                     {/* Group 5: Genre */}
                                      <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1"><Aperture size={10} /> Composition</p>
+                                         <p className="text-[9px] font-bold text-violet-700 uppercase tracking-widest flex items-center gap-1"><Clapperboard size={10} /> Genre Presets</p>
                                          <div className="flex flex-wrap gap-2">
                                             {[
-                                                { id: 'goldenRatio', label: 'Rule of Thirds', active: productFixes.goldenRatio },
-                                                { id: 'bokehControl', label: 'Pro Bokeh', active: productFixes.bokehControl },
-                                                { id: 'heroAngle', label: 'Hero Angle', active: productFixes.heroAngle },
-                                                { id: 'minimalistZen', label: 'Minimalist', active: productFixes.minimalistZen },
-                                                { id: 'colorGrading', label: 'Commercial Grade', active: productFixes.colorGrading },
-                                                { id: 'sharpFocusStack', label: 'Focus Stacking', active: productFixes.sharpFocusStack },
+                                                { id: 'cyberpunkNeon', label: 'Cyberpunk', active: relightFixes.cyberpunkNeon },
+                                                { id: 'horrorGloom', label: 'Horror Gloom', active: relightFixes.horrorGloom },
+                                                { id: 'goldenHourWarmth', label: 'Golden Hour', active: relightFixes.goldenHourWarmth },
+                                                { id: 'moonlightCoolness', label: 'Moonlight', active: relightFixes.moonlightCoolness },
+                                                { id: 'dreamyGlow', label: 'Dreamy Pro-Mist', active: relightFixes.dreamyGlow },
                                             ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleProductFix(fix.id as keyof typeof productFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-teal-50 text-teal-700 border-teal-100' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
+                                                <button key={fix.id} onClick={() => toggleRelightFix(fix.id as keyof typeof relightFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-pink-100 text-pink-800 border-pink-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
+                                            ))}
+                                         </div>
+                                     </div>
+                                </div>
+                             </div>
+                        )}
+
+                        {/* --- ANALOG FILM MODE UI (NEW - 30 FILMS) --- */}
+                        {isAnalogFilm && (
+                             <div className="bg-orange-50/50 p-5 rounded-xl border border-orange-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-orange-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Film size={14} />
+                                    Virtual Darkroom: Analog Emulation
+                                </h3>
+
+                                {/* Selectors */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Camera size={10} /> Film Stock (30 Types)</label>
+                                        <select value={filmStock} onChange={(e) => setFilmStock(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <optgroup label="Kodak (Warm/Gold)">
+                                                <option value="kodak-portra-160">Kodak Portra 160 (Natural)</option>
+                                                <option value="kodak-portra-400">Kodak Portra 400 (Versatile)</option>
+                                                <option value="kodak-portra-800">Kodak Portra 800 (Vibrant)</option>
+                                                <option value="kodak-gold-200">Kodak Gold 200 (Nostalgic)</option>
+                                                <option value="kodak-colorplus-200">Kodak ColorPlus 200 (Vintage)</option>
+                                                <option value="kodak-ultramax-400">Kodak Ultramax 400 (Punchy)</option>
+                                                <option value="kodak-ektar-100">Kodak Ektar 100 (Vivid)</option>
+                                                <option value="kodak-vision3-500t">Kodak Vision3 500T (Cinema)</option>
+                                                <option value="kodak-vision3-250d">Kodak Vision3 250D (Daylight)</option>
+                                                <option value="kodak-ektachrome-e100">Kodak Ektachrome E100 (Slide)</option>
+                                            </optgroup>
+                                            <optgroup label="Fujifilm (Cool/Green)">
+                                                <option value="fujifilm-superia-400">Fujifilm Superia 400 (Green Tint)</option>
+                                                <option value="fujifilm-pro-400h">Fujifilm Pro 400H (Pastel)</option>
+                                                <option value="fujifilm-c200">Fujifilm C200 (Muted)</option>
+                                                <option value="fujifilm-velvia-50">Fujifilm Velvia 50 (Sat. Slide)</option>
+                                                <option value="fujifilm-provia-100f">Fujifilm Provia 100F (Realistic)</option>
+                                                <option value="fujifilm-neopan-acros-100">Fuji Acros 100 (B&W)</option>
+                                                <option value="fujifilm-instax-mini">Instax Mini (Flash Look)</option>
+                                            </optgroup>
+                                            <optgroup label="Cinestill & Lomo (Artistic)">
+                                                <option value="cinestill-800t">Cinestill 800T (Red Halation)</option>
+                                                <option value="cinestill-50d">Cinestill 50D (Fine Grain)</option>
+                                                <option value="lomocolor-100">LomoColor 100 (Vibrant)</option>
+                                                <option value="lomocolor-400">LomoColor 400 (Retro)</option>
+                                                <option value="lomochrome-purple">LomoChrome Purple (Surreal)</option>
+                                                <option value="lomochrome-metropolis">LomoChrome Metropolis (Grunge)</option>
+                                            </optgroup>
+                                            <optgroup label="Black & White (Classic)">
+                                                <option value="kodak-tri-x-400">Kodak Tri-X 400 (Gritty)</option>
+                                                <option value="kodak-t-max-400">Kodak T-Max 400 (Sharp)</option>
+                                                <option value="ilford-hp5-plus">Ilford HP5 Plus (Classic)</option>
+                                                <option value="ilford-fp4-plus">Ilford FP4 Plus (Fine)</option>
+                                                <option value="ilford-delta-3200">Ilford Delta 3200 (Grainy)</option>
+                                            </optgroup>
+                                            <optgroup label="Vintage & Instant">
+                                                <option value="agfa-vista-200">Agfa Vista 200 (Red Tint)</option>
+                                                <option value="polaroid-600">Polaroid 600 (Soft/Creamy)</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Settings2 size={10} /> Film Format</label>
+                                        <select value={filmFormat} onChange={(e) => setFilmFormat(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="35mm">35mm (Standard)</option>
+                                            <option value="120mm">120mm Medium Format (Depth)</option>
+                                            <option value="110mm">110mm (Lo-Fi)</option>
+                                            <option value="polaroid">Instant Film Border</option>
+                                            <option value="cinemascope">CinemaScope (Wide)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {/* 25 Artifacts - Grouped */}
+                                <div className="space-y-4 pt-2 border-t border-orange-200/50">
+                                     <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-2">
+                                        <Scissors size={12} />
+                                        Darkroom Adjustments (25 Points)
+                                     </label>
+
+                                     {/* Group 1: Chemistry */}
+                                     <div className="space-y-1.5">
+                                         <p className="text-[9px] font-bold text-orange-700 uppercase tracking-widest flex items-center gap-1"><FlaskIcon /> Film Chemistry</p>
+                                         <div className="flex flex-wrap gap-2">
+                                            {[
+                                                { id: 'halation', label: 'Halation (Red Glow)', active: filmFixes.halation },
+                                                { id: 'filmGrain', label: 'Organic Grain', active: filmFixes.filmGrain },
+                                                { id: 'colorShift', label: 'Chem. Color Shift', active: filmFixes.colorShift },
+                                                { id: 'bleachBypass', label: 'Bleach Bypass', active: filmFixes.bleachBypass },
+                                                { id: 'crossProcess', label: 'Cross Process', active: filmFixes.crossProcess },
+                                            ].map((fix) => (
+                                                <button key={fix.id} onClick={() => toggleFilmFix(fix.id as keyof typeof filmFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-orange-100 text-orange-800 border-orange-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
+                                            ))}
+                                         </div>
+                                     </div>
+
+                                     {/* Group 2: Optical */}
+                                     <div className="space-y-1.5">
+                                         <p className="text-[9px] font-bold text-orange-700 uppercase tracking-widest flex items-center gap-1"><Aperture size={10} /> Optical Artifacts</p>
+                                         <div className="flex flex-wrap gap-2">
+                                            {[
+                                                { id: 'lightLeaks', label: 'Light Leaks', active: filmFixes.lightLeaks },
+                                                { id: 'vignette', label: 'Lens Vignette', active: filmFixes.vignette },
+                                                { id: 'softFocus', label: 'Vintage Softness', active: filmFixes.softFocus },
+                                                { id: 'chromaticAberration', label: 'Lens Fringing', active: filmFixes.chromaticAberration },
+                                                { id: 'bloom', label: 'Highlight Bloom', active: filmFixes.bloom },
+                                            ].map((fix) => (
+                                                <button key={fix.id} onClick={() => toggleFilmFix(fix.id as keyof typeof filmFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
+                                            ))}
+                                         </div>
+                                     </div>
+
+                                     {/* Group 3: Wear */}
+                                     <div className="space-y-1.5">
+                                         <p className="text-[9px] font-bold text-orange-700 uppercase tracking-widest flex items-center gap-1"><History size={10} /> Physical Wear</p>
+                                         <div className="flex flex-wrap gap-2">
+                                            {[
+                                                { id: 'dustScratches', label: 'Dust & Scratches', active: filmFixes.dustScratches },
+                                                { id: 'motionBlur', label: 'Shutter Drag', active: filmFixes.motionBlur },
+                                                { id: 'dateStamp', label: 'Date Stamp', active: filmFixes.dateStamp },
+                                                { id: 'filmBorder', label: 'Film Sprockets', active: filmFixes.filmBorder },
+                                                { id: 'fadedPrint', label: 'Faded Print', active: filmFixes.fadedPrint },
+                                            ].map((fix) => (
+                                                <button key={fix.id} onClick={() => toggleFilmFix(fix.id as keyof typeof filmFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-red-100 text-red-800 border-red-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
+                                            ))}
+                                         </div>
+                                     </div>
+
+                                     {/* Group 4: Exposure */}
+                                     <div className="space-y-1.5">
+                                         <p className="text-[9px] font-bold text-orange-700 uppercase tracking-widest flex items-center gap-1"><Sun size={10} /> Exposure Logic</p>
+                                         <div className="flex flex-wrap gap-2">
+                                            {[
+                                                { id: 'overexposure', label: 'Overexposed', active: filmFixes.overexposure },
+                                                { id: 'underexposure', label: 'Underexposed', active: filmFixes.underexposure },
+                                                { id: 'highContrast', label: 'High Contrast', active: filmFixes.highContrast },
+                                                { id: 'lowContrast', label: 'Low Contrast', active: filmFixes.lowContrast },
+                                                { id: 'flashBurn', label: 'Direct Flash', active: filmFixes.flashBurn },
+                                            ].map((fix) => (
+                                                <button key={fix.id} onClick={() => toggleFilmFix(fix.id as keyof typeof filmFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-yellow-100 text-yellow-800 border-yellow-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
                                             ))}
                                          </div>
                                      </div>
@@ -989,6 +1367,14 @@ const InputPanel: React.FC<InputPanelProps> = ({
 const CheckIcon = () => (
     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+);
+
+const FlaskIcon = () => (
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 2v7.31L6 15v4a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4l-4-5.69V2" />
+        <path d="M8.5 2h7" />
+        <path d="M14 10h-4" />
     </svg>
 );
 

@@ -11,6 +11,13 @@ export enum AppMode {
   DETAILING = 'detailing',
   CINEMATIC_RELIGHTING = 'cinematic-relighting',
   ANALOG_FILM = 'analog-film',
+  
+  // New Features
+  PROFESSIONAL_HEADSHOT = 'professional-headshot',
+  VIRTUAL_STAGING = 'virtual-staging',
+  DOUBLE_EXPOSURE = 'double-exposure',
+  HDR_LANDSCAPE = 'hdr-landscape',
+  GEN_FILL = 'gen-fill',
 
   // Studio Pelukis
   PAINTING_GENERATOR = 'painting-generator',
@@ -377,5 +384,143 @@ export interface DetailingOptions {
   };
 }
 
+// Cinematic Relighting Options (New - 25 Blind Spots)
+export interface CinematicRelightingOptions {
+  lightingStyle: string; // Rembrandt, Split, Butterfly, etc.
+  colorGrade: string; // Teal&Orange, Noir, Matrix, etc.
+  lensType: string; // Anamorphic, Prime 50mm, Vintage
+  fixes: {
+    // Group 1: Lighting Setup (The Gaffer)
+    rembrandtTriangle: boolean; // Classic triangle on cheek
+    rimLightSeparation: boolean; // Backlight to separate from BG
+    volumetricFog: boolean; // God rays / Haze
+    practicalLights: boolean; // Lamps/Neon in scene visible
+    catchlights: boolean; // Sparkle in eyes
+
+    // Group 2: Color Science (The Colorist)
+    tealOrangePush: boolean; // Contrast warm highlights/cool shadows
+    skinToneProtection: boolean; // Keep skin natural while grading bg
+    deepBlacks: boolean; // Crushed blacks (Noir style)
+    highlightRollOff: boolean; // Soft white clipping (Film style)
+    vibranceBoost: boolean; // Pop colors without saturation
+
+    // Group 3: Atmosphere & FX (The VFX)
+    filmGrain: boolean; // Organic noise
+    anamorphicFlares: boolean; // Horizontal lens flares
+    halation: boolean; // Red glow around bright lights
+    vignette: boolean; // Darker corners
+    chromaticAbberation: boolean; // Lens edge fringing
+
+    // Group 4: Shadow & Depth (The DP)
+    softShadows: boolean; // Diffused light source
+    silhouetteDrama: boolean; // Strong outline mode
+    subsurfaceScattering: boolean; // Light passing through ears/fingers
+    ambientOcclusion: boolean; // Deep contact shadows
+    depthOfField: boolean; // Blurry background (Bokeh)
+
+    // Group 5: Genre Specifics
+    cyberpunkNeon: boolean; // Pink/Blue rim lights
+    horrorGloom: boolean; // Underexposed + Green cast
+    goldenHourWarmth: boolean; // Low sun angle
+    moonlightCoolness: boolean; // Blue tint night
+    dreamyGlow: boolean; // Soft filter (Pro-Mist)
+  };
+}
+
+// Analog Film Options (New - 30 Film Stocks)
+export interface AnalogFilmOptions {
+  filmStock: string;
+  filmFormat: string;
+  fixes: {
+    // Group 1: Film Chemistry
+    halation: boolean; // Red bloom
+    filmGrain: boolean; // Organic noise
+    colorShift: boolean; // Green/Magenta cast
+    bleachBypass: boolean; // High contrast low sat
+    crossProcess: boolean; // Unnatural shift
+
+    // Group 2: Optical Artifacts
+    lightLeaks: boolean; // Red/Orange burns
+    vignette: boolean; // Dark corners
+    softFocus: boolean; // Vintage sharpness
+    chromaticAberration: boolean; // Lens fringing
+    bloom: boolean; // Highlight spread
+
+    // Group 3: Physical Wear
+    dustScratches: boolean; // Dirty negative
+    motionBlur: boolean; // Shutter drag
+    dateStamp: boolean; // Digital orange date
+    filmBorder: boolean; // Rebate/Sprockets
+    fadedPrint: boolean; // Low contrast age
+
+    // Group 4: Exposure Characteristics
+    overexposure: boolean; // Washed out
+    underexposure: boolean; // Muddy shadows
+    highContrast: boolean; // Punchy
+    lowContrast: boolean; // Flat
+    flashBurn: boolean; // Direct flash look
+  };
+}
+
+// NEW INTERFACES FOR ADDED FEATURES
+
+// Professional Headshot Options
+export interface HeadshotOptions {
+  outfit: string; // Suit, Blazer, Casual Smart
+  background: string; // Office, Studio Grey, City
+  fixes: {
+    skinTexture: boolean;
+    eyeContact: boolean;
+    lightingMatch: boolean;
+    hairCleanup: boolean;
+  };
+}
+
+// Virtual Staging Options
+export interface StagingOptions {
+  roomType: string; // Living Room, Bedroom
+  style: string; // Minimalist, Modern, Industrial
+  fixes: {
+    perspectiveMatch: boolean;
+    shadowCast: boolean;
+    scaleLogic: boolean;
+    colorHarmony: boolean;
+  };
+}
+
+// Double Exposure Options
+export interface DoubleExposureOptions {
+  blendMode: string; // Silhouette, Soft Overlay
+  secondaryElement: string; // Nature, City, Galaxy
+  fixes: {
+    edgeDetection: boolean;
+    contrastBoost: boolean;
+    colorGrade: boolean;
+  };
+}
+
+// HDR Landscape Options
+export interface HDROptions {
+  style: string; // Natural, Dramatic, Surreal
+  skyEnhancement: boolean;
+  fixes: {
+    shadowRecovery: boolean;
+    highlightSave: boolean;
+    saturationBoost: boolean;
+    noiseReduction: boolean;
+  };
+}
+
+// Generative Fill Options
+export interface GenFillOptions {
+  direction: string; // Horizontal, Vertical, Surround
+  zoomLevel: string; // 1.5x, 2x
+  fixes: {
+    seamlessTransition: boolean;
+    resolutionMatch: boolean;
+    lightingConsistency: boolean;
+  };
+}
+
 // Union Type for flexibility
-export type GenerationOptions = CarouselOptions | PhotoshootOptions | NewbornOptions | PreweddingOptions | FamilyOptions | ProductOptions | RecoveryOptions | DetailingOptions;
+export type GenerationOptions = CarouselOptions | PhotoshootOptions | NewbornOptions | PreweddingOptions | FamilyOptions | ProductOptions | RecoveryOptions | DetailingOptions | CinematicRelightingOptions | AnalogFilmOptions | HeadshotOptions | StagingOptions | DoubleExposureOptions | HDROptions | GenFillOptions;
