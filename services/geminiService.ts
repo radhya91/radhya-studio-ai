@@ -1,5 +1,5 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
-import { AppMode, GeneratedImage, GenerationOptions, KoreaTravelOptions, IndonesiaTravelOptions } from "../types";
+import { AppMode, GeneratedImage, GenerationOptions, KoreaTravelOptions, IndonesiaTravelOptions, UmrahHajjOptions } from "../types";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -62,6 +62,16 @@ export const generateCreativeContent = async (
               finalPrompt = `Reference photo provided. Place person in DREAM INDONESIA TRAVEL SCENE at ${indoOpts.location}. Attire: ${indoOpts.attireStyle}. Season: ${indoOpts.season}. Keep face recognizable. Context: "${prompt}".`;
            }
        }
+  } else if (activeMode === AppMode.UMRAH_HAJJ) {
+       const umrahOpts = options as UmrahHajjOptions;
+       if (umrahOpts) {
+           if (umrahOpts.files && umrahOpts.files.length > 0) {
+              finalPrompt = `Reference photos provided. Generate a SPIRITUAL JOURNEY PHOTO of this person/group in ${umrahOpts.location}, Holy Land. Pilgrim Type: ${umrahOpts.pilgrimType}. Action: ${umrahOpts.shotType}. Wear Ihram/Hijab appropriately. Mood: Serene & Spiritual. Context: "${prompt}".`;
+              for (const f of umrahOpts.files) parts.push(await fileToPart(f));
+           } else {
+              finalPrompt = `Generate a REALISTIC UMRAH/HAJJ PHOTO in ${umrahOpts.location}. Subject: ${umrahOpts.pilgrimType}. Action: ${umrahOpts.shotType}. Wear appropriate Ihram/Hijab. Mood: Serene & Spiritual. Context: "${prompt}".`;
+           }
+       }
   } else {
        // Append ratio if generic generation
        if (ratio && activeMode === AppMode.TEXT_TO_IMAGE) {
@@ -71,7 +81,7 @@ export const generateCreativeContent = async (
 
   // --- Add Standard Images ---
   // If we haven't already added files via specific mode logic above
-  if (activeMode !== AppMode.KOREA_TRAVEL && activeMode !== AppMode.INDONESIA_TRAVEL) {
+  if (activeMode !== AppMode.KOREA_TRAVEL && activeMode !== AppMode.INDONESIA_TRAVEL && activeMode !== AppMode.UMRAH_HAJJ) {
       if (img1) parts.push(await fileToPart(img1));
       if (img2) parts.push(await fileToPart(img2));
   }

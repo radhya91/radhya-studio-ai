@@ -840,6 +840,26 @@ const InputPanel: React.FC<InputPanelProps> = ({
 
   const isImageOutput = !config.category.includes('AI Tools');
 
+  // Helper for rendering fixes toggles
+  const renderFixes = (fixes: Record<string, boolean>, toggle: (k: string) => void, color = "indigo") => (
+    <div className="flex flex-wrap gap-2 mt-3">
+      {Object.entries(fixes).map(([key, active]) => (
+          <button
+              key={key}
+              onClick={() => toggle(key)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${
+                  active 
+                  ? `bg-${color}-100 text-${color}-800 border-${color}-300` 
+                  : 'bg-white text-gray-400 border-gray-200 hover:border-gray-300'
+              }`}
+          >
+              {active ? <CheckIcon size={12} /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}
+              {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).trim()}
+          </button>
+      ))}
+    </div>
+  );
+
   return (
     <div className="flex flex-col min-h-full">
         
@@ -874,7 +894,8 @@ const InputPanel: React.FC<InputPanelProps> = ({
                 {/* Left Col: Inputs */}
                 <div className="lg:col-span-12 space-y-6">
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-6">
-                         {/* Standard Image Inputs (hidden for Multi-Upload Modes: Family & Product & Umrah & Korea & Indonesia) */}
+                         
+                        {/* Standard Image Inputs (hidden for Multi-Upload Modes) */}
                         {!isFamily && !isProduct && !isTerrarium && !isCeramic && !isFlorist && !isUmrah && !isKoreaTravel && !isIndonesiaTravel && (config.inputType === 'single-image' || config.inputType === 'dual-image') && (
                             <div className="space-y-3">
                                 <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider">
@@ -901,13 +922,102 @@ const InputPanel: React.FC<InputPanelProps> = ({
                             </div>
                         )}
 
+                        {/* --- FAMILY & PRODUCT & UMRAH MULTI-UPLOADERS --- */}
+                        {(isFamily || isProduct || isUmrah) && (
+                           <div className="mb-4 animate-in fade-in slide-in-from-top-2">
+                                <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider mb-3">
+                                    <Users size={14} className="text-indigo-500" />
+                                    {isFamily ? 'Family Members' : isProduct ? 'Product Angles' : 'Pilgrims'}
+                                </label>
+                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                                    <div 
+                                        onClick={() => {
+                                            if (isFamily) familyFileInputRef.current?.click();
+                                            else if (isProduct) productFileInputRef.current?.click();
+                                            else if (isUmrah) umrahFileInputRef.current?.click();
+                                        }}
+                                        className="aspect-square border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-indigo-400 transition-colors"
+                                    >
+                                        <UserPlus size={24} className="text-gray-400 mb-1" />
+                                        <span className="text-[10px] font-bold text-gray-500 uppercase">Add Photo</span>
+                                    </div>
+                                    <input 
+                                        type="file" 
+                                        ref={isFamily ? familyFileInputRef : isProduct ? productFileInputRef : umrahFileInputRef} 
+                                        className="hidden" 
+                                        multiple 
+                                        accept="image/*"
+                                        onChange={isFamily ? handleFamilyFiles : isProduct ? handleProductFiles : handleUmrahFiles}
+                                    />
+                                    {(isFamily ? familyImages : isProduct ? productImages : umrahImages).map((file, index) => (
+                                        <div key={index} className="aspect-square relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                                            <img src={URL.createObjectURL(file)} alt="Upload" className="w-full h-full object-cover" />
+                                            <button 
+                                                onClick={() => {
+                                                    if (isFamily) removeFamilyImage(index);
+                                                    else if (isProduct) removeProductImage(index);
+                                                    else if (isUmrah) removeUmrahImage(index);
+                                                }}
+                                                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                            >
+                                                <X size={12} />
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                                <p className="text-[10px] text-gray-400 mt-2">*Upload clear photos. Max {isFamily ? '25' : isProduct ? '5' : '10'} images.</p>
+                            </div>
+                        )}
+
+                        {/* --- UMRAH & HAJJ VISION UI --- */}
+                        {isUmrah && (
+                            <div className="bg-emerald-50 p-5 rounded-xl border border-emerald-200 space-y-5">
+                                <h3 className="text-xs font-bold text-emerald-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Moon size={14} /> Umrah & Hajj Vision
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Pilgrim Type</label>
+                                        <select value={umrahPilgrim} onChange={(e) => setUmrahPilgrim(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="man">Man (Ihram)</option>
+                                            <option value="woman">Woman (Hijab/Abaya)</option>
+                                            <option value="couple">Couple</option>
+                                            <option value="family">Family</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Location</label>
+                                        <select value={umrahLocation} onChange={(e) => setUmrahLocation(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="kaaba">Kaaba (Mataf)</option>
+                                            <option value="masjid-nabawi">Masjid Nabawi (Green Dome)</option>
+                                            <option value="safa-marwah">Safa & Marwah</option>
+                                            <option value="jabal-rahmah">Jabal Rahmah (Arafat)</option>
+                                            <option value="mina">Mina Tents</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Shot Type</label>
+                                        <select value={umrahShot} onChange={(e) => setUmrahShot(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="portrait">Close-up Portrait</option>
+                                            <option value="praying">Praying (Dua)</option>
+                                            <option value="walking">Walking (Tawaf)</option>
+                                            <option value="wide">Wide Atmospheric</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2 pt-2 border-t border-emerald-200">
+                                    <h4 className="text-[10px] font-bold text-emerald-600 uppercase mb-2">Holy Land Realism Fixes</h4>
+                                    {renderFixes(umrahFixes, (k) => toggleUmrahFix(k as any), "emerald")}
+                                </div>
+                            </div>
+                        )}
+
                         {/* --- KOREA TRAVELING VISION UI --- */}
                         {isKoreaTravel && (
                             <div className="bg-sky-50/50 p-5 rounded-xl border border-sky-200/50 space-y-5">
                                 <h3 className="text-xs font-bold text-sky-800 uppercase tracking-widest flex items-center gap-2">
                                     <Plane size={14} /> Korea Traveling Vision
                                 </h3>
-                                
                                 {/* Dynamic Uploader: Show only if NOT landscape */}
                                 {koreaShot !== 'landscape' && (
                                     <>
@@ -961,7 +1071,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                         )}
                                     </>
                                 )}
-
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Shot Type</label>
@@ -972,8 +1081,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                             <option value="landscape">Landscape Only (No People)</option>
                                         </select>
                                     </div>
-
-                                    {/* Group Type (Disabled if Landscape) */}
                                     <div className={`space-y-2 ${koreaShot === 'landscape' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Group Type</label>
                                         <select value={koreaGroup} onChange={(e) => setKoreaGroup(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
@@ -983,8 +1090,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                             <option value="big-family">Big Family (5+)</option>
                                         </select>
                                     </div>
-                                    
-                                    {/* Attire (Disabled if Landscape) */}
                                     <div className={`space-y-2 ${koreaShot === 'landscape' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Attire</label>
                                         <select value={koreaAttire} onChange={(e) => setKoreaAttire(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
@@ -995,7 +1100,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                         </select>
                                     </div>
                                 </div>
-
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Location</label>
@@ -1010,42 +1114,18 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                                 <option value="n-seoul-tower">N Seoul Tower (Namsan)</option>
                                                 <option value="lotte-world-tower">Lotte World Tower (Sky Bridge)</option>
                                                 <option value="ddp">Dongdaemun Design Plaza (DDP)</option>
-                                                <option value="ihwa-mural">Ihwa Mural Village</option>
-                                                <option value="olympic-park">Olympic Park (Lone Tree)</option>
                                             </optgroup>
                                             <optgroup label="Busan (Coastal City)">
                                                 <option value="gamcheon">Gamcheon Culture Village</option>
                                                 <option value="haeundae">Haeundae Beach</option>
                                                 <option value="gwangalli">Gwangalli Bridge (Night View)</option>
-                                                <option value="yonggungsa">Haedong Yonggungsa Temple</option>
-                                                <option value="huinnyeoul">Huinnyeoul Culture Village</option>
                                             </optgroup>
                                             <optgroup label="Jeju Island (Nature)">
                                                 <option value="jeju-flower">Jeju Canola/Hydrangea Field</option>
                                                 <option value="seongsan">Seongsan Ilchulbong (Sunrise Peak)</option>
-                                                <option value="hallasan">Hallasan National Park (Snow/Nature)</option>
-                                                <option value="seopjikoji">Seopjikoji Coast</option>
-                                                <option value="camellia-hill">Camellia Hill</option>
-                                            </optgroup>
-                                            <optgroup label="Gyeongju (Ancient History)">
-                                                <option value="bulguksa">Bulguksa Temple</option>
-                                                <option value="donggung-wolji">Donggung Palace & Wolji Pond</option>
-                                                <option value="cheomseongdae">Cheomseongdae Observatory</option>
-                                                <option value="daereungwon">Daereungwon Ancient Tombs</option>
-                                            </optgroup>
-                                            <optgroup label="Other Famous Spots">
-                                                <option value="nami">Nami Island (Winter Sonata)</option>
-                                                <option value="jeonju-hanok">Jeonju Hanok Village</option>
-                                                <option value="suwon-hwaseong">Suwon Hwaseong Fortress</option>
-                                                <option value="boseong-tea">Boseong Green Tea Fields</option>
-                                                <option value="damyang-bamboo">Damyang Bamboo Forest</option>
-                                                <option value="garden-morning-calm">Garden of Morning Calm</option>
-                                                <option value="seoraksan">Seoraksan National Park</option>
-                                                <option value="pocheon-art">Pocheon Art Valley</option>
                                             </optgroup>
                                         </select>
                                     </div>
-
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Season</label>
                                         <select value={koreaSeason} onChange={(e) => setKoreaSeason(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
@@ -1055,7 +1135,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                             <option value="summer">Summer (Lush Green)</option>
                                         </select>
                                     </div>
-
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Time of Day</label>
                                         <select value={koreaTime} onChange={(e) => setKoreaTime(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
@@ -1066,16 +1145,9 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                         </select>
                                     </div>
                                 </div>
-
                                 <div className="space-y-2 pt-2 border-t border-sky-200/50">
                                     <h4 className="text-[10px] font-bold text-sky-600 uppercase mb-2">K-Culture Realism Fixes</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {Object.entries(koreaFixes).map(([key, active]) => (
-                                            <button key={key} onClick={() => toggleKoreaFix(key as keyof typeof koreaFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-sky-100 text-sky-800 border-sky-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                {active ? <CheckIcon size={12} /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                            </button>
-                                        ))}
-                                    </div>
+                                    {renderFixes(koreaFixes, (k) => toggleKoreaFix(k as any), "sky")}
                                 </div>
                             </div>
                         )}
@@ -1086,8 +1158,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                 <h3 className="text-xs font-bold text-emerald-800 uppercase tracking-widest flex items-center gap-2">
                                     <MapPin size={14} /> Indonesia Traveling Vision
                                 </h3>
-                                
-                                {/* Dynamic Uploader: Show only if NOT landscape */}
                                 {indoShot !== 'landscape' && (
                                     <>
                                         {['small-family', 'big-family', 'couple'].includes(indoGroup) ? (
@@ -1097,30 +1167,14 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                                     Upload Travelers
                                                 </label>
                                                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                                                    <div 
-                                                        onClick={() => indoFileInputRef.current?.click()}
-                                                        className="aspect-square border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-emerald-400 transition-colors"
-                                                    >
-                                                        <UserPlus size={24} className="text-gray-400 mb-1" />
-                                                        <span className="text-[10px] font-bold text-gray-500 uppercase">Add Photo</span>
+                                                    <div onClick={() => indoFileInputRef.current?.click()} className="aspect-square border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-emerald-400 transition-colors">
+                                                        <UserPlus size={24} className="text-gray-400 mb-1" /><span className="text-[10px] font-bold text-gray-500 uppercase">Add Photo</span>
                                                     </div>
-                                                    <input 
-                                                        type="file" 
-                                                        ref={indoFileInputRef} 
-                                                        className="hidden" 
-                                                        multiple 
-                                                        accept="image/*"
-                                                        onChange={handleIndoFiles}
-                                                    />
+                                                    <input type="file" ref={indoFileInputRef} className="hidden" multiple accept="image/*" onChange={handleIndoFiles} />
                                                     {indoImages.map((file, index) => (
                                                         <div key={index} className="aspect-square relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
                                                             <img src={URL.createObjectURL(file)} alt="Traveler" className="w-full h-full object-cover" />
-                                                            <button 
-                                                                onClick={() => removeIndoImage(index)}
-                                                                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                                                            >
-                                                                <X size={12} />
-                                                            </button>
+                                                            <button onClick={() => removeIndoImage(index)} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"><X size={12} /></button>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -1128,19 +1182,12 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                             </div>
                                         ) : (
                                             <div className="mb-4 animate-in fade-in slide-in-from-top-2">
-                                                <ImageUploader 
-                                                    label="Upload Your Photo"
-                                                    imageFile={image1}
-                                                    onFileChange={setImage1}
-                                                />
-                                                <p className="text-[10px] text-gray-400 mt-2 text-center">
-                                                    *Upload a clear selfie/portrait.
-                                                </p>
+                                                <ImageUploader label="Upload Your Photo" imageFile={image1} onFileChange={setImage1} />
+                                                <p className="text-[10px] text-gray-400 mt-2 text-center">*Upload a clear selfie/portrait.</p>
                                             </div>
                                         )}
                                     </>
                                 )}
-
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Shot Type</label>
@@ -1151,8 +1198,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                             <option value="landscape">Landscape Only (No People)</option>
                                         </select>
                                     </div>
-
-                                    {/* Group Type (Disabled if Landscape) */}
                                     <div className={`space-y-2 ${indoShot === 'landscape' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Group Type</label>
                                         <select value={indoGroup} onChange={(e) => setIndoGroup(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
@@ -1162,8 +1207,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                             <option value="big-family">Big Family (5+)</option>
                                         </select>
                                     </div>
-                                    
-                                    {/* Attire (Disabled if Landscape) */}
                                     <div className={`space-y-2 ${indoShot === 'landscape' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Attire</label>
                                         <select value={indoAttire} onChange={(e) => setIndoAttire(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
@@ -1175,71 +1218,31 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                         </select>
                                     </div>
                                 </div>
-
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Location</label>
                                         <select value={indoLocation} onChange={(e) => setIndoLocation(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <optgroup label="Bali (Island of Gods)">
-                                                <option value="tanah-lot">Tanah Lot Temple (Sunset)</option>
-                                                <option value="uluwatu">Uluwatu Temple (Cliff)</option>
-                                                <option value="tegallalang">Tegallalang Rice Terrace (Ubud)</option>
-                                                <option value="lempuyang">Lempuyang Temple (Gates of Heaven)</option>
-                                                <option value="kelingking">Kelingking Beach (Nusa Penida)</option>
-                                                <option value="ulun-danu">Ulun Danu Beratan Temple</option>
-                                            </optgroup>
-                                            <optgroup label="Java (Heritage & City)">
-                                                <option value="borobudur">Borobudur Temple (Magelang)</option>
-                                                <option value="prambanan">Prambanan Temple (Yogyakarta)</option>
-                                                <option value="bromo">Mount Bromo (Sunrise)</option>
-                                                <option value="kawah-ijen">Kawah Ijen (Blue Fire)</option>
-                                                <option value="malioboro">Malioboro Street (Yogyakarta)</option>
-                                                <option value="monas">Monas (Jakarta)</option>
-                                                <option value="kota-tua">Kota Tua (Jakarta Old Town)</option>
-                                            </optgroup>
-                                            <optgroup label="Sumatra & Nature">
-                                                <option value="toba">Lake Toba (Samosir)</option>
-                                                <option value="bukittinggi">Jam Gadang (Bukittinggi)</option>
-                                                <option value="belitung">Tanjung Tinggi Beach (Laskar Pelangi)</option>
-                                            </optgroup>
-                                            <optgroup label="Eastern Indonesia (Exotic)">
-                                                <option value="raja-ampat">Raja Ampat (Wayag Islands)</option>
-                                                <option value="komodo">Komodo Island (Pink Beach)</option>
-                                                <option value="padar">Padar Island (Labuan Bajo)</option>
-                                                <option value="toraja">Tana Toraja (Tongkonan House)</option>
-                                                <option value="wakatobi">Wakatobi (Underwater/Beach)</option>
-                                            </optgroup>
+                                            <optgroup label="Bali"><option value="tanah-lot">Tanah Lot</option><option value="uluwatu">Uluwatu</option><option value="tegallalang">Tegallalang</option></optgroup>
+                                            <optgroup label="Java"><option value="borobudur">Borobudur</option><option value="prambanan">Prambanan</option><option value="bromo">Bromo</option></optgroup>
+                                            <optgroup label="Others"><option value="raja-ampat">Raja Ampat</option><option value="komodo">Komodo</option><option value="toba">Lake Toba</option></optgroup>
                                         </select>
                                     </div>
-
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Season</label>
                                         <select value={indoSeason} onChange={(e) => setIndoSeason(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="dry-season">Dry Season (Sunny & Bright)</option>
-                                            <option value="rainy-season">Rainy Season (Overcast/Mist)</option>
+                                            <option value="dry-season">Dry Season</option><option value="rainy-season">Rainy Season</option>
                                         </select>
                                     </div>
-
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Time of Day</label>
                                         <select value={indoTime} onChange={(e) => setIndoTime(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="day">Bright Daylight</option>
-                                            <option value="sunset">Sunset (Golden Hour)</option>
-                                            <option value="sunrise">Sunrise (Misty)</option>
-                                            <option value="night">Night Ambiance</option>
+                                            <option value="day">Daylight</option><option value="sunset">Sunset</option><option value="sunrise">Sunrise</option>
                                         </select>
                                     </div>
                                 </div>
-
                                 <div className="space-y-2 pt-2 border-t border-emerald-200/50">
                                     <h4 className="text-[10px] font-bold text-emerald-600 uppercase mb-2">Tropical Realism Fixes</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {Object.entries(indoFixes).map(([key, active]) => (
-                                            <button key={key} onClick={() => toggleIndoFix(key as keyof typeof indoFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                {active ? <CheckIcon size={12} /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                            </button>
-                                        ))}
-                                    </div>
+                                    {renderFixes(indoFixes, (k) => toggleIndoFix(k as any), "emerald")}
                                 </div>
                             </div>
                         )}
@@ -1254,30 +1257,160 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                      <div>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Style</label>
                                         <select value={sneakerStyle} onChange={(e) => setSneakerStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="high-top">High Top</option>
-                                            <option value="low-top">Low Top</option>
-                                            <option value="chunky">Chunky</option>
+                                            <option value="high-top">High Top</option><option value="low-top">Low Top</option><option value="chunky">Chunky</option>
                                         </select>
                                      </div>
                                       <div>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Material</label>
                                         <select value={sneakerMaterial} onChange={(e) => setSneakerMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="leather">Leather</option>
-                                            <option value="suede">Suede</option>
-                                            <option value="knit">Knit</option>
+                                            <option value="leather">Leather</option><option value="suede">Suede</option><option value="knit">Knit</option>
                                         </select>
                                      </div>
                                       <div>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Colorway</label>
                                         <select value={sneakerColor} onChange={(e) => setSneakerColor(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="panda">Panda (B&W)</option>
-                                            <option value="triple-white">Triple White</option>
-                                            <option value="bred">Bred</option>
+                                            <option value="panda">Panda</option><option value="triple-white">Triple White</option><option value="bred">Bred</option>
                                         </select>
                                      </div>
                                 </div>
+                                {renderFixes(sneakerFixes, (k) => toggleSneakerFix(k as any))}
                              </div>
                         )}
+
+                        {/* --- RESTORING OTHER MISSING UI BLOCKS --- */}
+
+                        {isNewborn && (
+                            <div className="bg-purple-50 p-5 rounded-xl border border-purple-200 space-y-4">
+                                <h3 className="text-xs font-bold text-purple-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Baby size={14} /> Newborn Studio
+                                </h3>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Pose</label><select value={newbornPose} onChange={(e) => setNewbornPose(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="wrapped">Wrapped</option><option value="froggy">Froggy</option><option value="tucked">Tucked-in</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Setting</label><select value={newbornSetting} onChange={(e) => setNewbornSetting(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="beanbag">Beanbag</option><option value="basket">Woven Basket</option><option value="floral">Floral Nest</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Skin</label><select value={newbornSkin} onChange={(e) => setNewbornSkin(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="fair">Fair</option><option value="warm">Warm</option><option value="deep">Deep</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">State</label><select value={newbornState} onChange={(e) => setNewbornState(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="asleep">Asleep</option><option value="awake">Awake</option><option value="yawning">Yawning</option></select></div>
+                                </div>
+                                {renderFixes(newbornFixes, (k) => toggleNewbornFix(k as any), "purple")}
+                            </div>
+                        )}
+
+                        {isPrewedding && (
+                            <div className="bg-rose-50 p-5 rounded-xl border border-rose-200 space-y-4">
+                                <h3 className="text-xs font-bold text-rose-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Heart size={14} /> Prewedding Vision
+                                </h3>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Style</label><select value={prewedStyle} onChange={(e) => setPrewedStyle(e.target.value as any)} className="w-full text-xs p-2 rounded-lg border"><option value="cinematic">Cinematic</option><option value="documentary">Documentary</option><option value="editorial">Editorial</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Theme</label><select value={prewedTheme} onChange={(e) => setPrewedTheme(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="casual">Casual</option><option value="formal">Formal</option><option value="vintage">Vintage</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Time</label><select value={prewedTime} onChange={(e) => setPrewedTime(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="golden-hour">Golden Hour</option><option value="blue-hour">Blue Hour</option><option value="night">Night</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Shot</label><select value={prewedShot} onChange={(e) => setPrewedShot(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="wide">Wide Landscape</option><option value="portrait">Portrait</option><option value="close-up">Ring Detail</option></select></div>
+                                </div>
+                                {renderFixes(prewedFixes, (k) => togglePrewedFix(k as any), "rose")}
+                            </div>
+                        )}
+
+                        {isFamily && (
+                             <div className="bg-orange-50 p-5 rounded-xl border border-orange-200 space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Type</label><select value={familyType} onChange={(e) => setFamilyType(e.target.value as any)} className="w-full text-xs p-2 rounded-lg border"><option value="nuclear">Nuclear (Parents+Kids)</option><option value="big-family">Big Family</option><option value="multi-gen">Multi-Generation</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Setting</label><select value={familySetting} onChange={(e) => setFamilySetting(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="studio">Studio</option><option value="outdoor">Outdoor Park</option><option value="home">Living Room</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Outfit</label><select value={familyOutfit} onChange={(e) => setFamilyOutfit(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="white-jeans">White Shirt & Jeans</option><option value="formal">Formal Black Tie</option><option value="pajamas">Matching Pajamas</option></select></div>
+                                </div>
+                                {renderFixes(familyFixes, (k) => toggleFamilyFix(k as any), "orange")}
+                             </div>
+                        )}
+
+                        {isProduct && (
+                             <div className="bg-zinc-50 p-5 rounded-xl border border-zinc-200 space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Material</label><select value={prodMaterial} onChange={(e) => setProdMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="glass">Glass/Transparent</option><option value="matte">Matte Plastic</option><option value="metal">Brushed Metal</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Lighting</label><select value={prodLight} onChange={(e) => setProdLight(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="softbox">Studio Softbox</option><option value="hard">Hard Shadows</option><option value="natural">Natural Window</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Placement</label><select value={prodPlace} onChange={(e) => setProdPlace(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="podium">Podium</option><option value="flatlay">Flatlay</option><option value="lifestyle">Lifestyle Context</option></select></div>
+                                </div>
+                                {renderFixes(productFixes, (k) => toggleProductFix(k as any), "zinc")}
+                             </div>
+                        )}
+
+                        {isRecovery && (
+                             <div className="bg-blue-50 p-5 rounded-xl border border-blue-200 space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Damage</label><select value={recDamage} onChange={(e) => setRecDamage(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="light">Light Scratches</option><option value="medium">Medium Tears</option><option value="heavy">Heavy Damage</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Color</label><select value={recColor} onChange={(e) => setRecColor(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="auto">Auto Restore</option><option value="bw">Black & White</option><option value="colorize">Colorize</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Strength</label><select value={recStrength} onChange={(e) => setRecStrength(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></div>
+                                </div>
+                                {renderFixes(recFixes, (k) => toggleRecFix(k as any), "blue")}
+                             </div>
+                        )}
+
+                        {isCinematicRelighting && (
+                             <div className="bg-amber-50 p-5 rounded-xl border border-amber-200 space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Lighting</label><select value={relightStyle} onChange={(e) => setRelightStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="rembrandt">Rembrandt</option><option value="split">Split</option><option value="butterfly">Butterfly</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Color Grade</label><select value={relightColor} onChange={(e) => setRelightColor(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="teal-orange">Teal & Orange</option><option value="noir">Noir B&W</option><option value="matrix">Matrix Green</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Lens</label><select value={relightLens} onChange={(e) => setRelightLens(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="anamorphic">Anamorphic</option><option value="vintage">Vintage 50mm</option><option value="wide">Wide Angle</option></select></div>
+                                </div>
+                                {renderFixes(relightFixes, (k) => toggleRelightFix(k as any), "amber")}
+                             </div>
+                        )}
+
+                        {isAnalogFilm && (
+                             <div className="bg-yellow-50 p-5 rounded-xl border border-yellow-200 space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Film Stock</label><select value={filmStock} onChange={(e) => setFilmStock(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="portra400">Portra 400</option><option value="cinestill800">CineStill 800T</option><option value="ilfordhp5">Ilford HP5</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Format</label><select value={filmFormat} onChange={(e) => setFilmFormat(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="35mm">35mm</option><option value="120">120 Medium Format</option><option value="polaroid">Polaroid</option></select></div>
+                                </div>
+                                {renderFixes(filmFixes, (k) => toggleFilmFix(k as any), "yellow")}
+                             </div>
+                        )}
+
+                        {isDetailing && (
+                             <div className="bg-cyan-50 p-5 rounded-xl border border-cyan-200 space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Resolution</label><select value={detRes} onChange={(e) => setDetRes(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="4k">4K Upscale</option><option value="8k">8K Ultra</option><option value="hd">FHD Clean</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Creativity</label><select value={detCreative} onChange={(e) => setDetCreative(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="faithful">Faithful</option><option value="balanced">Balanced</option><option value="hallucinate">Creative Detail</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Sharpness</label><select value={detSharp} onChange={(e) => setDetSharp(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="natural">Natural</option><option value="strong">Strong</option><option value="soft">Soft</option></select></div>
+                                </div>
+                                {renderFixes(detFixes, (k) => toggleDetFix(k as any), "cyan")}
+                             </div>
+                        )}
+
+                        {isPhotoCarousel && (
+                             <div className="bg-indigo-50 p-5 rounded-xl border border-indigo-200 space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Lighting</label><select value={carouselLighting} onChange={(e) => setCarouselLighting(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="softbox">Softbox</option><option value="natural">Natural</option><option value="hard">Hard</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Angle</label><select value={carouselAngle} onChange={(e) => setCarouselAngle(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="eye-level">Eye Level</option><option value="top-down">Top Down</option><option value="low">Low Angle</option></select></div>
+                                </div>
+                                {renderFixes(carouselFixes, (k) => toggleCarouselFix(k as any), "indigo")}
+                             </div>
+                        )}
+
+                         {isPhotoshoot && (
+                             <div className="bg-fuchsia-50 p-5 rounded-xl border border-fuchsia-200 space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Vibe</label><select value={shootVibe} onChange={(e) => setShootVibe(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="luxury">Luxury</option><option value="minimalist">Minimalist</option><option value="grunge">Grunge</option></select></div>
+                                    <div className="space-y-1"><label className="text-[10px] font-bold text-gray-500 uppercase">Lighting</label><select value={shootLighting} onChange={(e) => setShootLighting(e.target.value)} className="w-full text-xs p-2 rounded-lg border"><option value="golden">Golden Hour</option><option value="studio">Studio</option><option value="neon">Neon</option></select></div>
+                                </div>
+                                {renderFixes(shootFixes, (k) => toggleShootFix(k as any), "fuchsia")}
+                             </div>
+                        )}
+
+                        {isHeadshot && renderFixes(hsFixes, (k) => toggleHsFix(k as any))}
+                        {isStaging && renderFixes(stgFixes, (k) => toggleStgFix(k as any))}
+                        {isDoubleExposure && renderFixes(deFixes, (k) => toggleDeFix(k as any))}
+                        {isHDR && renderFixes(hdrFixes, (k) => toggleHdrFix(k as any))}
+                        {isGenFill && renderFixes(gfFixes, (k) => toggleGfFix(k as any))}
+                        {isFashionEditorial && renderFixes(edFixes, (k) => toggleEdFix(k as any))}
+                        {isLogoMascot && renderFixes(logoFixes, (k) => toggleLogoFix(k as any))}
+                        {isArchViz && renderFixes(archiFixes, (k) => toggleArchiFix(k as any))}
+                        {isIndustrial && renderFixes(indFixes, (k) => toggleIndFix(k as any))}
+                        {isPersonalColor && renderFixes(pcFixes, (k) => togglePcFix(k as any))}
+                        {isModMotor && renderFixes(motorFixes, (k) => toggleMotorFix(k as any))}
+                        {isModCar && renderFixes(carFixes, (k) => toggleCarFix(k as any))}
+                        {isSneakerLab && renderFixes(sneakerFixes, (k) => toggleSneakerFix(k as any))}
+                        {isNailArt && renderFixes(nailFixes, (k) => toggleNailFix(k as any))}
+                        {isTerrarium && renderFixes(terraFixes, (k) => toggleTerraFix(k as any))}
+                        {isCeramic && renderFixes(potFixes, (k) => togglePotFix(k as any))}
+                        {isFlorist && renderFixes(floristFixes, (k) => toggleFloristFix(k as any))}
                         
                         {/* Prompt Input Area */}
                         <div className="relative">
@@ -1302,7 +1435,7 @@ const InputPanel: React.FC<InputPanelProps> = ({
                         <div className="pt-2">
                             <button
                                 onClick={handleGenerateClick}
-                                disabled={isGenerating || (!prompt && !image1 && !image2 && familyImages.length === 0)}
+                                disabled={isGenerating || (!prompt && !image1 && !image2 && familyImages.length === 0 && productImages.length === 0 && umrahImages.length === 0 && koreaImages.length === 0 && indoImages.length === 0)}
                                 className={`w-full py-4 rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 ${
                                     isGenerating 
                                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none' 
