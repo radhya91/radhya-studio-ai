@@ -1,109 +1,321 @@
 import { AppMode, ModeConfig } from './types';
 
 export const MODES: ModeConfig[] = [
-    // --- Studio Utama (Enhanced) ---
-    { id: AppMode.TEXT_TO_IMAGE, label: 'Text-to-Image', category: 'Studio Utama', description: 'Buat gambar ultra-realistis 8K dari deskripsi teks dengan pencahayaan volumetrik.', inputType: 'none', promptPlaceholder: 'Deskripsi gambar yang ingin dibuat...' },
-    { id: AppMode.INDUSTRIAL_DESIGN, label: 'Industrial Design Render', category: 'Studio Utama', description: 'Ubah sketsa kasar atau wireframe menjadi render produk 3D fotorealistik. Ideal untuk desainer produk dan inovator.', inputType: 'single-image', promptPlaceholder: 'Deskripsi produk (misal: Speaker bluetooth portabel, gaya minimalis, material aluminium dan kain)...' },
-    { id: AppMode.ARCHITECTURAL_VISION, label: 'Architectural Vision', category: 'Studio Utama', description: 'Visualisasi arsitektur profesional. Ubah sketsa atau denah menjadi render fotorealistik dengan koreksi perspektif 2 titik.', inputType: 'single-image', promptPlaceholder: 'Deskripsi bangunan (misal: Villa tropis modern, material beton dan kayu ulin)...' },
-    { id: AppMode.FASHION_EDITORIAL, label: 'Fashion Editorial', category: 'Studio Utama', description: 'Ubah foto biasa menjadi cover majalah High-Fashion. Lengkap dengan styling avant-garde, makeup artistik, dan lokasi eksotis.', inputType: 'single-image', promptPlaceholder: 'Konsep fashion (misal: Cyberpunk Runway, Vintage Gucci 90s, Ethereal Goddess)...' },
-    { id: AppMode.PROFESSIONAL_HEADSHOT, label: 'Photo Profile', category: 'Studio Utama', description: 'Ubah selfie kasual menjadi foto profil profesional untuk LinkedIn, Instagram, atau CV dengan beragam outfit dan background.', inputType: 'single-image', promptPlaceholder: 'Detail profesi atau nuansa (misal: CEO Tech, ramah)...' },
-    { id: AppMode.VIRTUAL_STAGING, label: 'Virtual Staging', category: 'Studio Utama', description: 'Isi foto ruangan kosong dengan furnitur.', inputType: 'single-image', promptPlaceholder: 'Jenis furnitur dan gaya (misal: Sofa kulit, gaya Industrial)...' },
-    { id: AppMode.LOGO_MASCOT, label: 'Logo & Mascot Wizard', category: 'Studio Utama', description: 'Buat logo vektor profesional atau maskot karakter brand yang bersih dan ikonik.', inputType: 'none', promptPlaceholder: 'Nama brand & elemen visual (misal: Kopi, maskot beruang ramah)...' },
-    { id: AppMode.DOUBLE_EXPOSURE, label: 'Double Exposure Art', category: 'Studio Utama', description: 'Gabungkan siluet wajah dengan alam secara artistik.', inputType: 'single-image', promptPlaceholder: 'Elemen alam yang ingin digabungkan (misal: Hutan pinus berkabut)...' },
-    { id: AppMode.HDR_LANDSCAPE, label: 'HDR Landscape Master', category: 'Studio Utama', description: 'Koreksi eksposur pemandangan dan maksimalkan detail warna ala National Geographic.', inputType: 'single-image', promptPlaceholder: 'Suasana waktu (misal: Golden hour, dramatis)...' },
-    { id: AppMode.GEN_FILL, label: 'Generative Fill (Expand)', category: 'Studio Utama', description: 'Perluas bingkai foto secara ajaib dengan AI (Outpainting).', inputType: 'single-image', promptPlaceholder: 'Deskripsi area baru yang diperluas...' },
-    { id: AppMode.PHOTO_CAROUSEL, label: 'Photo Carousel', category: 'Studio Utama', description: 'Buat katalog produk "Pro-Commercial" dengan koreksi lensa, lighting fisik, dan bayangan kontak anti-floating.', inputType: 'single-image', promptPlaceholder: 'Tema background & suasana (misal: Podium marmer, cahaya matahari pagi)...' },
-    { id: AppMode.PHOTOSHOOT_AI, label: 'Photo Shoot AI', category: 'Studio Utama', description: 'Gabungkan produk ke dalam adegan lifestyle dengan blending cahaya yang natural.', inputType: 'dual-image', promptPlaceholder: 'Deskripsi adegan/lokasi photoshoot...' },
-    { id: AppMode.NEWBORN, label: 'Newborn Photo', category: 'Studio Utama', description: 'Foto bayi artistik dengan pencahayaan lembut, tekstur nyaman, dan properti aman.', inputType: 'single-image', promptPlaceholder: 'Konsep (misal: tidur di bulan, keranjang bunga)...' },
-    { id: AppMode.PREWEDDING, label: 'Prewedding Photo', category: 'Studio Utama', description: 'Foto prewedding sinematik, golden hour, dan atmosfer romantis.', inputType: 'dual-image', promptPlaceholder: 'Lokasi dan suasana yang diinginkan...' },
-    { id: AppMode.FAMILY, label: 'Family Photo', category: 'Studio Utama', description: 'Potret keluarga studio klasik dengan dukungan hingga 25 wajah dan koreksi "Big Group" pintar.', inputType: 'multi-image', promptPlaceholder: 'Deskripsi pakaian atau gaya pose...' },
-    { id: AppMode.PRODUCT, label: 'Product Photography', category: 'Studio Utama', description: 'Fotografi produk standar iklan, detail makro, dan pencahayaan komersial. Upload hingga 5 foto referensi.', inputType: 'multi-image', promptPlaceholder: 'Setting pencahayaan dan material...' },
-    { id: AppMode.RECOVERY, label: 'Photo Recovery', category: 'Studio Utama', description: 'Restorasi foto rusak/lama menjadi HD, menghilangkan noise, dan menajamkan detail.', inputType: 'single-image', promptPlaceholder: 'Deskripsi kerusakan atau bagian yang perlu fokus diperbaiki...' },
-    { id: AppMode.DETAILING, label: 'Photo Detailing', category: 'Studio Utama', description: 'Upscaling cerdas untuk menambah tekstur nyata dan resolusi tinggi.', inputType: 'single-image', promptPlaceholder: 'Instruksi khusus penajaman...' },
-    { id: AppMode.CINEMATIC_RELIGHTING, label: 'Cinematic Relighting', category: 'Studio Utama', description: 'Ubah pencahayaan menjadi dramatis seperti film (Teal & Orange, Noir, Neon).', inputType: 'single-image', promptPlaceholder: 'Mood pencahayaan yang diinginkan...' },
-    { id: AppMode.ANALOG_FILM, label: 'Analog Film Effect', category: 'Studio Utama', description: 'Simulasi kamera film otentik dengan grain, light leaks, dan tone vintage.', inputType: 'single-image', promptPlaceholder: 'Jenis film (Kodak Portra, Fuji, B&W)...' },
+  // --- Studio Utama ---
+  { 
+    id: AppMode.TEXT_TO_IMAGE, 
+    label: 'Text to Image', 
+    category: 'Studio Utama', 
+    description: 'Generate high-quality images from text prompts.', 
+    inputType: 'none', 
+    promptPlaceholder: 'Describe the image you want to create...' 
+  },
+  { 
+    id: AppMode.PROFESSIONAL_HEADSHOT, 
+    label: 'Professional Headshot', 
+    category: 'Studio Utama', 
+    description: 'Generate professional business headshots.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe outfit and background...' 
+  },
+  { 
+    id: AppMode.VIRTUAL_STAGING, 
+    label: 'Virtual Staging', 
+    category: 'Studio Utama', 
+    description: 'Stage empty rooms with furniture and decor.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the interior style (e.g. Modern, Scandinavian)...' 
+  },
+  { 
+    id: AppMode.PHOTO_CAROUSEL, 
+    label: 'Photo Carousel', 
+    category: 'Studio Utama', 
+    description: 'Create a carousel of product photos.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the product setting...' 
+  },
+  { 
+    id: AppMode.PHOTOSHOOT_AI, 
+    label: 'Photoshoot AI', 
+    category: 'Studio Utama', 
+    description: 'Virtual photoshoot for products or models.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the shoot vibe...' 
+  },
 
-    // --- Studio Pelukis ---
-    { id: AppMode.PAINTING_GENERATOR, label: 'Digital Painting', category: 'Studio Pelukis', description: 'Lukisan digital artistik.', inputType: 'none', promptPlaceholder: 'Deskripsi lukisan...' },
-    { id: AppMode.PAINTING_HERITAGE, label: 'Lukisan Era Lama', category: 'Studio Pelukis', description: 'Gaya Renaissance, Barok, dll.', inputType: 'single-image', promptPlaceholder: 'Gaya spesifik...' },
-    { id: AppMode.PAINTING_IMPASTO, label: 'Impasto', category: 'Studio Pelukis', description: 'Gaya cat minyak tebal.', inputType: 'single-image', promptPlaceholder: 'Warna dominan...' },
-    { id: AppMode.PAINTING_SUMIE, label: 'Sumie Art', category: 'Studio Pelukis', description: 'Lukisan tinta Jepang.', inputType: 'single-image', promptPlaceholder: 'Objek fokus...' },
-    { id: AppMode.PAINTING_ROYAL, label: 'Royal Portrait', category: 'Studio Pelukis', description: 'Potret kerajaan klasik.', inputType: 'single-image', promptPlaceholder: 'Era kerajaan...' },
-    { id: AppMode.PAINTING_ANACHRONISM, label: 'Anachronism', category: 'Studio Pelukis', description: 'Modern x Klasik.', inputType: 'single-image', promptPlaceholder: 'Elemen modern...' },
-    { id: AppMode.PAINTING_WATERCOLOR, label: 'Watercolor', category: 'Studio Pelukis', description: 'Efek cat air lembut.', inputType: 'single-image', promptPlaceholder: 'Suasana...' },
-    { id: AppMode.PAINTING_STAINED_GLASS, label: 'Stained Glass', category: 'Studio Pelukis', description: 'Seni kaca patri.', inputType: 'single-image', promptPlaceholder: 'Pola warna...' },
-    { id: AppMode.PAINTING_UKIYOE, label: 'Ukiyo-e', category: 'Studio Pelukis', description: 'Cetak kayu Jepang.', inputType: 'single-image', promptPlaceholder: 'Latar alam...' },
-    { id: AppMode.PAINTING_SURREALISM, label: 'Surrealism', category: 'Studio Pelukis', description: 'Mimpi surealis.', inputType: 'single-image', promptPlaceholder: 'Elemen mimpi...' },
-    { id: AppMode.PAINTING_CHARCOAL, label: 'Charcoal Sketch', category: 'Studio Pelukis', description: 'Sketsa arang.', inputType: 'single-image', promptPlaceholder: 'Tingkat detail...' },
-    { id: AppMode.PAINTING_MOSAIC, label: 'Mosaic Art', category: 'Studio Pelukis', description: 'Seni mozaik.', inputType: 'single-image', promptPlaceholder: 'Jenis batuan...' },
-    { id: AppMode.PAINTING_STREET_ART, label: 'Street Art', category: 'Studio Pelukis', description: 'Graffiti jalanan.', inputType: 'single-image', promptPlaceholder: 'Gaya tulisan...' },
-    { id: AppMode.PAINTING_PAPER_CUTOUT, label: 'Paper Cutout', category: 'Studio Pelukis', description: 'Potongan kertas 3D.', inputType: 'single-image', promptPlaceholder: 'Jenis kertas...' },
-    { id: AppMode.PAINTING_DOODLE, label: 'Doodle Art', category: 'Studio Pelukis', description: 'Coretan tangan lucu.', inputType: 'single-image', promptPlaceholder: 'Tema doodle...' },
+  // --- Lifestyle ---
+  { 
+    id: AppMode.UMRAH_HAJJ, 
+    label: 'Umrah & Hajj Vision', 
+    category: 'Lifestyle', 
+    description: 'Visualisasikan diri Anda atau keluarga di Tanah Suci (Makkah/Madinah) dengan pakaian Ihram/Syar\'i yang akurat dan suasana spiritual.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Suasana yang diinginkan (misal: Berdoa khusyuk di depan Ka\'bah)...' 
+  },
+  { 
+    id: AppMode.KOREA_TRAVEL, 
+    label: 'Korea Traveling', 
+    category: 'Lifestyle', 
+    description: 'Liburan impian ke Korea Selatan. Foto keluarga/pasangan dengan Hanbok di istana kerajaan atau gaya modern di Gangnam.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Deskripsi momen (misal: Piknik musim semi di bawah pohon Sakura)...' 
+  },
+  { 
+    id: AppMode.INDONESIA_TRAVEL, 
+    label: 'Indonesia Traveling', 
+    category: 'Lifestyle', 
+    description: 'Jelajahi keindahan Nusantara. Foto di Borobudur, Bali, atau Raja Ampat dengan pakaian Batik, Kebaya, atau gaya liburan tropis.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Deskripsi momen (misal: Sunset di pantai Kuta dengan kelapa muda)...' 
+  },
+  { 
+    id: AppMode.TERRARIUM_BUILDER, 
+    label: 'Terrarium Builder', 
+    category: 'Lifestyle', 
+    description: 'Desain ekosistem miniatur di wadah kaca (botol/toples) dengan lapisan tanah dan tanaman detail.', 
+    inputType: 'none', 
+    promptPlaceholder: 'Konsep terrarium (misal: Hutan tropis dalam toples selai)...' 
+  },
+  { 
+    id: AppMode.NEWBORN, 
+    label: 'Newborn Photography', 
+    category: 'Lifestyle', 
+    description: 'Adorable newborn photography styles.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the baby pose and setting...' 
+  },
+  { 
+    id: AppMode.PREWEDDING, 
+    label: 'Prewedding', 
+    category: 'Lifestyle', 
+    description: 'Romantic prewedding photo concepts.', 
+    inputType: 'dual-image', 
+    promptPlaceholder: 'Describe the romantic scene...' 
+  },
+  { 
+    id: AppMode.FAMILY, 
+    label: 'Family Portrait', 
+    category: 'Lifestyle', 
+    description: 'Create harmonious family portraits.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the family setting...' 
+  },
+  { 
+    id: AppMode.SNEAKER_LAB, 
+    label: 'Sneaker Lab', 
+    category: 'Lifestyle', 
+    description: 'Design custom sneakers.', 
+    inputType: 'none', 
+    promptPlaceholder: 'Describe your custom sneaker design...' 
+  },
+  { 
+    id: AppMode.NAIL_ART, 
+    label: 'Nail Art', 
+    category: 'Lifestyle', 
+    description: 'Visualize nail art designs.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the nail art style...' 
+  },
+  { 
+    id: AppMode.CERAMIC_POTTERY, 
+    label: 'Ceramic Pottery', 
+    category: 'Lifestyle', 
+    description: 'Design ceramic pottery.', 
+    inputType: 'none', 
+    promptPlaceholder: 'Describe the pottery shape and glaze...' 
+  },
+  { 
+    id: AppMode.FLORIST_ATELIER, 
+    label: 'Florist Atelier', 
+    category: 'Lifestyle', 
+    description: 'Arrange floral compositions.', 
+    inputType: 'none', 
+    promptPlaceholder: 'Describe the floral arrangement...' 
+  },
+  { 
+    id: AppMode.MOD_MOTOR, 
+    label: 'Mod Motor', 
+    category: 'Lifestyle', 
+    description: 'Modify motorcycle designs.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe modifications...' 
+  },
+  { 
+    id: AppMode.MOD_CAR, 
+    label: 'Mod Car', 
+    category: 'Lifestyle', 
+    description: 'Modify car designs.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe modifications...' 
+  },
 
-    // --- Studio Pengeditan ---
-    { id: AppMode.STYLE_TRANSFER, label: 'Style Transfer', category: 'Studio Pengeditan', description: 'Transfer gaya artistik.', inputType: 'dual-image', promptPlaceholder: 'Intensitas...' },
-    { id: AppMode.VARIATION, label: 'Image Variation', category: 'Studio Pengeditan', description: 'Buat variasi gambar.', inputType: 'single-image', promptPlaceholder: 'Perubahan yang diinginkan...' },
-    { id: AppMode.INPAINTING, label: 'Inpainting', category: 'Studio Pengeditan', description: 'Edit area gambar.', inputType: 'single-image', promptPlaceholder: 'Bagian yang diubah...' },
-    { id: AppMode.OUTPAINTING, label: 'Outpainting', category: 'Studio Pengeditan', description: 'Perluas gambar.', inputType: 'single-image', promptPlaceholder: 'Deskripsi ekstensi...' },
-    { id: AppMode.BACKGROUND_REMOVAL, label: 'Hapus Background', category: 'Studio Pengeditan', description: 'Hapus latar belakang.', inputType: 'single-image', promptPlaceholder: 'Warna pengganti (opsional)...' },
-    { id: AppMode.SWAP_BACKGROUND, label: 'Ganti Background', category: 'Studio Pengeditan', description: 'Ubah latar belakang.', inputType: 'single-image', promptPlaceholder: 'Deskripsi background baru...' },
-    { id: AppMode.FACESWAP, label: 'Face Swap', category: 'Studio Pengeditan', description: 'Tukar wajah.', inputType: 'dual-image', promptPlaceholder: 'Instruksi penyesuaian...' },
-    { id: AppMode.ID_CARD, label: 'Foto ID Card', category: 'Studio Pengeditan', description: 'Pas foto formal.', inputType: 'single-image', promptPlaceholder: 'Warna background...' },
+  // --- Business & Art ---
+  { 
+    id: AppMode.PRODUCT, 
+    label: 'Product Photography', 
+    category: 'Bisnis & Seni', 
+    description: 'High-end product photography.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the product shot...' 
+  },
+  { 
+    id: AppMode.LOGO_MASCOT, 
+    label: 'Logo & Mascot', 
+    category: 'Bisnis & Seni', 
+    description: 'Create logos and brand mascots.', 
+    inputType: 'none', 
+    promptPlaceholder: 'Describe the brand identity...' 
+  },
+  { 
+    id: AppMode.ARCHITECTURAL_VISION, 
+    label: 'Architectural Vision', 
+    category: 'Bisnis & Seni', 
+    description: 'Visualize architectural concepts.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the building style...' 
+  },
+  { 
+    id: AppMode.INDUSTRIAL_DESIGN, 
+    label: 'Industrial Design', 
+    category: 'Bisnis & Seni', 
+    description: 'Product and industrial design visualization.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the object design...' 
+  },
+  { 
+    id: AppMode.FASHION_EDITORIAL, 
+    label: 'Fashion Editorial', 
+    category: 'Bisnis & Seni', 
+    description: 'High fashion editorial shots.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the fashion look...' 
+  },
+  { 
+    id: AppMode.DOUBLE_EXPOSURE, 
+    label: 'Double Exposure', 
+    category: 'Bisnis & Seni', 
+    description: 'Artistic double exposure effects.', 
+    inputType: 'dual-image', 
+    promptPlaceholder: 'Describe the two elements to blend...' 
+  },
 
-    // --- Lifestyle ---
-    { id: AppMode.UMRAH_HAJJ, label: 'Umrah & Hajj Vision', category: 'Lifestyle', description: 'Visualisasikan diri Anda atau keluarga di Tanah Suci (Makkah/Madinah) dengan pakaian Ihram/Syar\'i yang akurat dan suasana spiritual.', inputType: 'single-image', promptPlaceholder: 'Suasana yang diinginkan (misal: Berdoa khusyuk di depan Ka\'bah)...' },
-    { id: AppMode.TERRARIUM_BUILDER, label: 'Terrarium Builder', category: 'Lifestyle', description: 'Desain ekosistem miniatur di wadah kaca (botol/toples) dengan lapisan tanah dan tanaman detail.', inputType: 'none', promptPlaceholder: 'Konsep terrarium (misal: Hutan tropis dalam toples selai)...' },
-    { id: AppMode.CERAMIC_POTTERY, label: 'Ceramic & Pottery', category: 'Lifestyle', description: 'Studio desain keramik. Buat vas, piring, atau mug dengan tekstur tanah liat dan efek glasir kiln (bakar) yang nyata.', inputType: 'none', promptPlaceholder: 'Desain keramik (misal: Vas bunga terracotta dengan glasir biru leleh)...' },
-    { id: AppMode.FLORIST_ATELIER, label: 'Florist Atelier', category: 'Lifestyle', description: 'Studio merangkai bunga virtual. Desain buket tangan, vas meja, atau standing flower dengan tekstur kelopak dan wrapping yang nyata.', inputType: 'none', promptPlaceholder: 'Konsep rangkaian (misal: Buket Mawar Merah Anniversary)...' },
-    { id: AppMode.SNEAKER_LAB, label: 'Custom Sneaker Lab', category: 'Lifestyle', description: 'Desain sneakers kustom dengan tekstur material (kulit/suede/knit) dan colorway unik pada kaki atau produk.', inputType: 'single-image', promptPlaceholder: 'Konsep desain (misal: Cyberpunk, Pastel Dream)...' },
-    { id: AppMode.NAIL_ART, label: 'Nail Art Studio', category: 'Lifestyle', description: 'Visualisasi seni kuku (nail art) pada tangan asli. Atur panjang, bentuk, dan motif cat kuku secara realistis.', inputType: 'single-image', promptPlaceholder: 'Desain kuku (misal: Chrome Silver, Black Matte)...' },
-    { id: AppMode.MOD_MOTOR, label: 'Modifikasi Motor', category: 'Lifestyle', description: 'Ubah motor standar menjadi Cafe Racer, Scrambler, atau Drag Bike. Fokus pada detail mesin dan velg.', inputType: 'single-image', promptPlaceholder: 'Deskripsi gaya modifikasi (misal: Tangki hijau, ban gambot)...' },
-    { id: AppMode.MOD_CAR, label: 'Modifikasi Mobil', category: 'Lifestyle', description: 'Tuning mobil virtual: JDM, Stance, Rally, atau Luxury. Kustomisasi body kit, velg, dan suspensi.', inputType: 'single-image', promptPlaceholder: 'Konsep modifikasi (misal: Widebody, warna hitam matte, velg emas)...' },
-    { id: AppMode.HAIRSTYLE, label: 'Hairstyle Changer', category: 'Lifestyle', description: 'Ganti gaya rambut.', inputType: 'single-image', promptPlaceholder: 'Gaya/Warna rambut...' },
-    { id: AppMode.TATTOO, label: 'Tattoo Generator', category: 'Lifestyle', description: 'Desain tato tubuh.', inputType: 'single-image', promptPlaceholder: 'Desain tato...' },
-    { id: AppMode.PET_STUDIO, label: 'Pet Studio', category: 'Lifestyle', description: 'Foto hewan peliharaan.', inputType: 'single-image', promptPlaceholder: 'Tema kostum...' },
-    { id: AppMode.FOOD_STYLIST, label: 'Food Stylist', category: 'Lifestyle', description: 'Fotografi makanan.', inputType: 'single-image', promptPlaceholder: 'Suasana/Plating...' },
-    { id: AppMode.VEHICLE, label: 'Vehicle Custom (General)', category: 'Lifestyle', description: 'Modifikasi kendaraan umum.', inputType: 'single-image', promptPlaceholder: 'Modifikasi...' },
-    { id: AppMode.AVATAR_3D, label: '3D Avatar', category: 'Lifestyle', description: 'Avatar 3D lucu.', inputType: 'single-image', promptPlaceholder: 'Gaya kartun...' },
-    { id: AppMode.COSPLAY, label: 'Cosplay Generator', category: 'Lifestyle', description: 'Ubah jadi karakter.', inputType: 'single-image', promptPlaceholder: 'Nama karakter...' },
-    { id: AppMode.PIXEL_ART, label: 'Pixel Art', category: 'Lifestyle', description: 'Gaya pixel retro.', inputType: 'single-image', promptPlaceholder: 'Bit size...' },
-    { id: AppMode.JEWELRY, label: 'Jewelry Design', category: 'Lifestyle', description: 'Desain perhiasan.', inputType: 'single-image', promptPlaceholder: 'Material/Batu...' },
-    { id: AppMode.COMIC, label: 'Comic Style', category: 'Lifestyle', description: 'Ubah jadi komik.', inputType: 'single-image', promptPlaceholder: 'Gaya komik...' },
+  // --- Studio Pengeditan ---
+  { 
+    id: AppMode.RECOVERY, 
+    label: 'Photo Recovery', 
+    category: 'Studio Pengeditan', 
+    description: 'Restore old or damaged photos.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the damage to fix...' 
+  },
+  { 
+    id: AppMode.DETAILING, 
+    label: 'Ultra Detailing', 
+    category: 'Studio Pengeditan', 
+    description: 'Enhance details and resolution.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe details to enhance...' 
+  },
+  { 
+    id: AppMode.CINEMATIC_RELIGHTING, 
+    label: 'Cinematic Relighting', 
+    category: 'Studio Pengeditan', 
+    description: 'Change lighting and atmosphere.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the new lighting...' 
+  },
+  { 
+    id: AppMode.ANALOG_FILM, 
+    label: 'Analog Film', 
+    category: 'Studio Pengeditan', 
+    description: 'Apply analog film aesthetics.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the film look...' 
+  },
+  { 
+    id: AppMode.HDR_LANDSCAPE, 
+    label: 'HDR Landscape', 
+    category: 'Studio Pengeditan', 
+    description: 'High Dynamic Range landscapes.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the landscape enhancements...' 
+  },
+  { 
+    id: AppMode.GEN_FILL, 
+    label: 'Generative Fill', 
+    category: 'Studio Pengeditan', 
+    description: 'Fill missing parts or expand images.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe what to fill...' 
+  },
 
-    // --- Bisnis & Seni ---
-    { id: AppMode.MOCKUP, label: 'Mockup Generator', category: 'Bisnis & Seni', description: 'Desain produk.', inputType: 'single-image', promptPlaceholder: 'Jenis produk...' },
-    { id: AppMode.THUMBNAIL, label: 'YouTube Thumbnail', category: 'Bisnis & Seni', description: 'Thumbnail menarik.', inputType: 'single-image', promptPlaceholder: 'Judul/Teks...' },
-    { id: AppMode.VECTOR, label: 'Vector Art', category: 'Bisnis & Seni', description: 'Seni vektor flat.', inputType: 'single-image', promptPlaceholder: 'Style vektor...' },
-    { id: AppMode.CHARSHEET, label: 'Character Sheet', category: 'Bisnis & Seni', description: 'Desain karakter game.', inputType: 'none', promptPlaceholder: 'Deskripsi karakter...' },
-    { id: AppMode.COLORING, label: 'Coloring Page', category: 'Bisnis & Seni', description: 'Halaman mewarnai.', inputType: 'single-image', promptPlaceholder: 'Kompleksitas...' },
-    { id: AppMode.MAKEUP, label: 'Makeup Artist', category: 'Bisnis & Seni', description: 'Makeup virtual.', inputType: 'single-image', promptPlaceholder: 'Look makeup...' },
-    { id: AppMode.POPART, label: 'Pop Art', category: 'Bisnis & Seni', description: 'Gaya Andy Warhol.', inputType: 'single-image', promptPlaceholder: 'Warna...' },
-    { id: AppMode.CYBERPUNK, label: 'Cyberpunk', category: 'Bisnis & Seni', description: 'Futuristik neon.', inputType: 'single-image', promptPlaceholder: 'Elemen cyber...' },
-    { id: AppMode.MEME, label: 'Meme Generator', category: 'Bisnis & Seni', description: 'Meme lucu.', inputType: 'single-image', promptPlaceholder: 'Teks atas/bawah...' },
-    { id: AppMode.PACKAGING_DESIGN, label: 'Packaging Design', category: 'Bisnis & Seni', description: 'Desain kemasan.', inputType: 'none', promptPlaceholder: 'Produk & Gaya...' },
-    { id: AppMode.FASHION_SKETCH, label: 'Fashion Sketch', category: 'Bisnis & Seni', description: 'Sketsa busana.', inputType: 'single-image', promptPlaceholder: 'Detail pakaian...' },
-
-    // --- AI Tools ---
-    { id: AppMode.UI_TO_CODE, label: 'UI-to-Code', category: 'AI Tools', description: 'Konversi screenshot desain UI/UX menjadi kode HTML, Tailwind CSS, atau React Component.', inputType: 'single-image', promptPlaceholder: 'Instruksi khusus (misal: Gunakan React + Lucide Icons)...' },
-    { id: AppMode.NUTRITION_TRACKER, label: 'Nutrition & Macro', category: 'AI Tools', description: 'Foto makanan Anda untuk menghitung kalori, protein, lemak, dan karbohidrat secara instan.', inputType: 'single-image', promptPlaceholder: 'Keterangan tambahan (misal: Tanpa nasi, porsi kecil)...' },
-    { id: AppMode.HANDWRITING_DECIPHER, label: 'Handwriting Decipher', category: 'AI Tools', description: 'Baca tulisan tangan dokter, resep kuno, atau catatan kuliah yang sulit dibaca.', inputType: 'single-image', promptPlaceholder: 'Konteks tulisan (misal: Resep obat)...' },
-    { id: AppMode.DATA_ANALYST, label: 'Data Viz Analyst', category: 'AI Tools', description: 'Analisis grafik atau tabel excel. Dapatkan kesimpulan, tren, dan anomali data.', inputType: 'single-image', promptPlaceholder: 'Apa yang ingin dianalisis dari data ini?' },
-    { id: AppMode.DIY_REPAIR, label: 'DIY Home Fixer', category: 'AI Tools', description: 'Foto kerusakan rumah (pipa bocor, retak, dll) dan dapatkan panduan perbaikan langkah demi langkah.', inputType: 'single-image', promptPlaceholder: 'Keluhan kerusakan...' },
-    { id: AppMode.VINTAGE_ID, label: 'Vintage Identifier', category: 'AI Tools', description: 'Identifikasi barang antik, keramik, atau karya seni. Ketahui era, gaya, dan estimasi kelangkaan.', inputType: 'single-image', promptPlaceholder: 'Pertanyaan spesifik tentang objek...' },
-    { id: AppMode.CV_AUDITOR, label: 'Resume / CV Auditor', category: 'AI Tools', description: 'Review CV atau Resume Anda. Dapatkan kritik tajam tentang layout, typo, dan konten.', inputType: 'single-image', promptPlaceholder: 'Posisi pekerjaan yang dilamar...' },
-    { id: AppMode.TRAVEL_GUIDE, label: 'Landmark Guide', category: 'AI Tools', description: 'Pemandu wisata visual. Foto gedung atau patung untuk mengetahui sejarah dan rekomendasi sekitar.', inputType: 'single-image', promptPlaceholder: 'Pertanyaan tentang lokasi...' },
-    { id: AppMode.PERSONAL_COLOR, label: 'Personal Color Analyst', category: 'AI Tools', description: 'Temukan "Seasonal Color" (Musim Warna) Anda. AI menganalisis undertone kulit, mata, dan rambut untuk merekomendasikan palet warna fashion & makeup terbaik.', inputType: 'single-image', promptPlaceholder: 'Catatan (misal: Rambut saya dicat, warna asli hitam)...' },
-    
-    // Existing AI Tools
-    { id: AppMode.PROMPT_IDEA, label: 'Prompt Idea Generator', category: 'AI Tools', description: 'Saran prompt kreatif.', inputType: 'none', promptPlaceholder: 'Topik gambar...' },
-    { id: AppMode.IMAGE_DESC, label: 'Deskripsi Gambar', category: 'AI Tools', description: 'Deskripsikan gambar.', inputType: 'single-image', promptPlaceholder: 'Fokus deskripsi...' },
-    { id: AppMode.REVERSE_PROMPT, label: 'Reverse Prompt', category: 'AI Tools', description: 'Cari prompt asli.', inputType: 'single-image', promptPlaceholder: 'Gaya seni...' },
-    { id: AppMode.SOCIAL_MANAGER, label: 'Sosmed Manager', category: 'AI Tools', description: 'Caption & Hashtag.', inputType: 'single-image', promptPlaceholder: 'Platform target...' },
-    { id: AppMode.AI_CRITIC, label: 'AI Art Critic', category: 'AI Tools', description: 'Kritik foto.', inputType: 'single-image', promptPlaceholder: 'Aspek penilaian...' },
-    { id: AppMode.COLOR_PALETTE, label: 'Color Extractor', category: 'AI Tools', description: 'Ambil palet warna.', inputType: 'single-image', promptPlaceholder: 'Format output...' },
-    { id: AppMode.STORYTELLER, label: 'Visual Storyteller', category: 'AI Tools', description: 'Cerita dari gambar.', inputType: 'single-image', promptPlaceholder: 'Genre...' },
-    { id: AppMode.OCR, label: 'OCR Magic', category: 'AI Tools', description: 'Salin teks gambar.', inputType: 'single-image', promptPlaceholder: 'Bahasa...' },
-    { id: AppMode.FOOD_TO_RECIPE, label: 'Food to Recipe', category: 'AI Tools', description: 'Resep dari foto.', inputType: 'single-image', promptPlaceholder: 'Preferensi diet...' },
-    { id: AppMode.MATH_SOLVER, label: 'Math Solver', category: 'AI Tools', description: 'Solusi matematika.', inputType: 'single-image', promptPlaceholder: 'Tingkat detail...' },
-    { id: AppMode.PLANT_CARE, label: 'Dokter Tanaman', category: 'AI Tools', description: 'Identifikasi tanaman.', inputType: 'single-image', promptPlaceholder: 'Gejala...' },
+  // --- AI Tools ---
+  { 
+    id: AppMode.UI_TO_CODE, 
+    label: 'UI to Code', 
+    category: 'AI Tools', 
+    description: 'Convert UI images to code.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the desired interactivity...' 
+  },
+  { 
+    id: AppMode.NUTRITION_TRACKER, 
+    label: 'Nutrition Tracker', 
+    category: 'AI Tools', 
+    description: 'Analyze food images for nutrition info.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Any specific dietary questions?' 
+  },
+  { 
+    id: AppMode.HANDWRITING_DECIPHER, 
+    label: 'Handwriting Decipher', 
+    category: 'AI Tools', 
+    description: 'Transcribe handwritten text.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Any specific context?' 
+  },
+  { 
+    id: AppMode.DATA_ANALYST, 
+    label: 'Data Analyst', 
+    category: 'AI Tools', 
+    description: 'Analyze charts and data images.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'What insights do you need?' 
+  },
+  { 
+    id: AppMode.DIY_REPAIR, 
+    label: 'DIY Repair', 
+    category: 'AI Tools', 
+    description: 'Get repair instructions for items.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the issue...' 
+  },
+  { 
+    id: AppMode.CV_AUDITOR, 
+    label: 'CV Auditor', 
+    category: 'AI Tools', 
+    description: 'Analyze and improve your CV.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Target job role...' 
+  },
+  { 
+    id: AppMode.PERSONAL_COLOR, 
+    label: 'Personal Color', 
+    category: 'AI Tools', 
+    description: 'Analyze personal color palette.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe lighting conditions...' 
+  },
+  { 
+    id: AppMode.TRAVEL_GUIDE, 
+    label: 'Travel Guide', 
+    category: 'AI Tools', 
+    description: 'Get travel info from landmark photos.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Ask about this place...' 
+  },
+  
+  // Fillers for others to avoid crashes
+  { id: AppMode.PAINTING_GENERATOR, label: 'Painting Generator', category: 'Studio Pelukis', description: 'Generate paintings.', inputType: 'none', promptPlaceholder: 'Describe the painting...' },
+  { id: AppMode.STYLE_TRANSFER, label: 'Style Transfer', category: 'Studio Pengeditan', description: 'Transfer styles.', inputType: 'dual-image', promptPlaceholder: 'Describe style...' },
 ];

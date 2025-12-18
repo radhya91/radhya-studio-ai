@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Loader2, Image as ImageIcon, Type, Square, RectangleHorizontal, RectangleVertical, Settings2, Trash2, Camera, Sun, Zap, Crosshair, Box, Palette, Aperture, Users, Mountain, Building2, Armchair, Hand, Eye, Layers, Fingerprint, Baby, Heart, ShieldCheck, Moon, Microscope, ScanFace, Scale, Video, CloudRain, Wind, UserCheck, Flame, Infinity, Clapperboard, Film, Users2, Home, Shirt, UploadCloud, X, Footprints, Smile, UserPlus, Droplets, Target, ShoppingBag, History, Bandage, User, Wand2, ZoomIn, Cpu, Maximize2, Lightbulb, Scissors, Briefcase, Expand, PenTool, Wrench, Car, Sprout, Disc, Flower, Compass } from 'lucide-react';
-import { ModeConfig, GeneratedImage, AppMode, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, ArchitecturalVisionOptions, IndustrialDesignOptions, GenerationOptions, PersonalColorOptions, ModMotorOptions, ModCarOptions, SneakerLabOptions, NailArtOptions, TerrariumOptions, CeramicOptions, FloristOptions, UmrahHajjOptions } from '../types';
+import { Sparkles, Loader2, Image as ImageIcon, Type, Square, RectangleHorizontal, RectangleVertical, Settings2, Trash2, Camera, Sun, Zap, Crosshair, Box, Palette, Aperture, Users, Mountain, Building2, Armchair, Hand, Eye, Layers, Fingerprint, Baby, Heart, ShieldCheck, Moon, Microscope, ScanFace, Scale, Video, CloudRain, Wind, UserCheck, Flame, Infinity, Clapperboard, Film, Users2, Home, Shirt, UploadCloud, X, Footprints, Smile, UserPlus, Droplets, Target, ShoppingBag, History, Bandage, User, Wand2, ZoomIn, Cpu, Maximize2, Lightbulb, Scissors, Briefcase, Expand, PenTool, Wrench, Car, Sprout, Disc, Flower, Compass, Plane, Check, MapPin } from 'lucide-react';
+import { ModeConfig, GeneratedImage, AppMode, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, ArchitecturalVisionOptions, IndustrialDesignOptions, GenerationOptions, PersonalColorOptions, ModMotorOptions, ModCarOptions, SneakerLabOptions, NailArtOptions, TerrariumOptions, CeramicOptions, FloristOptions, UmrahHajjOptions, KoreaTravelOptions, IndonesiaTravelOptions } from '../types';
 import ImageUploader from './ImageUploader';
 import Gallery from './Gallery';
+
+// Alias CheckIcon to Check
+const CheckIcon = Check;
 
 interface InputPanelProps {
   config: ModeConfig;
@@ -35,6 +38,18 @@ const InputPanel: React.FC<InputPanelProps> = ({
   // Multi-Image State for Product Mode
   const [productImages, setProductImages] = useState<File[]>([]);
   const productFileInputRef = useRef<HTMLInputElement>(null);
+
+  // Multi-Image State for Umrah Family Mode
+  const [umrahImages, setUmrahImages] = useState<File[]>([]);
+  const umrahFileInputRef = useRef<HTMLInputElement>(null);
+
+  // Multi-Image State for Korea Travel Mode
+  const [koreaImages, setKoreaImages] = useState<File[]>([]);
+  const koreaFileInputRef = useRef<HTMLInputElement>(null);
+
+  // Multi-Image State for Indonesia Travel Mode
+  const [indoImages, setIndoImages] = useState<File[]>([]);
+  const indoFileInputRef = useRef<HTMLInputElement>(null);
 
   // Photo Carousel Specific States
   const [carouselLighting, setCarouselLighting] = useState('softbox');
@@ -162,35 +177,30 @@ const InputPanel: React.FC<InputPanelProps> = ({
   const [prodLight, setProdLight] = useState('softbox');
   const [prodPlace, setProdPlace] = useState('podium');
   const [productFixes, setProductFixes] = useState({
-    // Group 1
     gravityFix: true,
     perspectiveCorrect: true,
     scaleLogic: true,
     surfaceContact: true,
     lensDistortionFix: true,
     symmetryLock: true,
-    // Group 2
     glassCaustics: true,
     metalAnisotropy: true,
     liquidRefraction: true,
     plasticSubsurface: true,
     fabricWeave: true,
     condensationDrops: false,
-    // Group 3
     rimLighting: true,
     softboxSimulation: true,
     hardSunlight: false,
     reflectionContinuity: true,
     ambientOcclusion: true,
     globalIllumination: true,
-    // Group 4
     logoPreservation: true,
     colorAccuracy: true,
     labelFlatness: true,
     negativeSpace: false,
     noHallucinations: true,
     cleanEdges: true,
-    // Group 5
     goldenRatio: true,
     bokehControl: true,
     heroAngle: true,
@@ -317,8 +327,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
   });
 
   // --- NEW STATES FOR ADDED FEATURES ---
-
-  // Professional Headshot
   const [hsOutfit, setHsOutfit] = useState('suit');
   const [hsBackground, setHsBackground] = useState('office');
   const [hsFixes, setHsFixes] = useState({
@@ -328,7 +336,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     hairCleanup: true
   });
 
-  // Virtual Staging
   const [stgRoom, setStgRoom] = useState('living');
   const [stgStyle, setStgStyle] = useState('modern');
   const [stgFixes, setStgFixes] = useState({
@@ -338,7 +345,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     colorHarmony: true
   });
 
-  // Double Exposure
   const [deBlend, setDeBlend] = useState('silhouette');
   const [deSecond, setDeSecond] = useState('nature');
   const [deFixes, setDeFixes] = useState({
@@ -347,7 +353,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     colorGrade: true
   });
 
-  // HDR Landscape
   const [hdrStyle, setHdrStyle] = useState('natural');
   const [hdrSky, setHdrSky] = useState(true);
   const [hdrFixes, setHdrFixes] = useState({
@@ -357,7 +362,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     noiseReduction: true
   });
 
-  // Gen Fill
   const [gfDir, setGfDir] = useState('horizontal');
   const [gfZoom, setGfZoom] = useState('1.5x');
   const [gfFixes, setGfFixes] = useState({
@@ -366,7 +370,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     lightingConsistency: true
   });
 
-  // Fashion Editorial (Replaces Virtual Fashion)
   const [edStyle, setEdStyle] = useState('haute-couture');
   const [edLocation, setEdLocation] = useState('runway');
   const [edEra, setEdEra] = useState('modern');
@@ -378,7 +381,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     magazineColorGrade: true
   });
 
-  // Logo Mascot
   const [logoStyle, setLogoStyle] = useState('mascot');
   const [logoComplexity, setLogoComplexity] = useState('simple');
   const [logoFixes, setLogoFixes] = useState({
@@ -389,7 +391,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     printReadiness: true
   });
 
-  // Architectural Vision (New Feature)
   const [archiView, setArchiView] = useState('eye-level');
   const [archiEnv, setArchiEnv] = useState('sunny-noon');
   const [archiStyle, setArchiStyle] = useState('modern');
@@ -401,7 +402,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     interiorGlow: true
   });
 
-  // Industrial Design (New Feature)
   const [indMaterial, setIndMaterial] = useState('plastic-matte');
   const [indStyle, setIndStyle] = useState('minimalist');
   const [indView, setIndView] = useState('studio');
@@ -413,7 +413,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     partLineDefinition: true
   });
 
-  // Personal Color Analyst (New States)
   const [pcLighting, setPcLighting] = useState('unknown');
   const [pcHair, setPcHair] = useState('natural');
   const [pcVein, setPcVein] = useState('unsure');
@@ -425,7 +424,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     focusOnIrisPattern: true
   });
 
-  // Mod Motor States (Updated for 10 Blind Spots)
   const [motorStyle, setMotorStyle] = useState('cafe-racer');
   const [motorExhaust, setMotorExhaust] = useState('shorty');
   const [motorSeat, setMotorSeat] = useState('single');
@@ -442,7 +440,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     mirrorReflection: true
   });
 
-  // Mod Car States (Updated for 20 Blind Spots)
   const [carStyle, setCarStyle] = useState('jdm');
   const [carRim, setCarRim] = useState('te37');
   const [carSusp, setCarSusp] = useState('lowered');
@@ -469,7 +466,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     groundClearance: true,
   });
 
-  // Sneaker Lab States (New)
   const [sneakerStyle, setSneakerStyle] = useState('high-top');
   const [sneakerMaterial, setSneakerMaterial] = useState('leather');
   const [sneakerColor, setSneakerColor] = useState('panda');
@@ -486,7 +482,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     tonguePlacement: true
   });
 
-  // Nail Art States (New)
   const [nailStyle, setNailStyle] = useState('french-tip');
   const [nailLength, setNailLength] = useState('medium');
   const [nailFinish, setNailFinish] = useState('glossy');
@@ -503,7 +498,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     lengthLogic: true
   });
 
-  // Terrarium Builder States (New)
   const [terraContainer, setTerraContainer] = useState('jar');
   const [terraEco, setTerraEco] = useState('tropical');
   const [terraDecor, setTerraDecor] = useState('stones');
@@ -520,7 +514,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     mossTexture: true
   });
 
-  // Ceramic Pottery States (New)
   const [potItem, setPotItem] = useState('vase');
   const [potClay, setPotClay] = useState('terracotta');
   const [potGlaze, setPotGlaze] = useState('drip');
@@ -537,7 +530,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     reflectivity: true
   });
 
-  // Florist Atelier States (New)
   const [floristStyle, setFloristStyle] = useState('hand-bouquet');
   const [floristFlower, setFloristFlower] = useState('roses');
   const [floristMaterial, setFloristMaterial] = useState('kraft-paper');
@@ -554,7 +546,6 @@ const InputPanel: React.FC<InputPanelProps> = ({
     dewDrops: true,
   });
 
-  // Umrah & Hajj Vision States (New)
   const [umrahPilgrim, setUmrahPilgrim] = useState('man');
   const [umrahLocation, setUmrahLocation] = useState('kaaba');
   const [umrahShot, setUmrahShot] = useState('portrait');
@@ -569,6 +560,45 @@ const InputPanel: React.FC<InputPanelProps> = ({
     archAccuracy: true,
     ihramBelt: true,
     faceSerenity: true
+  });
+
+  const [koreaGroup, setKoreaGroup] = useState('solo');
+  const [koreaLocation, setKoreaLocation] = useState('gyeongbokgung');
+  const [koreaSeason, setKoreaSeason] = useState('spring');
+  const [koreaTime, setKoreaTime] = useState('day');
+  const [koreaShot, setKoreaShot] = useState('portrait');
+  const [koreaAttire, setKoreaAttire] = useState('auto');
+  const [koreaFixes, setKoreaFixes] = useState({
+    glassSkin: true,
+    hanbokVolume: true,
+    dancheongPattern: true,
+    cherryBlossomDensity: true,
+    fingerHeart: false,
+    coupleHarmony: true,
+    architecturalScale: true,
+    bokehCity: true,
+    hairStyleLogic: true,
+    naturalLighting: true,
+  });
+
+  // Indonesia Travel States
+  const [indoGroup, setIndoGroup] = useState('solo');
+  const [indoLocation, setIndoLocation] = useState('borobudur');
+  const [indoSeason, setIndoSeason] = useState('dry-season');
+  const [indoTime, setIndoTime] = useState('day');
+  const [indoShot, setIndoShot] = useState('portrait');
+  const [indoAttire, setIndoAttire] = useState('auto');
+  const [indoFixes, setIndoFixes] = useState({
+    tropicalLighting: true,
+    batikDetail: true,
+    skinTexture: true,
+    lushGreenery: true,
+    waterRefraction: true,
+    cloudVolume: true,
+    architecturalDetail: true,
+    sunGlare: true,
+    naturalVibe: true,
+    heatHaze: false,
   });
 
   const hasResults = generatedImages.length > 0 || !!textContent;
@@ -613,6 +643,8 @@ const InputPanel: React.FC<InputPanelProps> = ({
   const isCeramic = config.id === AppMode.CERAMIC_POTTERY;
   const isFlorist = config.id === AppMode.FLORIST_ATELIER;
   const isUmrah = config.id === AppMode.UMRAH_HAJJ;
+  const isKoreaTravel = config.id === AppMode.KOREA_TRAVEL;
+  const isIndonesiaTravel = config.id === AppMode.INDONESIA_TRAVEL;
 
   useEffect(() => {
     // Reset inputs only when mode changes, not when generating
@@ -621,6 +653,9 @@ const InputPanel: React.FC<InputPanelProps> = ({
     setImage2(null);
     setFamilyImages([]);
     setProductImages([]);
+    setUmrahImages([]);
+    setKoreaImages([]);
+    setIndoImages([]);
     setAspectRatio('1:1');
     
     // Reset specific states based on mode
@@ -685,13 +720,16 @@ const InputPanel: React.FC<InputPanelProps> = ({
     } else if (isFlorist) {
         options = { style: floristStyle, flowerType: floristFlower, material: floristMaterial, fixes: floristFixes } as FloristOptions;
     } else if (isUmrah) {
-        options = { pilgrimType: umrahPilgrim, location: umrahLocation, shotType: umrahShot, fixes: umrahFixes } as UmrahHajjOptions;
+        options = { pilgrimType: umrahPilgrim, location: umrahLocation, shotType: umrahShot, files: umrahImages, fixes: umrahFixes } as UmrahHajjOptions;
+    } else if (isKoreaTravel) {
+        options = { groupType: koreaGroup, location: koreaLocation, season: koreaSeason, timeOfDay: koreaTime, shotType: koreaShot, attireStyle: koreaAttire, files: koreaImages, fixes: koreaFixes } as KoreaTravelOptions;
+    } else if (isIndonesiaTravel) {
+        options = { groupType: indoGroup, location: indoLocation, season: indoSeason, timeOfDay: indoTime, shotType: indoShot, attireStyle: indoAttire, files: indoImages, fixes: indoFixes } as IndonesiaTravelOptions;
     }
 
     onGenerate(prompt, image1, image2, aspectRatio, options);
   };
 
-  // Toggle Handlers
   const toggleCarouselFix = (key: keyof typeof carouselFixes) => setCarouselFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleShootFix = (key: keyof typeof shootFixes) => setShootFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleNewbornFix = (key: keyof typeof newbornFixes) => setNewbornFixes(prev => ({...prev, [key]: !prev[key]}));
@@ -720,6 +758,8 @@ const InputPanel: React.FC<InputPanelProps> = ({
   const togglePotFix = (key: keyof typeof potFixes) => setPotFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleFloristFix = (key: keyof typeof floristFixes) => setFloristFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleUmrahFix = (key: keyof typeof umrahFixes) => setUmrahFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleKoreaFix = (key: keyof typeof koreaFixes) => setKoreaFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleIndoFix = (key: keyof typeof indoFixes) => setIndoFixes(prev => ({...prev, [key]: !prev[key]}));
 
   // Multi-Image Handler for Family
   const handleFamilyFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -751,6 +791,51 @@ const InputPanel: React.FC<InputPanelProps> = ({
 
   const removeProductImage = (index: number) => {
     setProductImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // Multi-Image Handler for Umrah Family
+  const handleUmrahFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+        const newFiles = Array.from(e.target.files);
+        setUmrahImages(prev => {
+            const combined = [...prev, ...newFiles];
+            return combined.slice(0, 10); // Limit to 10 for now
+        });
+    }
+  };
+
+  const removeUmrahImage = (index: number) => {
+    setUmrahImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // Multi-Image Handler for Korea Travel
+  const handleKoreaFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+        const newFiles = Array.from(e.target.files);
+        setKoreaImages(prev => {
+            const combined = [...prev, ...newFiles];
+            return combined.slice(0, 15); // Limit to 15
+        });
+    }
+  };
+
+  const removeKoreaImage = (index: number) => {
+    setKoreaImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // Multi-Image Handler for Indonesia Travel
+  const handleIndoFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+        const newFiles = Array.from(e.target.files);
+        setIndoImages(prev => {
+            const combined = [...prev, ...newFiles];
+            return combined.slice(0, 15); // Limit to 15
+        });
+    }
+  };
+
+  const removeIndoImage = (index: number) => {
+    setIndoImages(prev => prev.filter((_, i) => i !== index));
   };
 
   const isImageOutput = !config.category.includes('AI Tools');
@@ -789,19 +874,19 @@ const InputPanel: React.FC<InputPanelProps> = ({
                 {/* Left Col: Inputs */}
                 <div className="lg:col-span-12 space-y-6">
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-6">
-                         {/* Standard Image Inputs (hidden for Multi-Upload Modes: Family & Product) */}
-                        {!isFamily && !isProduct && !isTerrarium && !isCeramic && !isFlorist && !isUmrah && (config.inputType === 'single-image' || config.inputType === 'dual-image') && (
+                         {/* Standard Image Inputs (hidden for Multi-Upload Modes: Family & Product & Umrah & Korea & Indonesia) */}
+                        {!isFamily && !isProduct && !isTerrarium && !isCeramic && !isFlorist && !isUmrah && !isKoreaTravel && !isIndonesiaTravel && (config.inputType === 'single-image' || config.inputType === 'dual-image') && (
                             <div className="space-y-3">
                                 <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider">
                                     <ImageIcon size={14} className="text-indigo-500" />
                                     {isPhotoshoot ? 'Product Reference' : 
-                                     (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar || isSneakerLab || isNailArt || isUmrah) 
+                                     (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar || isSneakerLab || isNailArt || isUmrah || isKoreaTravel || isIndonesiaTravel) 
                                      ? 'Input Image' : 'Reference Content'}
                                 </label>
                             
                                 <div className={`grid gap-4 ${config.inputType === 'dual-image' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
                                     <ImageUploader
-                                        label={isPhotoshoot ? "Product Image" : (config.inputType === 'dual-image' ? 'First Image' : (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar || isSneakerLab || isNailArt || isUmrah) ? 'Upload Source' : 'Reference Image')}
+                                        label={isPhotoshoot ? "Product Image" : (config.inputType === 'dual-image' ? 'First Image' : (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar || isSneakerLab || isNailArt || isUmrah || isKoreaTravel || isIndonesiaTravel) ? 'Upload Source' : 'Reference Image')}
                                         imageFile={image1}
                                         onFileChange={setImage1}
                                     />
@@ -816,221 +901,342 @@ const InputPanel: React.FC<InputPanelProps> = ({
                             </div>
                         )}
 
-                        {/* --- TERRARIUM BUILDER UI --- */}
-                        {isTerrarium && (
-                            <div className="bg-green-50/50 p-5 rounded-xl border border-green-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-green-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Sprout size={14} /> Mini Ecosystem Lab
+                        {/* --- KOREA TRAVELING VISION UI --- */}
+                        {isKoreaTravel && (
+                            <div className="bg-sky-50/50 p-5 rounded-xl border border-sky-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-sky-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Plane size={14} /> Korea Traveling Vision
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Container Shape</label>
-                                        <select value={terraContainer} onChange={(e) => setTerraContainer(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="jar">Mason Jar (Vintage)</option>
-                                            <option value="bulb">Light Bulb</option>
-                                            <option value="geometric">Geometric Prism (Polyhedron)</option>
-                                            <option value="aquarium">Mini Aquarium Cube</option>
-                                            <option value="bottle">Wine Bottle (Narrow Neck)</option>
-                                            <option value="teardrop">Teardrop Hanging Glass</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Ecosystem Type</label>
-                                        <select value={terraEco} onChange={(e) => setTerraEco(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="tropical">Tropical (Moss, Ferns, Fittonia)</option>
-                                            <option value="desert">Desert (Succulents, Cacti, Sand)</option>
-                                            <option value="aquatic">Aquatic (Marimo, Water Plants)</option>
-                                            <option value="carnivorous">Carnivorous Bog (Venus Flytrap)</option>
-                                            <option value="forest">Temperate Forest (Bark, Lichen)</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Decor Element</label>
-                                        <select value={terraDecor} onChange={(e) => setTerraDecor(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="stones">River Stones / Pebbles</option>
-                                            <option value="driftwood">Miniature Driftwood</option>
-                                            <option value="crystals">Raw Crystals / Geodes</option>
-                                            <option value="house">Tiny House / Cottage</option>
-                                            <option value="figurine">Ghibli Style Figurine</option>
-                                            <option value="ruins">Ancient Ruins</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="space-y-2 pt-2 border-t border-green-200/50">
-                                    <h4 className="text-[10px] font-bold text-green-600 uppercase mb-2">Physics & Biology Fixes</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {Object.entries(terraFixes).map(([key, active]) => (
-                                            <button key={key} onClick={() => toggleTerraFix(key as keyof typeof terraFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-green-100 text-green-800 border-green-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- CERAMIC POTTERY UI --- */}
-                        {isCeramic && (
-                            <div className="bg-amber-50/50 p-5 rounded-xl border border-amber-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-amber-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Disc size={14} /> Ceramic & Pottery Studio
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Item Type</label>
-                                        <select value={potItem} onChange={(e) => setPotItem(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="vase">Flower Vase</option>
-                                            <option value="mug">Coffee Mug</option>
-                                            <option value="bowl">Ramen Bowl</option>
-                                            <option value="plate">Dinner Plate</option>
-                                            <option value="plant-pot">Plant Pot (Planter)</option>
-                                            <option value="tea-set">Tea Set (Teapot + Cups)</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Clay Style</label>
-                                        <select value={potClay} onChange={(e) => setPotClay(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="terracotta">Terracotta (Red Earthy)</option>
-                                            <option value="porcelain">Porcelain (White Delicate)</option>
-                                            <option value="stoneware">Stoneware (Speckled)</option>
-                                            <option value="raku">Raku (Burnt/Iridescent)</option>
-                                            <option value="black-clay">Black Clay</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Glaze Technique</label>
-                                        <select value={potGlaze} onChange={(e) => setPotGlaze(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="drip">Drip Glaze (Lelehan)</option>
-                                            <option value="crackle">Crackle Glaze (Retak Seribu)</option>
-                                            <option value="matte">Matte Finish (No Shine)</option>
-                                            <option value="celadon">Celadon (Jade Green)</option>
-                                            <option value="crystalline">Crystalline (Starry)</option>
-                                            <option value="unglazed">Unglazed (Raw)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="space-y-2 pt-2 border-t border-amber-200/50">
-                                    <h4 className="text-[10px] font-bold text-amber-600 uppercase mb-2">Wheel & Kiln Physics Fixes</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {Object.entries(potFixes).map(([key, active]) => (
-                                            <button key={key} onClick={() => togglePotFix(key as keyof typeof potFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- FLORIST ATELIER UI --- */}
-                        {isFlorist && (
-                            <div className="bg-rose-50/50 p-5 rounded-xl border border-rose-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-rose-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Flower size={14} /> Florist Atelier
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Arrangement Style</label>
-                                        <select value={floristStyle} onChange={(e) => setFloristStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="hand-bouquet">Hand Bouquet (Wrapped)</option>
-                                            <option value="table-vase">Table Vase Arrangement</option>
-                                            <option value="flower-box">Luxury Flower Box</option>
-                                            <option value="standing">Standing Flower (Papan/Rak)</option>
-                                            <option value="bridal">Bridal Bouquet (Compact)</option>
-                                            <option value="boutonniere">Boutonniere (Jas Pria)</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Primary Flower</label>
-                                        <select value={floristFlower} onChange={(e) => setFloristFlower(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="roses">Roses (Mawar)</option>
-                                            <option value="tulips">Tulips (Belanda)</option>
-                                            <option value="peonies">Peonies (Mewah)</option>
-                                            <option value="lilies">Lilies (Besar)</option>
-                                            <option value="wildflowers">Mixed Wildflowers (Rustic)</option>
-                                            <option value="orchids">Orchids (Anggrek)</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Wrapping / Vase</label>
-                                        <select value={floristMaterial} onChange={(e) => setFloristMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="kraft-paper">Brown Kraft Paper (Rustic)</option>
-                                            <option value="clear-glass">Clear Glass Vase</option>
-                                            <option value="ceramic">White Ceramic Vase</option>
-                                            <option value="velvet-box">Round Velvet Box</option>
-                                            <option value="korean-paper">Korean Waterproof Paper (Pastel)</option>
-                                            <option value="burlap">Burlap / Goni</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="space-y-2 pt-2 border-t border-rose-200/50">
-                                    <h4 className="text-[10px] font-bold text-rose-600 uppercase mb-2">Botanical Realism Fixes</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {Object.entries(floristFixes).map(([key, active]) => (
-                                            <button key={key} onClick={() => toggleFloristFix(key as keyof typeof floristFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-rose-100 text-rose-800 border-rose-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- UMRAH & HAJJ VISION UI --- */}
-                        {isUmrah && (
-                            <div className="bg-emerald-50/50 p-5 rounded-xl border border-emerald-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-emerald-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Moon size={14} /> Umrah & Hajj Vision
-                                </h3>
-                                {/* Image Uploader for Face Swap */}
-                                <div className="mb-4">
-                                    <ImageUploader 
-                                        label="Upload Face Photo (Selfie)"
-                                        imageFile={image1}
-                                        onFileChange={setImage1}
-                                    />
-                                    <p className="text-[10px] text-gray-400 mt-2 text-center">
-                                        *Upload a clear selfie to visualize yourself in the Holy Land.
-                                    </p>
-                                </div>
+                                
+                                {/* Dynamic Uploader: Show only if NOT landscape */}
+                                {koreaShot !== 'landscape' && (
+                                    <>
+                                        {['small-family', 'big-family', 'couple'].includes(koreaGroup) ? (
+                                            <div className="mb-4 animate-in fade-in slide-in-from-top-2">
+                                                <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider mb-3">
+                                                    <Users size={14} className="text-sky-600" />
+                                                    Upload Travelers
+                                                </label>
+                                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                                                    <div 
+                                                        onClick={() => koreaFileInputRef.current?.click()}
+                                                        className="aspect-square border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-sky-400 transition-colors"
+                                                    >
+                                                        <UserPlus size={24} className="text-gray-400 mb-1" />
+                                                        <span className="text-[10px] font-bold text-gray-500 uppercase">Add Photo</span>
+                                                    </div>
+                                                    <input 
+                                                        type="file" 
+                                                        ref={koreaFileInputRef} 
+                                                        className="hidden" 
+                                                        multiple 
+                                                        accept="image/*"
+                                                        onChange={handleKoreaFiles}
+                                                    />
+                                                    {koreaImages.map((file, index) => (
+                                                        <div key={index} className="aspect-square relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                                                            <img src={URL.createObjectURL(file)} alt="Traveler" className="w-full h-full object-cover" />
+                                                            <button 
+                                                                onClick={() => removeKoreaImage(index)}
+                                                                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                                            >
+                                                                <X size={12} />
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <p className="text-[10px] text-gray-400 mt-2">*Upload clear face photos of everyone (Max 15).</p>
+                                            </div>
+                                        ) : (
+                                            <div className="mb-4 animate-in fade-in slide-in-from-top-2">
+                                                <ImageUploader 
+                                                    label="Upload Your Photo"
+                                                    imageFile={image1}
+                                                    onFileChange={setImage1}
+                                                />
+                                                <p className="text-[10px] text-gray-400 mt-2 text-center">
+                                                    *Upload a clear selfie/portrait.
+                                                </p>
+                                            </div>
+                                        )}
+                                    </>
+                                )}
 
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Pilgrim Type</label>
-                                        <select value={umrahPilgrim} onChange={(e) => setUmrahPilgrim(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="man">Man (Ihram Clothing)</option>
-                                            <option value="woman">Woman (Abaya/Hijab)</option>
-                                            <option value="couple">Couple (Husband & Wife)</option>
-                                            <option value="family">Family (Parents + Kids)</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Location</label>
-                                        <select value={umrahLocation} onChange={(e) => setUmrahLocation(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="kaaba">Makkah - Kaaba (Mataf)</option>
-                                            <option value="nabawi">Madinah - Masjid Nabawi</option>
-                                            <option value="jabal-rahmah">Arafah - Jabal Rahmah</option>
-                                            <option value="quba">Masjid Quba</option>
-                                            <option value="taif">Taif Mountains</option>
-                                        </select>
-                                    </div>
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Shot Type</label>
-                                        <select value={umrahShot} onChange={(e) => setUmrahShot(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="portrait">Close-up Portrait (Peaceful)</option>
-                                            <option value="dua">Raising Hands in Dua</option>
-                                            <option value="walking">Walking / Tawaf</option>
-                                            <option value="crowd">Amidst the Crowd</option>
-                                            <option value="sujud">Sujud / Prostration</option>
+                                        <select value={koreaShot} onChange={(e) => setKoreaShot(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="portrait">Close-up Portrait</option>
+                                            <option value="candid">Candid Moment</option>
+                                            <option value="full-body">Full Body OOTD</option>
+                                            <option value="landscape">Landscape Only (No People)</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Group Type (Disabled if Landscape) */}
+                                    <div className={`space-y-2 ${koreaShot === 'landscape' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Group Type</label>
+                                        <select value={koreaGroup} onChange={(e) => setKoreaGroup(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="solo">Solo Traveler</option>
+                                            <option value="couple">Couple (Romantic)</option>
+                                            <option value="small-family">Small Family (3-4)</option>
+                                            <option value="big-family">Big Family (5+)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    {/* Attire (Disabled if Landscape) */}
+                                    <div className={`space-y-2 ${koreaShot === 'landscape' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Attire</label>
+                                        <select value={koreaAttire} onChange={(e) => setKoreaAttire(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="auto">Auto-Match Location</option>
+                                            <option value="hanbok">Traditional Hanbok</option>
+                                            <option value="modern">Modern K-Fashion</option>
+                                            <option value="school">K-Drama School Uniform</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div className="space-y-2 pt-2 border-t border-emerald-200/50">
-                                    <h4 className="text-[10px] font-bold text-emerald-600 uppercase mb-2">Spiritual Accuracy & Physics Fixes</h4>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Location</label>
+                                        <select value={koreaLocation} onChange={(e) => setKoreaLocation(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <optgroup label="Seoul (Capital)">
+                                                <option value="gyeongbokgung">Gyeongbokgung Palace</option>
+                                                <option value="bukchon">Bukchon Hanok Village</option>
+                                                <option value="gangnam-street">Gangnam Modern Street</option>
+                                                <option value="starfield">Starfield Library (Coex)</option>
+                                                <option value="hongdae">Hongdae Hipster Street</option>
+                                                <option value="han-river">Han River Park (Picnic)</option>
+                                                <option value="n-seoul-tower">N Seoul Tower (Namsan)</option>
+                                                <option value="lotte-world-tower">Lotte World Tower (Sky Bridge)</option>
+                                                <option value="ddp">Dongdaemun Design Plaza (DDP)</option>
+                                                <option value="ihwa-mural">Ihwa Mural Village</option>
+                                                <option value="olympic-park">Olympic Park (Lone Tree)</option>
+                                            </optgroup>
+                                            <optgroup label="Busan (Coastal City)">
+                                                <option value="gamcheon">Gamcheon Culture Village</option>
+                                                <option value="haeundae">Haeundae Beach</option>
+                                                <option value="gwangalli">Gwangalli Bridge (Night View)</option>
+                                                <option value="yonggungsa">Haedong Yonggungsa Temple</option>
+                                                <option value="huinnyeoul">Huinnyeoul Culture Village</option>
+                                            </optgroup>
+                                            <optgroup label="Jeju Island (Nature)">
+                                                <option value="jeju-flower">Jeju Canola/Hydrangea Field</option>
+                                                <option value="seongsan">Seongsan Ilchulbong (Sunrise Peak)</option>
+                                                <option value="hallasan">Hallasan National Park (Snow/Nature)</option>
+                                                <option value="seopjikoji">Seopjikoji Coast</option>
+                                                <option value="camellia-hill">Camellia Hill</option>
+                                            </optgroup>
+                                            <optgroup label="Gyeongju (Ancient History)">
+                                                <option value="bulguksa">Bulguksa Temple</option>
+                                                <option value="donggung-wolji">Donggung Palace & Wolji Pond</option>
+                                                <option value="cheomseongdae">Cheomseongdae Observatory</option>
+                                                <option value="daereungwon">Daereungwon Ancient Tombs</option>
+                                            </optgroup>
+                                            <optgroup label="Other Famous Spots">
+                                                <option value="nami">Nami Island (Winter Sonata)</option>
+                                                <option value="jeonju-hanok">Jeonju Hanok Village</option>
+                                                <option value="suwon-hwaseong">Suwon Hwaseong Fortress</option>
+                                                <option value="boseong-tea">Boseong Green Tea Fields</option>
+                                                <option value="damyang-bamboo">Damyang Bamboo Forest</option>
+                                                <option value="garden-morning-calm">Garden of Morning Calm</option>
+                                                <option value="seoraksan">Seoraksan National Park</option>
+                                                <option value="pocheon-art">Pocheon Art Valley</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Season</label>
+                                        <select value={koreaSeason} onChange={(e) => setKoreaSeason(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="spring">Spring (Cherry Blossom)</option>
+                                            <option value="autumn">Autumn (Maple/Ginkgo)</option>
+                                            <option value="winter">Winter (Snowy)</option>
+                                            <option value="summer">Summer (Lush Green)</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Time of Day</label>
+                                        <select value={koreaTime} onChange={(e) => setKoreaTime(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="day">Bright Daylight</option>
+                                            <option value="sunset">Sunset (Golden Hour)</option>
+                                            <option value="sunrise">Sunrise (Blue Hour)</option>
+                                            <option value="night">Night Cityscape</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2 pt-2 border-t border-sky-200/50">
+                                    <h4 className="text-[10px] font-bold text-sky-600 uppercase mb-2">K-Culture Realism Fixes</h4>
                                     <div className="flex flex-wrap gap-2">
-                                        {Object.entries(umrahFixes).map(([key, active]) => (
-                                            <button key={key} onClick={() => toggleUmrahFix(key as keyof typeof umrahFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        {Object.entries(koreaFixes).map(([key, active]) => (
+                                            <button key={key} onClick={() => toggleKoreaFix(key as keyof typeof koreaFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-sky-100 text-sky-800 border-sky-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                {active ? <CheckIcon size={12} /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- INDONESIA TRAVELING VISION UI --- */}
+                        {isIndonesiaTravel && (
+                            <div className="bg-emerald-50/50 p-5 rounded-xl border border-emerald-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-emerald-800 uppercase tracking-widest flex items-center gap-2">
+                                    <MapPin size={14} /> Indonesia Traveling Vision
+                                </h3>
+                                
+                                {/* Dynamic Uploader: Show only if NOT landscape */}
+                                {indoShot !== 'landscape' && (
+                                    <>
+                                        {['small-family', 'big-family', 'couple'].includes(indoGroup) ? (
+                                            <div className="mb-4 animate-in fade-in slide-in-from-top-2">
+                                                <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider mb-3">
+                                                    <Users size={14} className="text-emerald-600" />
+                                                    Upload Travelers
+                                                </label>
+                                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                                                    <div 
+                                                        onClick={() => indoFileInputRef.current?.click()}
+                                                        className="aspect-square border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-emerald-400 transition-colors"
+                                                    >
+                                                        <UserPlus size={24} className="text-gray-400 mb-1" />
+                                                        <span className="text-[10px] font-bold text-gray-500 uppercase">Add Photo</span>
+                                                    </div>
+                                                    <input 
+                                                        type="file" 
+                                                        ref={indoFileInputRef} 
+                                                        className="hidden" 
+                                                        multiple 
+                                                        accept="image/*"
+                                                        onChange={handleIndoFiles}
+                                                    />
+                                                    {indoImages.map((file, index) => (
+                                                        <div key={index} className="aspect-square relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                                                            <img src={URL.createObjectURL(file)} alt="Traveler" className="w-full h-full object-cover" />
+                                                            <button 
+                                                                onClick={() => removeIndoImage(index)}
+                                                                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                                            >
+                                                                <X size={12} />
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <p className="text-[10px] text-gray-400 mt-2">*Upload clear face photos of everyone (Max 15).</p>
+                                            </div>
+                                        ) : (
+                                            <div className="mb-4 animate-in fade-in slide-in-from-top-2">
+                                                <ImageUploader 
+                                                    label="Upload Your Photo"
+                                                    imageFile={image1}
+                                                    onFileChange={setImage1}
+                                                />
+                                                <p className="text-[10px] text-gray-400 mt-2 text-center">
+                                                    *Upload a clear selfie/portrait.
+                                                </p>
+                                            </div>
+                                        )}
+                                    </>
+                                )}
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Shot Type</label>
+                                        <select value={indoShot} onChange={(e) => setIndoShot(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="portrait">Close-up Portrait</option>
+                                            <option value="candid">Candid Moment</option>
+                                            <option value="full-body">Full Body OOTD</option>
+                                            <option value="landscape">Landscape Only (No People)</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Group Type (Disabled if Landscape) */}
+                                    <div className={`space-y-2 ${indoShot === 'landscape' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Group Type</label>
+                                        <select value={indoGroup} onChange={(e) => setIndoGroup(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="solo">Solo Traveler</option>
+                                            <option value="couple">Couple (Romantic)</option>
+                                            <option value="small-family">Small Family (3-4)</option>
+                                            <option value="big-family">Big Family (5+)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    {/* Attire (Disabled if Landscape) */}
+                                    <div className={`space-y-2 ${indoShot === 'landscape' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Attire</label>
+                                        <select value={indoAttire} onChange={(e) => setIndoAttire(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="auto">Auto-Match Location</option>
+                                            <option value="batik">Traditional Batik</option>
+                                            <option value="kebaya">Kebaya Modern</option>
+                                            <option value="tropical">Tropical Casual (Bali Style)</option>
+                                            <option value="hiking">Hiking Gear (Mountain)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Location</label>
+                                        <select value={indoLocation} onChange={(e) => setIndoLocation(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <optgroup label="Bali (Island of Gods)">
+                                                <option value="tanah-lot">Tanah Lot Temple (Sunset)</option>
+                                                <option value="uluwatu">Uluwatu Temple (Cliff)</option>
+                                                <option value="tegallalang">Tegallalang Rice Terrace (Ubud)</option>
+                                                <option value="lempuyang">Lempuyang Temple (Gates of Heaven)</option>
+                                                <option value="kelingking">Kelingking Beach (Nusa Penida)</option>
+                                                <option value="ulun-danu">Ulun Danu Beratan Temple</option>
+                                            </optgroup>
+                                            <optgroup label="Java (Heritage & City)">
+                                                <option value="borobudur">Borobudur Temple (Magelang)</option>
+                                                <option value="prambanan">Prambanan Temple (Yogyakarta)</option>
+                                                <option value="bromo">Mount Bromo (Sunrise)</option>
+                                                <option value="kawah-ijen">Kawah Ijen (Blue Fire)</option>
+                                                <option value="malioboro">Malioboro Street (Yogyakarta)</option>
+                                                <option value="monas">Monas (Jakarta)</option>
+                                                <option value="kota-tua">Kota Tua (Jakarta Old Town)</option>
+                                            </optgroup>
+                                            <optgroup label="Sumatra & Nature">
+                                                <option value="toba">Lake Toba (Samosir)</option>
+                                                <option value="bukittinggi">Jam Gadang (Bukittinggi)</option>
+                                                <option value="belitung">Tanjung Tinggi Beach (Laskar Pelangi)</option>
+                                            </optgroup>
+                                            <optgroup label="Eastern Indonesia (Exotic)">
+                                                <option value="raja-ampat">Raja Ampat (Wayag Islands)</option>
+                                                <option value="komodo">Komodo Island (Pink Beach)</option>
+                                                <option value="padar">Padar Island (Labuan Bajo)</option>
+                                                <option value="toraja">Tana Toraja (Tongkonan House)</option>
+                                                <option value="wakatobi">Wakatobi (Underwater/Beach)</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Season</label>
+                                        <select value={indoSeason} onChange={(e) => setIndoSeason(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="dry-season">Dry Season (Sunny & Bright)</option>
+                                            <option value="rainy-season">Rainy Season (Overcast/Mist)</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Time of Day</label>
+                                        <select value={indoTime} onChange={(e) => setIndoTime(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="day">Bright Daylight</option>
+                                            <option value="sunset">Sunset (Golden Hour)</option>
+                                            <option value="sunrise">Sunrise (Misty)</option>
+                                            <option value="night">Night Ambiance</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2 pt-2 border-t border-emerald-200/50">
+                                    <h4 className="text-[10px] font-bold text-emerald-600 uppercase mb-2">Tropical Realism Fixes</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {Object.entries(indoFixes).map(([key, active]) => (
+                                            <button key={key} onClick={() => toggleIndoFix(key as keyof typeof indoFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                {active ? <CheckIcon size={12} /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
                                             </button>
                                         ))}
                                     </div>
@@ -1040,376 +1246,111 @@ const InputPanel: React.FC<InputPanelProps> = ({
 
                         {/* --- SNEAKER LAB UI --- */}
                         {isSneakerLab && (
-                            <div className="bg-orange-50/50 p-5 rounded-xl border border-orange-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-orange-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Footprints size={14} /> Custom Sneaker Laboratory
+                             <div className="bg-gray-50 p-5 rounded-xl border border-gray-200 space-y-5">
+                                <h3 className="text-xs font-bold text-indigo-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Footprints size={14} /> Sneaker Lab
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Silhouette Style</label>
-                                        <select value={sneakerStyle} onChange={(e) => setSneakerStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="high-top">High-Top (Jordan Style)</option>
-                                            <option value="low-top">Low-Top (Dunk Style)</option>
-                                            <option value="runner">Retro Runner (New Balance Style)</option>
-                                            <option value="chunky">Chunky / Dad Shoe</option>
-                                            <option value="futuristic">Futuristic / YZY Style</option>
-                                            <option value="skate">Skate Shoe (Vans Style)</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Primary Material</label>
-                                        <select value={sneakerMaterial} onChange={(e) => setSneakerMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="leather">Premium Leather</option>
-                                            <option value="suede">Hairy Suede</option>
-                                            <option value="knit">Flyknit / Primeknit</option>
-                                            <option value="canvas">Canvas</option>
-                                            <option value="patent">Patent Leather (Glossy)</option>
-                                            <option value="mesh">Sport Mesh</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Colorway Theme</label>
-                                        <select value={sneakerColor} onChange={(e) => setSneakerColor(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="panda">Black & White (Panda)</option>
-                                            <option value="triple-black">Triple Black</option>
-                                            <option value="triple-white">Triple White</option>
-                                            <option value="chicago">Red/White/Black (Chicago)</option>
-                                            <option value="pastel">Pastel / Easter</option>
-                                            <option value="neon">Neon / Cyberpunk</option>
-                                            <option value="earth">Earth Tones (Travis Style)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="space-y-2 pt-2 border-t border-orange-200/50">
-                                    <h4 className="text-[10px] font-bold text-orange-600 uppercase mb-2">Quality Check (Blind Spot Fixes)</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {Object.entries(sneakerFixes).map(([key, active]) => (
-                                            <button key={key} onClick={() => toggleSneakerFix(key as keyof typeof sneakerFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-orange-100 text-orange-800 border-orange-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- NAIL ART STUDIO UI --- */}
-                        {isNailArt && (
-                            <div className="bg-pink-50/50 p-5 rounded-xl border border-pink-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-pink-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Sparkles size={14} /> Nail Art Studio
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Nail Style</label>
-                                        <select value={nailStyle} onChange={(e) => setNailStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="solid">Solid Color</option>
-                                            <option value="french-tip">French Tip (Classic/Modern)</option>
-                                            <option value="ombre">Ombre / Gradient</option>
-                                            <option value="chrome">Chrome / Metallic</option>
-                                            <option value="cat-eye">Cat Eye (Magnetic)</option>
-                                            <option value="3d-art">3D Art / Charms</option>
-                                            <option value="marble">Marble Stone</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Shape & Length</label>
-                                        <select value={nailLength} onChange={(e) => setNailLength(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="short-square">Short Square</option>
-                                            <option value="short-oval">Short Oval</option>
-                                            <option value="medium-almond">Medium Almond</option>
-                                            <option value="medium-coffin">Medium Coffin</option>
-                                            <option value="long-stiletto">Long Stiletto</option>
-                                            <option value="long-coffin">Long Coffin</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Finish</label>
-                                        <select value={nailFinish} onChange={(e) => setNailFinish(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="glossy">High Gloss (Gel)</option>
-                                            <option value="matte">Matte / Velvet</option>
-                                            <option value="shimmer">Shimmer / Pearl</option>
-                                            <option value="glitter">Chunky Glitter</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="space-y-2 pt-2 border-t border-pink-200/50">
-                                    <h4 className="text-[10px] font-bold text-pink-600 uppercase mb-2">Anatomy & Physics Fixes</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {Object.entries(nailFixes).map(([key, active]) => (
-                                            <button key={key} onClick={() => toggleNailFix(key as keyof typeof nailFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-pink-100 text-pink-800 border-pink-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- MOD MOTOR UI --- */}
-                        {isModMotor && (
-                            <div className="bg-red-50/50 p-5 rounded-xl border border-red-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-red-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Wrench size={14} /> Custom Bike Builder
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
+                                <div className="grid grid-cols-3 gap-4">
+                                     <div>
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Style</label>
-                                        <select value={motorStyle} onChange={(e) => setMotorStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="cafe-racer">Cafe Racer</option>
-                                            <option value="scrambler">Scrambler</option>
-                                            <option value="bobber">Bobber</option>
-                                            <option value="chopper">Chopper</option>
-                                            <option value="drag-bike">Drag Bike</option>
-                                            <option value="tracker">Street Tracker</option>
-                                            <option value="sport-fairing">Full Fairing Sport</option>
+                                        <select value={sneakerStyle} onChange={(e) => setSneakerStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="high-top">High Top</option>
+                                            <option value="low-top">Low Top</option>
+                                            <option value="chunky">Chunky</option>
                                         </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Exhaust Type</label>
-                                        <select value={motorExhaust} onChange={(e) => setMotorExhaust(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="shorty">Shorty / Slash Cut</option>
-                                            <option value="underseat">Underseat</option>
-                                            <option value="dual">Dual Exhaust</option>
-                                            <option value="high-mount">High-mount Scrambler</option>
-                                            <option value="straight-pipe">Straight Pipe</option>
+                                     </div>
+                                      <div>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Material</label>
+                                        <select value={sneakerMaterial} onChange={(e) => setSneakerMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="leather">Leather</option>
+                                            <option value="suede">Suede</option>
+                                            <option value="knit">Knit</option>
                                         </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Seat Style</label>
-                                        <select value={motorSeat} onChange={(e) => setMotorSeat(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="single">Single Seater (Hornet)</option>
-                                            <option value="flat-bench">Flat Bench (Brat)</option>
-                                            <option value="springer">Springer Seat</option>
-                                            <option value="stepped">Stepped Seat</option>
+                                     </div>
+                                      <div>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Colorway</label>
+                                        <select value={sneakerColor} onChange={(e) => setSneakerColor(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="panda">Panda (B&W)</option>
+                                            <option value="triple-white">Triple White</option>
+                                            <option value="bred">Bred</option>
                                         </select>
-                                    </div>
+                                     </div>
                                 </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-red-200/50">
-                                    {Object.entries(motorFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleMotorFix(key as keyof typeof motorFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-red-100 text-red-800 border-red-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
+                             </div>
                         )}
-
-                        {/* --- MOD CAR UI --- */}
-                        {isModCar && (
-                            <div className="bg-blue-50/50 p-5 rounded-xl border border-blue-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-blue-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Car size={14} /> Car Tuning Studio
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Tuning Style</label>
-                                        <select value={carStyle} onChange={(e) => setCarStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="jdm">JDM / Street Racing</option>
-                                            <option value="stance">Stance / Hellaflush</option>
-                                            <option value="rally">Rally / WRC</option>
-                                            <option value="offroad">Offroad / Overland</option>
-                                            <option value="luxury-vip">Luxury VIP</option>
-                                            <option value="time-attack">Time Attack</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Rims / Wheels</label>
-                                        <select value={carRim} onChange={(e) => setCarRim(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="te37">6-Spoke Racing (TE37 style)</option>
-                                            <option value="multi-spoke">Multi-spoke (BBS style)</option>
-                                            <option value="dish">Deep Dish</option>
-                                            <option value="five-star">5-Star</option>
-                                            <option value="beadlock">Offroad Beadlock</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Suspension</label>
-                                        <select value={carSusp} onChange={(e) => setCarSusp(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="lowered">Lowered (Sport)</option>
-                                            <option value="slammed">Slammed (Air Suspension)</option>
-                                            <option value="lifted">Lifted (Offroad)</option>
-                                            <option value="stock">Stock Height</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="space-y-4 pt-2 border-t border-blue-200/50">
-                                    {/* Group: Bodywork */}
-                                    <div>
-                                        <h4 className="text-[10px] font-bold text-blue-600 uppercase mb-2">Bodywork & Paint</h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {['panelGap', 'reflectionMatch', 'symmetryLock', 'carbonScale', 'plateWarp'].map(key => (
-                                                <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${carFixes[key as keyof typeof carFixes] ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                    {carFixes[key as keyof typeof carFixes] ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Group: Wheels */}
-                                    <div>
-                                        <h4 className="text-[10px] font-bold text-blue-600 uppercase mb-2">Wheels & Stance</h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {['camberLogic', 'lugNutCount', 'brakeCaliper', 'tireTread', 'wheelWellDepth'].map(key => (
-                                                <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${carFixes[key as keyof typeof carFixes] ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                    {carFixes[key as keyof typeof carFixes] ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Group: Lighting & Glass */}
-                                    <div>
-                                        <h4 className="text-[10px] font-bold text-blue-600 uppercase mb-2">Lighting & Glass</h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {['headlightDetail', 'taillightDepth', 'indicatorColor', 'windowTrans', 'windshieldFix'].map(key => (
-                                                <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${carFixes[key as keyof typeof carFixes] ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                    {carFixes[key as keyof typeof carFixes] ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Group: Physics */}
-                                    <div>
-                                        <h4 className="text-[10px] font-bold text-blue-600 uppercase mb-2">Physics & Details</h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {['shadowContact', 'exhaustHole', 'intercoolerVis', 'wiperLogic', 'groundClearance'].map(key => (
-                                                <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${carFixes[key as keyof typeof carFixes] ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                                    {carFixes[key as keyof typeof carFixes] ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Prompt Input */}
-                        <div className="space-y-3">
-                            <label htmlFor="prompt" className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider">
-                                <Type size={14} className="text-indigo-500" />
-                                {config.category.includes('AI Tools') ? 'Instructions' : 'Prompt Description'}
+                        
+                        {/* Prompt Input Area */}
+                        <div className="relative">
+                            <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider mb-3">
+                                <Sparkles size={14} className="text-indigo-500" />
+                                {isImageOutput ? 'Creative Prompt' : 'Instruction / Query'}
                             </label>
-                            <div className="relative group">
-                                <textarea
-                                    id="prompt"
-                                    rows={4}
-                                    className="w-full p-4 bg-gray-50 text-gray-900 rounded-xl border border-gray-200 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none resize-none placeholder-gray-400 transition-all text-base leading-relaxed shadow-inner"
-                                    placeholder={config.promptPlaceholder}
-                                    value={prompt}
-                                    onChange={(e) => setPrompt(e.target.value)}
-                                    disabled={isGenerating}
-                                />
-                                <div className={`absolute bottom-3 right-3 text-[10px] font-bold transition-colors ${prompt.length > 0 ? 'text-indigo-600' : 'text-gray-300'}`}>
-                                    {prompt.length}
-                                </div>
+                            
+                            <textarea
+                                value={prompt}
+                                onChange={(e) => setPrompt(e.target.value)}
+                                placeholder={config.promptPlaceholder}
+                                className="w-full h-32 p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:bg-white transition-all resize-none text-sm leading-relaxed"
+                            />
+                            
+                            <div className="absolute bottom-3 right-3 flex items-center gap-2">
+                                <span className="text-[10px] text-gray-400 font-medium">{prompt.length} chars</span>
                             </div>
                         </div>
 
-                        {/* Controls Row: Ratio & Button */}
-                        <div className="flex flex-col md:flex-row gap-6 items-end">
-                            {isImageOutput && (
-                                <div className="flex-1 w-full space-y-3">
-                                    <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider">
-                                        <Settings2 size={14} className="text-indigo-500" />
-                                        Aspect Ratio
-                                    </label>
-                                    <div className="grid grid-cols-4 gap-2">
-                                        {[
-                                            { id: '1:1', icon: <Square size={14} />, label: 'Square' },
-                                            { id: '4:3', icon: <RectangleHorizontal size={14} className="scale-x-90" />, label: 'Std' },
-                                            { id: '16:9', icon: <RectangleHorizontal size={14} />, label: 'Wide' },
-                                            { id: '9:16', icon: <RectangleVertical size={14} />, label: 'Story' }
-                                        ].map(ratio => (
-                                            <button
-                                                key={ratio.id}
-                                                onClick={() => setAspectRatio(ratio.id)}
-                                                disabled={isGenerating}
-                                                className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg transition-all border ${
-                                                    aspectRatio === ratio.id
-                                                        ? 'bg-indigo-600 border-indigo-600 text-white shadow-md'
-                                                        : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:bg-gray-50'
-                                                }`}
-                                            >
-                                                <div className="mb-1">{ratio.icon}</div>
-                                                <span className="text-[9px] font-bold uppercase">{ratio.id}</span>
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                            
-                            <div className="w-full md:w-auto md:min-w-[200px]">
-                                <button
-                                    onClick={handleGenerateClick}
-                                    disabled={isGenerating}
-                                    className={`w-full h-[62px] flex items-center justify-center px-6 text-sm font-bold tracking-wider uppercase rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 ${
-                                        isGenerating
-                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none translate-y-0'
-                                            : 'bg-indigo-600 text-white hover:bg-indigo-700'
-                                    }`}
-                                >
-                                    {isGenerating ? (
-                                        <>
-                                            <Loader2 size={20} className="animate-spin mr-2" />
-                                            Working...
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Sparkles size={20} className="mr-2" />
-                                            Generate
-                                        </>
-                                    )}
-                                </button>
-                            </div>
+                         {/* Action Button */}
+                        <div className="pt-2">
+                            <button
+                                onClick={handleGenerateClick}
+                                disabled={isGenerating || (!prompt && !image1 && !image2 && familyImages.length === 0)}
+                                className={`w-full py-4 rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 ${
+                                    isGenerating 
+                                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none' 
+                                    : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-200'
+                                }`}
+                            >
+                                {isGenerating ? (
+                                    <>
+                                        <Loader2 size={18} className="animate-spin" />
+                                        <span>PROCESSING...</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Wand2 size={18} />
+                                        <span>GENERATE MASTERPIECE</span>
+                                    </>
+                                )}
+                            </button>
                         </div>
+
                     </div>
                 </div>
+
+                {/* Right Col: Gallery (if split view) or below on mobile */}
+                {/* Note: In this layout, results are shown below or in a modal, currently handled by parent app passing props to Gallery component */}
             </div>
 
-            {/* 3. Results Section (Inline) */}
-             {(hasResults || isGenerating) && (
-                <div className="animate-in slide-in-from-bottom-4 fade-in duration-500">
-                    <div className="flex items-center gap-4 mb-4">
-                        <div className="h-px flex-1 bg-gray-200"></div>
-                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                            {isGenerating ? 'Generating Results' : 'Output Result'}
-                        </span>
-                        <div className="h-px flex-1 bg-gray-200"></div>
+            {/* Results Section */}
+            {(hasResults || isGenerating) && (
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="flex items-center justify-between mb-6">
+                         <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest flex items-center gap-2">
+                            <Layers size={16} className="text-indigo-600"/>
+                            Generation Results
+                        </h3>
                     </div>
                     
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden min-h-[200px]">
-                        <Gallery
-                            images={generatedImages}
-                            textContent={textContent}
-                            onImageClick={onImageClick}
-                            isLoading={isGenerating}
-                        />
-                    </div>
+                    <Gallery 
+                        images={generatedImages} 
+                        textContent={textContent} 
+                        onImageClick={onImageClick}
+                        isLoading={isGenerating}
+                    />
                 </div>
             )}
-            
-            {/* Bottom Padding */}
-            <div className="h-10"></div>
         </div>
     </div>
   );
 };
-
-// Simple check icon for the new toggle
-const CheckIcon = () => (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-);
-
-const FlaskIcon = () => (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10 2v7.31L6 15v4a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4l-4-5.69V2" />
-        <path d="M8.5 2h7" />
-        <path d="M14 10h-4" />
-    </svg>
-);
 
 export default InputPanel;

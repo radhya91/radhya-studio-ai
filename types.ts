@@ -1,7 +1,15 @@
 
 export enum AppMode {
-  // Studio Utama
   TEXT_TO_IMAGE = 'text-to-image',
+  INDUSTRIAL_DESIGN = 'industrial-design',
+  ARCHITECTURAL_VISION = 'architectural-vision',
+  FASHION_EDITORIAL = 'fashion-editorial',
+  PROFESSIONAL_HEADSHOT = 'professional-headshot',
+  VIRTUAL_STAGING = 'virtual-staging',
+  LOGO_MASCOT = 'logo-mascot',
+  DOUBLE_EXPOSURE = 'double-exposure',
+  HDR_LANDSCAPE = 'hdr-landscape',
+  GEN_FILL = 'gen-fill',
   PHOTO_CAROUSEL = 'photo-carousel',
   PHOTOSHOOT_AI = 'photoshoot-ai',
   NEWBORN = 'newborn',
@@ -13,18 +21,7 @@ export enum AppMode {
   CINEMATIC_RELIGHTING = 'cinematic-relighting',
   ANALOG_FILM = 'analog-film',
   
-  // New Features
-  PROFESSIONAL_HEADSHOT = 'professional-headshot',
-  VIRTUAL_STAGING = 'virtual-staging',
-  DOUBLE_EXPOSURE = 'double-exposure',
-  HDR_LANDSCAPE = 'hdr-landscape',
-  GEN_FILL = 'gen-fill',
-  FASHION_EDITORIAL = 'fashion-editorial',
-  LOGO_MASCOT = 'logo-mascot',
-  ARCHITECTURAL_VISION = 'architectural-vision',
-  INDUSTRIAL_DESIGN = 'industrial-design',
-
-  // Studio Pelukis
+  // Painter
   PAINTING_GENERATOR = 'painting-generator',
   PAINTING_HERITAGE = 'painting-heritage',
   PAINTING_IMPASTO = 'painting-impasto',
@@ -41,37 +38,38 @@ export enum AppMode {
   PAINTING_PAPER_CUTOUT = 'painting-paper-cutout',
   PAINTING_DOODLE = 'painting-doodle',
 
-  // Studio Pengeditan
+  // Editor
   STYLE_TRANSFER = 'style-transfer',
   VARIATION = 'variation',
-  INPAINTING = 'in-painting',
-  OUTPAINTING = 'out-painting',
+  INPAINTING = 'inpainting',
+  OUTPAINTING = 'outpainting',
   BACKGROUND_REMOVAL = 'background-removal',
   SWAP_BACKGROUND = 'swap-background',
   FACESWAP = 'faceswap',
   ID_CARD = 'id-card',
 
   // Lifestyle
-  SNEAKER_LAB = 'sneaker-lab',
-  NAIL_ART = 'nail-art',
+  UMRAH_HAJJ = 'umrah-hajj',
+  KOREA_TRAVEL = 'korea-travel',
+  INDONESIA_TRAVEL = 'indonesia-travel',
   TERRARIUM_BUILDER = 'terrarium-builder',
   CERAMIC_POTTERY = 'ceramic-pottery',
   FLORIST_ATELIER = 'florist-atelier',
-  UMRAH_HAJJ = 'umrah-hajj', // NEW
+  SNEAKER_LAB = 'sneaker-lab',
+  NAIL_ART = 'nail-art',
+  MOD_MOTOR = 'mod-motor',
+  MOD_CAR = 'mod-car',
   HAIRSTYLE = 'hairstyle',
   TATTOO = 'tattoo',
   PET_STUDIO = 'pet-studio',
   FOOD_STYLIST = 'food-stylist',
-  VEHICLE = 'vehicle', // Generic existing one
-  MOD_MOTOR = 'mod-motor',
-  MOD_CAR = 'mod-car',
   AVATAR_3D = 'avatar-3d',
   COSPLAY = 'cosplay',
   PIXEL_ART = 'pixel-art',
   JEWELRY = 'jewelry',
   COMIC = 'comic',
 
-  // Bisnis & Seni
+  // Business & Art
   MOCKUP = 'mockup',
   THUMBNAIL = 'thumbnail',
   VECTOR = 'vector',
@@ -84,7 +82,16 @@ export enum AppMode {
   PACKAGING_DESIGN = 'packaging-design',
   FASHION_SKETCH = 'fashion-sketch',
 
-  // AI Tools (Existing)
+  // AI Tools
+  UI_TO_CODE = 'ui-to-code',
+  NUTRITION_TRACKER = 'nutrition-tracker',
+  HANDWRITING_DECIPHER = 'handwriting-decipher',
+  DATA_ANALYST = 'data-analyst',
+  DIY_REPAIR = 'diy-repair',
+  VINTAGE_ID = 'vintage-id',
+  CV_AUDITOR = 'cv-auditor',
+  TRAVEL_GUIDE = 'travel-guide',
+  PERSONAL_COLOR = 'personal-color',
   PROMPT_IDEA = 'prompt-idea',
   IMAGE_DESC = 'image-desc',
   REVERSE_PROMPT = 'reverse-prompt',
@@ -96,17 +103,6 @@ export enum AppMode {
   FOOD_TO_RECIPE = 'food-to-recipe',
   MATH_SOLVER = 'math-solver',
   PLANT_CARE = 'plant-care',
-
-  // AI Tools (New Additions)
-  UI_TO_CODE = 'ui-to-code',
-  NUTRITION_TRACKER = 'nutrition-tracker',
-  HANDWRITING_DECIPHER = 'handwriting-decipher',
-  DATA_ANALYST = 'data-analyst',
-  DIY_REPAIR = 'diy-repair',
-  VINTAGE_ID = 'vintage-id',
-  CV_AUDITOR = 'cv-auditor',
-  TRAVEL_GUIDE = 'travel-guide',
-  PERSONAL_COLOR = 'personal-color',
 }
 
 export interface ModeConfig {
@@ -114,7 +110,7 @@ export interface ModeConfig {
   label: string;
   category: string;
   description: string;
-  inputType: 'none' | 'single-image' | 'dual-image' | 'multi-image'; // Added multi-image
+  inputType: 'none' | 'single-image' | 'dual-image' | 'multi-image';
   promptPlaceholder: string;
 }
 
@@ -123,667 +119,66 @@ export interface GeneratedImage {
   prompt: string;
 }
 
-export interface GenerationResult {
-  images: GeneratedImage[];
-  text: string;
-}
+export interface CarouselOptions { lighting: string; angle: string; fixes: Record<string, boolean>; }
+export interface PhotoshootOptions { vibe: string; lighting: string; composition: string; modelGaze: string; gripType: string; fixes: Record<string, boolean>; }
+export interface NewbornOptions { pose: string; setting: string; skinTone: string; state: string; fixes: Record<string, boolean>; }
+export interface PreweddingOptions { visualStyle: string; theme: string; timeOfDay: string; shotType: string; fixes: Record<string, boolean>; }
+export interface FamilyOptions { familyType: string; setting: string; outfitStyle: string; files?: File[]; fixes: Record<string, boolean>; }
+export interface ProductOptions { materialType: string; lightingStyle: string; placement: string; files?: File[]; fixes: Record<string, boolean>; }
+export interface RecoveryOptions { damageLevel: string; colorMode: string; enhanceStrength: string; fixes: Record<string, boolean>; }
+export interface DetailingOptions { resolutionTarget: string; creativityLevel: string; sharpnessMode: string; fixes: Record<string, boolean>; }
+export interface CinematicRelightingOptions { lightingStyle: string; colorGrade: string; lensType: string; fixes: Record<string, boolean>; }
+export interface AnalogFilmOptions { filmStock: string; filmFormat: string; fixes: Record<string, boolean>; }
+export interface HeadshotOptions { outfit: string; background: string; fixes: Record<string, boolean>; }
+export interface StagingOptions { roomType: string; style: string; fixes: Record<string, boolean>; }
+export interface DoubleExposureOptions { blendMode: string; secondaryElement: string; fixes: Record<string, boolean>; }
+export interface HDROptions { style: string; skyEnhancement: boolean; fixes: Record<string, boolean>; }
+export interface GenFillOptions { direction: string; zoomLevel: string; fixes: Record<string, boolean>; }
+export interface FashionEditorialOptions { editorialStyle: string; location: string; era: string; fixes: Record<string, boolean>; }
+export interface LogoMascotOptions { style: string; complexity: string; fixes: Record<string, boolean>; }
+export interface ArchitecturalVisionOptions { viewpoint: string; environment: string; style: string; fixes: Record<string, boolean>; }
+export interface IndustrialDesignOptions { material: string; style: string; view: string; fixes: Record<string, boolean>; }
+export interface PersonalColorOptions { lighting: string; hairStatus: string; veinColor: string; eyeColor: string; fixes: Record<string, boolean>; }
+export interface ModMotorOptions { style: string; exhaustType: string; seatStyle: string; fixes: Record<string, boolean>; }
+export interface ModCarOptions { style: string; rimType: string; suspension: string; fixes: Record<string, boolean>; }
+export interface SneakerLabOptions { style: string; material: string; colorway: string; fixes: Record<string, boolean>; }
+export interface NailArtOptions { style: string; length: string; finish: string; fixes: Record<string, boolean>; }
+export interface TerrariumOptions { container: string; ecosystem: string; decor: string; fixes: Record<string, boolean>; }
+export interface CeramicOptions { itemType: string; clayStyle: string; glazeStyle: string; fixes: Record<string, boolean>; }
+export interface FloristOptions { style: string; flowerType: string; material: string; fixes: Record<string, boolean>; }
+export interface UmrahHajjOptions { pilgrimType: string; location: string; shotType: string; files?: File[]; fixes: Record<string, boolean>; }
+export interface KoreaTravelOptions { groupType: string; location: string; season: string; timeOfDay: string; shotType: string; attireStyle: string; files?: File[]; fixes: Record<string, boolean>; }
+export interface IndonesiaTravelOptions { groupType: string; location: string; season: string; timeOfDay: string; shotType: string; attireStyle: string; files?: File[]; fixes: Record<string, boolean>; }
 
-// Photo Carousel Options
-export interface CarouselOptions {
-  lighting: string;
-  angle: string;
-  fixes: {
-    gravity: boolean;
-    lensCorrection: boolean;
-    textureBoost: boolean;
-    colorFidelity: boolean;
-    superSharp: boolean;
-  };
-}
 
-// Photoshoot AI Options
-export interface PhotoshootOptions {
-  vibe: string;
-  lighting: string;
-  composition: string;
-  modelGaze: string;
-  gripType: string;
-  fixes: {
-    autoShadow: boolean;
-    colorGrade: boolean;
-    depthMatch: boolean;
-    smartScale: boolean;
-    displacementFix: boolean;
-    spectralReflections: boolean;
-    caustics: boolean;
-    grainMatch: boolean;
-    dynamicBlur: boolean;
-    fabricDrape: boolean;
-    clearBranding: boolean;
-  };
-}
-
-// Newborn Options (New)
-export interface NewbornOptions {
-  pose: string;
-  setting: string;
-  skinTone: string;
-  state: string; // Asleep vs Awake
-  fixes: {
-    // Basic
-    softSkin: boolean;
-    safetyComposite: boolean;
-    squishLogic: boolean;
-    reduceRedness: boolean;
-    propScale: boolean;
-    softFocus: boolean;
-    
-    // Expert (The 10 New Blind Spots)
-    hipJointFix: boolean;
-    diaperVolume: boolean;
-    fabricTension: boolean;
-    handScale: boolean;
-    naturalHairline: boolean;
-    umbilicalRealism: boolean;
-    circulationColor: boolean;
-    complexBokeh: boolean;
-    eyeReflection: boolean;
-    lipTexture: boolean;
-  };
-}
-
-// Prewedding Options (New - 30 Blind Spots + Documentary Style)
-export interface PreweddingOptions {
-  visualStyle: 'cinematic' | 'documentary' | 'editorial'; // New Style Selector
-  theme: string;
-  timeOfDay: string;
-  shotType: string;
-  fixes: {
-    // 1. Chemistry & Anatomy
-    handContact: boolean;
-    eyeContact: boolean;
-    heightLogic: boolean;
-    kissPhysics: boolean;
-    ringDetail: boolean;
-    
-    // 2. Fashion & Physics
-    windConsistency: boolean;
-    fabricTexture: boolean;
-    dressFlow: boolean;
-    veilTransparency: boolean;
-    groundContact: boolean;
-    
-    // 3. Environment & Light
-    shadowSync: boolean;
-    horizonFix: boolean;
-    waterReflection: boolean;
-    weatherInteraction: boolean;
-    goldenHourRealism: boolean;
-
-    // 4. Cinematic Technicals
-    skinToneMatch: boolean;
-    depthPlane: boolean;
-    filmGrain: boolean;
-    dynamicFraming: boolean;
-    colorHarmony: boolean;
-
-    // 5. Documentary / Storytelling Specials (New)
-    candidMoment: boolean; // Anti-pose, looking away/laughing
-    motionBlurArt: boolean; // Shutter drag effect
-    rawImperfection: boolean; // Messy hair/clothes logic
-    flashPhotography: boolean; // Direct flash style
-  };
-}
-
-// Family Options (New for Big Family - 26 Total Blind Spots)
-export interface FamilyOptions {
-  familyType: 'nuclear' | 'big-family' | 'multi-gen';
-  setting: string;
-  outfitStyle: string;
-  files?: File[]; // Support for multiple files
-  fixes: {
-    // 1. Composition & Group Dynamics (6)
-    faceFidelityBackRow: boolean;
-    heightSorting: boolean; // Tall in back
-    eyeContactSync: boolean;
-    uniformLighting: boolean;
-    generationLogic: boolean; // Grandparents look old
-    rowDepthLogic: boolean; // Back row slightly smaller/blurrier
-
-    // 2. Anatomy & Identity (5)
-    twinEffectFix: boolean; // Prevent copy-paste faces
-    headSizeConsistency: boolean; // Heads relative to body size
-    teethRealism: boolean; // Natural smiles, no piano keys
-    handCountLogic: boolean; // Max 2 hands per person
-    lazyEyeFix: boolean; // Symmetrical gaze
-
-    // 3. Posing & Interaction (5)
-    hoverHandFix: boolean; // Hands firmly on shoulders
-    postureSlouchFix: boolean; // Elderly posture vs Kids
-    kidInteraction: boolean; // Kids held or sitting, not floating
-    chairLogic: boolean; // Sitting ON chairs, not floating
-    footGrounding: boolean; // Feet firmly on floor
-
-    // 4. Fashion & Details (5)
-    shoeConsistency: boolean; // Everyone wearing shoes
-    patternClashFix: boolean; // Avoid moire patterns
-    jewelryHallucination: boolean; // No floating jewelry
-    glassesGlareFix: boolean; // Eyes visible behind glasses
-    fabricDrapeSitting: boolean; // Clothes fold when sitting
-
-    // 5. Environment (5)
-    shadowConsistency: boolean; // Shadows fall same way
-    backgroundSeparation: boolean; // Hair vs dark background
-    floorTexture: boolean; // Consistent carpet/wood
-    atmosphereAiry: boolean; // Depth in room
-    proportionLogic: boolean; // Adults vs Kids size ratio
-  };
-}
-
-// Product Options (New - 30 Blind Spots)
-export interface ProductOptions {
-  materialType: string;
-  lightingStyle: string;
-  placement: string;
-  files?: File[]; // Added support for multi-image
-  fixes: {
-    // Group 1: Physics & Geometry (6)
-    gravityFix: boolean; // No floating products
-    perspectiveCorrect: boolean; // Straight lines
-    scaleLogic: boolean; // Relative size to props
-    surfaceContact: boolean; // Realistic shadow base
-    lensDistortionFix: boolean; // No fish-eye
-    symmetryLock: boolean; // Perfectly symmetrical bottles
-
-    // Group 2: Material & Texture (6)
-    glassCaustics: boolean; // Light passing through glass
-    metalAnisotropy: boolean; // Brushed metal realism
-    liquidRefraction: boolean; // Liquid bending light
-    plasticSubsurface: boolean; // Not looking painted
-    fabricWeave: boolean; // High res fiber texture
-    condensationDrops: boolean; // Cold drink droplets
-
-    // Group 3: Light & Shadow (6)
-    rimLighting: boolean; // Edge separation
-    softboxSimulation: boolean; // Studio soft shadows
-    hardSunlight: boolean; // Crisp directional shadows
-    reflectionContinuity: boolean; // Env map reflection
-    ambientOcclusion: boolean; // Deep corners darkening
-    globalIllumination: boolean; // Bounce light
-
-    // Group 4: Brand & Identity (6)
-    logoPreservation: boolean; // Text clarity
-    colorAccuracy: boolean; // Brand color fidelity
-    labelFlatness: boolean; // Label curving on bottle
-    negativeSpace: boolean; // Room for ad copy
-    noHallucinations: boolean; // No extra objects
-    cleanEdges: boolean; // Easy for cutout
-
-    // Group 5: Composition & Aesthetics (6)
-    goldenRatio: boolean; // Rule of thirds
-    bokehControl: boolean; // Depth of field
-    heroAngle: boolean; // Low angle dominance
-    minimalistZen: boolean; // Less clutter
-    colorGrading: boolean; // Commercial look
-    sharpFocusStack: boolean; // Entire product in focus
-  };
-}
-
-// Recovery Options (New - 20 Blind Spots)
-export interface RecoveryOptions {
-  damageLevel: string;
-  colorMode: string;
-  enhanceStrength: string;
-  fixes: {
-    // Group 1: Surface Damage
-    scratchKiller: boolean; // Remove scratches
-    tearPatching: boolean; // Fix rips/tears
-    dustSpeckle: boolean; // Remove dots
-    waterDamage: boolean; // Fix stains
-    tapeMark: boolean; // Remove tape residue
-
-    // Group 2: Face & Identity
-    faceIdentityLock: boolean; // Don't change person
-    irisClarity: boolean; // Fix eyes
-    naturalTeeth: boolean; // Fix smile
-    hairTexture: boolean; // Fix hair blobs
-    earStructure: boolean; // Fix ears
-
-    // Group 3: Color & Tone
-    deepColorization: boolean; // B&W to Color
-    sepiaNeutralizer: boolean; // Remove yellow
-    fadedInk: boolean; // Boost contrast
-    skinToneBalance: boolean; // Fix waxiness
-    redEyeFix: boolean; // Flash repair
-
-    // Group 4: Digital Quality
-    motionBlur: boolean; // Fix shake
-    softFocus: boolean; // Sharpening
-    isoGrain: boolean; // De-noise
-    jpegArtifacts: boolean; // De-block
-    textureUpscale: boolean; // 4k Texture
-  };
-}
-
-// Detailing Options (New - 25 Blind Spots)
-export interface DetailingOptions {
-  resolutionTarget: string; // 2K, 4K, 8K
-  creativityLevel: string; // Faithful vs Hallucinate Detail
-  sharpnessMode: string; // Soft, Natural, Razor
-  fixes: {
-    // Group 1: Skin & Biological (5)
-    poreSynthesis: boolean; // Generate realistic pores
-    irisPattern: boolean; // Complex eye details
-    hairStrandSeparation: boolean; // No hair clumps
-    nailTexture: boolean; // Realistic nail beds/shine
-    wrinkleDepth: boolean; // Realistic aging (not flat)
-
-    // Group 2: Material & Fabric (5)
-    fabricWeaveMicro: boolean; // See the threads
-    leatherGrain: boolean; // Organic leather texture
-    metalBrushing: boolean; // Scratches on metal
-    woodVeins: boolean; // Wood fiber details
-    paperRoughness: boolean; // Paper texture
-
-    // Group 3: Environment & Nature (5)
-    foliageVeins: boolean; // Leaf structures
-    brickMortar: boolean; // Stone/Brick texture
-    asphaltGrain: boolean; // Road texture
-    waterRipples: boolean; // Micro-surface tension
-    cloudVolume: boolean; // Fluffy, not smoky
-
-    // Group 4: Optical & Camera (5)
-    chromaticAberrationFix: boolean; // Remove purple fringe
-    cornerSharpness: boolean; // Fix lens softness
-    sensorNoiseRemoval: boolean; // Remove digital static
-    dynamicRangeBoost: boolean; // Recover shadow details
-    whiteBalanceAuto: boolean; // Correct color cast
-
-    // Group 5: Text & Geometry (5)
-    textRestoration: boolean; // Fix blurry signs/logos
-    straightLines: boolean; // Fix wobbly edges
-    geometricPatternFix: boolean; // Fix moire/patterns
-    silhouetteClean: boolean; // Crisp separation
-    noArtifacts: boolean; // Remove AI hallucinations
-  };
-}
-
-// Cinematic Relighting Options (New - 25 Blind Spots)
-export interface CinematicRelightingOptions {
-  lightingStyle: string; // Rembrandt, Split, Butterfly, etc.
-  colorGrade: string; // Teal&Orange, Noir, Matrix, etc.
-  lensType: string; // Anamorphic, Prime 50mm, Vintage
-  fixes: {
-    // Group 1: Lighting Setup (The Gaffer)
-    rembrandtTriangle: boolean; // Classic triangle on cheek
-    rimLightSeparation: boolean; // Backlight to separate from BG
-    volumetricFog: boolean; // God rays / Haze
-    practicalLights: boolean; // Lamps/Neon in scene visible
-    catchlights: boolean; // Sparkle in eyes
-
-    // Group 2: Color Science (The Colorist)
-    tealOrangePush: boolean; // Contrast warm highlights/cool shadows
-    skinToneProtection: boolean; // Keep skin natural while grading bg
-    deepBlacks: boolean; // Crushed blacks (Noir style)
-    highlightRollOff: boolean; // Soft white clipping (Film style)
-    vibranceBoost: boolean; // Pop colors without saturation
-
-    // Group 3: Atmosphere & FX (The VFX)
-    filmGrain: boolean; // Organic noise
-    anamorphicFlares: boolean; // Horizontal lens flares
-    halation: boolean; // Red glow around bright lights
-    vignette: boolean; // Darker corners
-    chromaticAbberation: boolean; // Lens edge fringing
-
-    // Group 4: Shadow & Depth (The DP)
-    softShadows: boolean; // Diffused light source
-    silhouetteDrama: boolean; // Strong outline mode
-    subsurfaceScattering: boolean; // Light passing through ears/fingers
-    ambientOcclusion: boolean; // Deep contact shadows
-    depthOfField: boolean; // Blurry background (Bokeh)
-
-    // Group 5: Genre Specifics
-    cyberpunkNeon: boolean; // Pink/Blue rim lights
-    horrorGloom: boolean; // Underexposed + Green cast
-    goldenHourWarmth: boolean; // Low sun angle
-    moonlightCoolness: boolean; // Blue tint night
-    dreamyGlow: boolean; // Soft filter (Pro-Mist)
-  };
-}
-
-// Analog Film Options (New - 30 Film Stocks)
-export interface AnalogFilmOptions {
-  filmStock: string;
-  filmFormat: string;
-  fixes: {
-    // Group 1: Film Chemistry
-    halation: boolean; // Red bloom
-    filmGrain: boolean; // Organic noise
-    colorShift: boolean; // Green/Magenta cast
-    bleachBypass: boolean; // High contrast low sat
-    crossProcess: boolean; // Unnatural shift
-
-    // Group 2: Optical Artifacts
-    lightLeaks: boolean; // Red/Orange burns
-    vignette: boolean; // Dark corners
-    softFocus: boolean; // Vintage sharpness
-    chromaticAberration: boolean; // Lens fringing
-    bloom: boolean; // Highlight spread
-
-    // Group 3: Physical Wear
-    dustScratches: boolean; // Dirty negative
-    motionBlur: boolean; // Shutter drag
-    dateStamp: boolean; // Digital orange date
-    filmBorder: boolean; // Rebate/Sprockets
-    fadedPrint: boolean; // Low contrast age
-
-    // Group 4: Exposure Characteristics
-    overexposure: boolean; // Washed out
-    underexposure: boolean; // Muddy shadows
-    highContrast: boolean; // Punchy
-    lowContrast: boolean; // Flat
-    flashBurn: boolean; // Direct flash look
-  };
-}
-
-// NEW INTERFACES FOR ADDED FEATURES
-
-// Professional Headshot Options
-export interface HeadshotOptions {
-  outfit: string; // Suit, Blazer, Casual Smart
-  background: string; // Office, Studio Grey, City
-  fixes: {
-    skinTexture: boolean;
-    eyeContact: boolean;
-    lightingMatch: boolean;
-    hairCleanup: boolean;
-  };
-}
-
-// Virtual Staging Options
-export interface StagingOptions {
-  roomType: string; // Living Room, Bedroom
-  style: string; // Minimalist, Modern, Industrial
-  fixes: {
-    perspectiveMatch: boolean;
-    shadowCast: boolean;
-    scaleLogic: boolean;
-    colorHarmony: boolean;
-  };
-}
-
-// Double Exposure Options
-export interface DoubleExposureOptions {
-  blendMode: string; // Silhouette, Soft Overlay
-  secondaryElement: string; // Nature, City, Galaxy
-  fixes: {
-    edgeDetection: boolean;
-    contrastBoost: boolean;
-    colorGrade: boolean;
-  };
-}
-
-// HDR Landscape Options
-export interface HDROptions {
-  style: string; // Natural, Dramatic, Surreal
-  skyEnhancement: boolean;
-  fixes: {
-    shadowRecovery: boolean;
-    highlightSave: boolean;
-    saturationBoost: boolean;
-    noiseReduction: boolean;
-  };
-}
-
-// Generative Fill Options
-export interface GenFillOptions {
-  direction: string; // Horizontal, Vertical, Surround
-  zoomLevel: string; // 1.5x, 2x
-  fixes: {
-    seamlessTransition: boolean;
-    resolutionMatch: boolean;
-    lightingConsistency: boolean;
-  };
-}
-
-// Fashion Editorial Options
-export interface FashionEditorialOptions {
-  editorialStyle: string; // Haute Couture, Streetwear, Avant-Garde
-  location: string; // Runway, Neon City, Desert, Industrial
-  era: string; // Modern, Y2K, 90s, Victorian
-  fixes: {
-    hauteCoutureFit: boolean; // Perfect tailoring, no loose pixels
-    textileSimulation: boolean; // Realistic silk/leather/denim physics
-    dynamicPosing: boolean; // Make the outfit move (wind/motion)
-    makeupHairSync: boolean; // Update hair/makeup to match the fashion vibe
-    magazineColorGrade: boolean; // High-contrast editorial grading
-  };
-}
-
-// Logo & Mascot Options
-export interface LogoMascotOptions {
-  style: string; // Minimalist, Mascot, Emblem
-  complexity: string; // Simple, Medium, Detailed
-  fixes: {
-    vectorFlatness: boolean; // No gradients, clean color
-    negativeSpaceBalance: boolean; // Good spacing
-    colorPaletteLimit: boolean; // Max 3-4 colors
-    mascotExpressiveness: boolean; // If mascot, good emotion
-    printReadiness: boolean; // Thick lines, good contrast
-  };
-}
-
-// Architectural Vision Options
-export interface ArchitecturalVisionOptions {
-  viewpoint: string; // Eye-level, Drone, Worms Eye
-  environment: string; // Sunny, Golden Hour, Night, Rainy
-  style: string; // Modern, Industrial, Brutalist
-  fixes: {
-    verticalCorrection: boolean; // 2-point perspective (must have for ArchViz)
-    materialRealism: boolean; // Concrete != Plaster
-    environmentIntegration: boolean; // Reflection logic
-    scaleAccuracy: boolean; // Humans/Cars scale
-    interiorGlow: boolean; // Window warmth at night
-  };
-}
-
-// --- NEW FEATURE: INDUSTRIAL DESIGN RENDER ---
-export interface IndustrialDesignOptions {
-  material: string; // Plastic, Metal, Wood, etc.
-  style: string; // Bauhaus, Cyberpunk, Apple-like
-  view: string; // Studio, Exploded, In-Context
-  fixes: {
-    materialInference: boolean; // Sketch lines to Texture
-    ergonomicSmoothing: boolean; // Wobbly lines to Curves
-    explodedViewLogic: boolean; // If parts separated, render exploded
-    surfaceFinish: boolean; // Matte vs Gloss distinction
-    partLineDefinition: boolean; // Cut lines (parting lines)
-  };
-}
-
-// --- NEW FEATURE: PERSONAL COLOR ANALYST (UPDATED BLIND SPOTS) ---
-export interface PersonalColorOptions {
-  lighting: 'natural' | 'indoor-warm' | 'indoor-cool' | 'studio' | 'unknown'; // Crucial for White Balance
-  hairStatus: 'natural' | 'dyed' | 'covered'; // Hijab/Dye logic
-  veinColor: 'blue' | 'green' | 'purple' | 'unsure'; // Undertone physics test
-  eyeColor: string; // Supplemental data
-  fixes: {
-    whiteBalanceAuto: boolean; // Correct yellow cast
-    makeupNeutralizer: boolean; // Ignore foundation/blush
-    ignoreBackgroundReflections: boolean; // Anti-color cast
-    focusOnIrisPattern: boolean; // Eye pattern analysis
-  };
-}
-
-// --- NEW FEATURE: MOD MOTOR (CUSTOM BIKE - 10 BLIND SPOTS) ---
-export interface ModMotorOptions {
-  style: string; // Cafe Racer, Scrambler, Bobber, Chopper, Drag
-  exhaustType: string; // Underseat, Shorty, Dual, High-mount
-  seatStyle: string; // Single seater, Flat bench, Springer
-  fixes: {
-    // The 10 Major Blind Spots
-    chainRealism: boolean; // Fix Phantom Chain
-    exhaustRouting: boolean; // Fix Floating Exhaust
-    cableManagement: boolean; // Fix Spaghetti Cables
-    brakeLogic: boolean; // Fix Ghost Calipers
-    suspensionMount: boolean; // Fix Impossible Suspension
-    kickstandFix: boolean; // Fix Kickstand Logic
-    tireClearance: boolean; // Fix Fender Clipping
-    engineAirflow: boolean; // Fix Carburetor/Filter blobs
-    footControlSym: boolean; // Fix Footpeg Amnesia
-    mirrorReflection: boolean; // Fix Mirror Asymmetry
-  };
-}
-
-// --- NEW FEATURE: MOD CAR (TUNING STUDIO - 20 BLIND SPOTS) ---
-export interface ModCarOptions {
-  style: string; // JDM, Stance, Rally, Offroad, Luxury VIP
-  rimType: string; // TE37, Multi-spoke, Dish, Beadlock
-  suspension: string; // Lowered, Lifted, Stock
-  fixes: {
-    // Bodywork
-    panelGap: boolean;
-    reflectionMatch: boolean;
-    symmetryLock: boolean;
-    carbonScale: boolean;
-    plateWarp: boolean;
-    
-    // Wheels & Stance
-    camberLogic: boolean;
-    lugNutCount: boolean;
-    brakeCaliper: boolean;
-    tireTread: boolean;
-    wheelWellDepth: boolean;
-
-    // Lighting & Glass
-    headlightDetail: boolean;
-    taillightDepth: boolean;
-    indicatorColor: boolean;
-    windowTrans: boolean;
-    windshieldFix: boolean;
-
-    // Physics & Details
-    shadowContact: boolean;
-    exhaustHole: boolean;
-    intercoolerVis: boolean;
-    wiperLogic: boolean;
-    groundClearance: boolean;
-  };
-}
-
-// --- NEW FEATURE: CUSTOM SNEAKER LAB (10 BLIND SPOTS) ---
-export interface SneakerLabOptions {
-  style: string; // High-top, Runner, Chunky, Retro
-  material: string; // Leather, Suede, Knit, Canvas
-  colorway: string; // Triple Black, Panda, Pastel, Neon
-  fixes: {
-    laceLogic: boolean; // Tali putus/nyatu
-    solePhysics: boolean; // Outsole grip & shape
-    logoIntegrity: boolean; // Brand logo warped
-    materialDistinction: boolean; // Suede vs Plastic
-    stitchFlow: boolean; // Jahitan putus
-    collarSymmetry: boolean; // Lubang kaki miring
-    toeBoxShape: boolean; // Depan penyok/badut
-    eyeletAlign: boolean; // Lubang tali melayang
-    midsoleTexture: boolean; // Boost/Foam polos
-    tonguePlacement: boolean; // Lidah sepatu hilang
-  };
-}
-
-// --- NEW FEATURE: NAIL ART STUDIO (10 BLIND SPOTS) ---
-export interface NailArtOptions {
-  style: string; // French tip, Ombre, 3D Art, Chrome
-  length: string; // Short, Medium, Long Stiletto
-  finish: string; // Glossy, Matte, Velvet
-  fixes: {
-    fingerCount: boolean; // 6 jari
-    cuticleClean: boolean; // Kuteks tumpah
-    shapeConsistency: boolean; // Kotak vs Oval
-    textureReality: boolean; // Glitter noise
-    glossReflection: boolean; // Pantulan salah
-    thumbPerspective: boolean; // Jempol gepeng
-    skinRealistic: boolean; // Kulit plastik
-    patternUniform: boolean; // Polkadot acak
-    jewelrySeparation: boolean; // Tembus cincin
-    lengthLogic: boolean; // Tembus objek
-  };
-}
-
-// --- NEW FEATURE: TERRARIUM BUILDER (10 BLIND SPOTS) ---
-export interface TerrariumOptions {
-  container: string; // Jar, Bulb, Geometric, Aquarium
-  ecosystem: string; // Tropical (Moss/Fern), Desert (Succulent), Aquatic
-  decor: string; // Miniature House, Driftwood, Stones, Crystals
-  fixes: {
-    glassPhysics: boolean; // Refraction/Thickness
-    layerLogic: boolean; // Drainage > Charcoal > Soil > Moss
-    scaleConsistency: boolean; // Plants vs Jar size
-    condensation: boolean; // Foggy glass look
-    plantCollision: boolean; // Leaves clipping through glass
-    rootVisibility: boolean; // Roots not weirdly visible
-    lightingInterior: boolean; // Light inside the jar
-    waterLevel: boolean; // No floating water jelly
-    lidLogic: boolean; // Lid fits correctly
-    mossTexture: boolean; // Fuzzy texture vs green paint
-  };
-}
-
-// --- NEW FEATURE: CERAMIC & POTTERY STUDIO (10 BLIND SPOTS) ---
-export interface CeramicOptions {
-  itemType: string; // Vase, Mug, Plate, Bowl, Plant Pot
-  clayStyle: string; // Terracotta, Porcelain, Stoneware, Raku
-  glazeStyle: string; // Drip, Crackle, Matte, Celadon
-  fixes: {
-    radialSymmetry: boolean; // Not wobbly
-    glazeDripPhysics: boolean; // Drips follow gravity
-    textureMapping: boolean; // Clay vs Glaze separation
-    rimThickness: boolean; // Not razor thin
-    bottomShadow: boolean; // Heavy contact shadow
-    handleGeometry: boolean; // Hole in handle is real
-    kilnEffects: boolean; // Scorch marks/Reduction
-    interiorLighting: boolean; // Inside not black hole
-    baseFooting: boolean; // Flat bottom
-    reflectivity: boolean; // Gloss vs Matte consistency
-  };
-}
-
-// --- NEW FEATURE: FLORIST ATELIER (10 BLIND SPOTS) ---
-export interface FloristOptions {
-  style: string; // Hand Bouquet, Table Vase, Flower Box, Standing Flower
-  flowerType: string; // Roses, Tulips, Peonies, Mixed Wildflowers, Orchids
-  material: string; // Kraft Paper, Clear Glass, Ceramic, Velvet Box, Rustic Burlap
-  fixes: {
-    petalTexture: boolean; // Velvet/Waxy texture
-    waterRefraction: boolean; // Stem distortion in water
-    stemLogic: boolean; // Stems connect to heads
-    leafFreshness: boolean; // No wilted brown edges
-    wrappingPhysics: boolean; // Paper crinkles naturally
-    pollenDetail: boolean; // Macro center details
-    colorHarmony: boolean; // Complementary colors
-    ribbonFlow: boolean; // Fabric physics
-    depthLayering: boolean; // 3D volume, not flat
-    dewDrops: boolean; // Freshness indicator
-  };
-}
-
-// --- NEW FEATURE: UMRAH & HAJJ VISION (10 BLIND SPOTS) ---
-export interface UmrahHajjOptions {
-  pilgrimType: string; // Man, Woman, Couple, Family
-  location: string; // Kaaba (Mataf), Masjid Nabawi, Desert (Jabal Rahmah)
-  shotType: string; // Portrait, Walking, Dua (Prayer), Crowd
-  fixes: {
-    ihramRealism: boolean; // 2 unstitched sheets for men
-    kaabaTexture: boolean; // Kiswah gold calligraphy accuracy
-    marbleReflect: boolean; // Cool white floor reflection
-    hijabLayering: boolean; // Proper draping without tight fits
-    umbrellaMech: boolean; // Nabawi umbrella structure logic
-    crowdFlow: boolean; // Tawaf counter-clockwise logic
-    handGesture: boolean; // Palms up for Dua, not clasping
-    archAccuracy: boolean; // Ottoman/Modern Islamic arches
-    ihramBelt: boolean; // Belt utility for men
-    faceSerenity: boolean; // Peaceful expression/Tears of joy
-  };
-}
-
-// Union Type for flexibility
-export type GenerationOptions = CarouselOptions | PhotoshootOptions | NewbornOptions | PreweddingOptions | FamilyOptions | ProductOptions | RecoveryOptions | DetailingOptions | CinematicRelightingOptions | AnalogFilmOptions | HeadshotOptions | StagingOptions | DoubleExposureOptions | HDROptions | GenFillOptions | FashionEditorialOptions | LogoMascotOptions | ArchitecturalVisionOptions | IndustrialDesignOptions | PersonalColorOptions | ModMotorOptions | ModCarOptions | SneakerLabOptions | NailArtOptions | TerrariumOptions | CeramicOptions | FloristOptions | UmrahHajjOptions;
+export type GenerationOptions = 
+    | CarouselOptions 
+    | PhotoshootOptions 
+    | NewbornOptions 
+    | PreweddingOptions 
+    | FamilyOptions 
+    | ProductOptions 
+    | RecoveryOptions 
+    | DetailingOptions 
+    | CinematicRelightingOptions 
+    | AnalogFilmOptions 
+    | HeadshotOptions 
+    | StagingOptions 
+    | DoubleExposureOptions 
+    | HDROptions 
+    | GenFillOptions 
+    | FashionEditorialOptions 
+    | LogoMascotOptions 
+    | ArchitecturalVisionOptions 
+    | IndustrialDesignOptions 
+    | PersonalColorOptions 
+    | ModMotorOptions 
+    | ModCarOptions 
+    | SneakerLabOptions 
+    | NailArtOptions 
+    | TerrariumOptions 
+    | CeramicOptions 
+    | FloristOptions 
+    | UmrahHajjOptions
+    | KoreaTravelOptions
+    | IndonesiaTravelOptions;
