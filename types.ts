@@ -52,13 +52,19 @@ export enum AppMode {
   ID_CARD = 'id-card',
 
   // Lifestyle
+  SNEAKER_LAB = 'sneaker-lab',
+  NAIL_ART = 'nail-art',
+  TERRARIUM_BUILDER = 'terrarium-builder',
+  CERAMIC_POTTERY = 'ceramic-pottery',
+  FLORIST_ATELIER = 'florist-atelier',
+  UMRAH_HAJJ = 'umrah-hajj', // NEW
   HAIRSTYLE = 'hairstyle',
   TATTOO = 'tattoo',
   PET_STUDIO = 'pet-studio',
   FOOD_STYLIST = 'food-stylist',
   VEHICLE = 'vehicle', // Generic existing one
-  MOD_MOTOR = 'mod-motor', // NEW
-  MOD_CAR = 'mod-car', // NEW
+  MOD_MOTOR = 'mod-motor',
+  MOD_CAR = 'mod-car',
   AVATAR_3D = 'avatar-3d',
   COSPLAY = 'cosplay',
   PIXEL_ART = 'pixel-art',
@@ -629,19 +635,155 @@ export interface ModMotorOptions {
   };
 }
 
-// --- NEW FEATURE: MOD CAR (TUNING STUDIO) ---
+// --- NEW FEATURE: MOD CAR (TUNING STUDIO - 20 BLIND SPOTS) ---
 export interface ModCarOptions {
   style: string; // JDM, Stance, Rally, Offroad, Luxury VIP
   rimType: string; // TE37, Multi-spoke, Dish, Beadlock
   suspension: string; // Lowered, Lifted, Stock
   fixes: {
-    panelGap: boolean; // Celah pintu rapi
-    reflectionMatch: boolean; // Pantulan body
-    camberLogic: boolean; // Posisi roda masuk akal
-    brakeCaliper: boolean; // Posisi rem
-    headlightDetail: boolean; // Detail lampu internal
+    // Bodywork
+    panelGap: boolean;
+    reflectionMatch: boolean;
+    symmetryLock: boolean;
+    carbonScale: boolean;
+    plateWarp: boolean;
+    
+    // Wheels & Stance
+    camberLogic: boolean;
+    lugNutCount: boolean;
+    brakeCaliper: boolean;
+    tireTread: boolean;
+    wheelWellDepth: boolean;
+
+    // Lighting & Glass
+    headlightDetail: boolean;
+    taillightDepth: boolean;
+    indicatorColor: boolean;
+    windowTrans: boolean;
+    windshieldFix: boolean;
+
+    // Physics & Details
+    shadowContact: boolean;
+    exhaustHole: boolean;
+    intercoolerVis: boolean;
+    wiperLogic: boolean;
+    groundClearance: boolean;
+  };
+}
+
+// --- NEW FEATURE: CUSTOM SNEAKER LAB (10 BLIND SPOTS) ---
+export interface SneakerLabOptions {
+  style: string; // High-top, Runner, Chunky, Retro
+  material: string; // Leather, Suede, Knit, Canvas
+  colorway: string; // Triple Black, Panda, Pastel, Neon
+  fixes: {
+    laceLogic: boolean; // Tali putus/nyatu
+    solePhysics: boolean; // Outsole grip & shape
+    logoIntegrity: boolean; // Brand logo warped
+    materialDistinction: boolean; // Suede vs Plastic
+    stitchFlow: boolean; // Jahitan putus
+    collarSymmetry: boolean; // Lubang kaki miring
+    toeBoxShape: boolean; // Depan penyok/badut
+    eyeletAlign: boolean; // Lubang tali melayang
+    midsoleTexture: boolean; // Boost/Foam polos
+    tonguePlacement: boolean; // Lidah sepatu hilang
+  };
+}
+
+// --- NEW FEATURE: NAIL ART STUDIO (10 BLIND SPOTS) ---
+export interface NailArtOptions {
+  style: string; // French tip, Ombre, 3D Art, Chrome
+  length: string; // Short, Medium, Long Stiletto
+  finish: string; // Glossy, Matte, Velvet
+  fixes: {
+    fingerCount: boolean; // 6 jari
+    cuticleClean: boolean; // Kuteks tumpah
+    shapeConsistency: boolean; // Kotak vs Oval
+    textureReality: boolean; // Glitter noise
+    glossReflection: boolean; // Pantulan salah
+    thumbPerspective: boolean; // Jempol gepeng
+    skinRealistic: boolean; // Kulit plastik
+    patternUniform: boolean; // Polkadot acak
+    jewelrySeparation: boolean; // Tembus cincin
+    lengthLogic: boolean; // Tembus objek
+  };
+}
+
+// --- NEW FEATURE: TERRARIUM BUILDER (10 BLIND SPOTS) ---
+export interface TerrariumOptions {
+  container: string; // Jar, Bulb, Geometric, Aquarium
+  ecosystem: string; // Tropical (Moss/Fern), Desert (Succulent), Aquatic
+  decor: string; // Miniature House, Driftwood, Stones, Crystals
+  fixes: {
+    glassPhysics: boolean; // Refraction/Thickness
+    layerLogic: boolean; // Drainage > Charcoal > Soil > Moss
+    scaleConsistency: boolean; // Plants vs Jar size
+    condensation: boolean; // Foggy glass look
+    plantCollision: boolean; // Leaves clipping through glass
+    rootVisibility: boolean; // Roots not weirdly visible
+    lightingInterior: boolean; // Light inside the jar
+    waterLevel: boolean; // No floating water jelly
+    lidLogic: boolean; // Lid fits correctly
+    mossTexture: boolean; // Fuzzy texture vs green paint
+  };
+}
+
+// --- NEW FEATURE: CERAMIC & POTTERY STUDIO (10 BLIND SPOTS) ---
+export interface CeramicOptions {
+  itemType: string; // Vase, Mug, Plate, Bowl, Plant Pot
+  clayStyle: string; // Terracotta, Porcelain, Stoneware, Raku
+  glazeStyle: string; // Drip, Crackle, Matte, Celadon
+  fixes: {
+    radialSymmetry: boolean; // Not wobbly
+    glazeDripPhysics: boolean; // Drips follow gravity
+    textureMapping: boolean; // Clay vs Glaze separation
+    rimThickness: boolean; // Not razor thin
+    bottomShadow: boolean; // Heavy contact shadow
+    handleGeometry: boolean; // Hole in handle is real
+    kilnEffects: boolean; // Scorch marks/Reduction
+    interiorLighting: boolean; // Inside not black hole
+    baseFooting: boolean; // Flat bottom
+    reflectivity: boolean; // Gloss vs Matte consistency
+  };
+}
+
+// --- NEW FEATURE: FLORIST ATELIER (10 BLIND SPOTS) ---
+export interface FloristOptions {
+  style: string; // Hand Bouquet, Table Vase, Flower Box, Standing Flower
+  flowerType: string; // Roses, Tulips, Peonies, Mixed Wildflowers, Orchids
+  material: string; // Kraft Paper, Clear Glass, Ceramic, Velvet Box, Rustic Burlap
+  fixes: {
+    petalTexture: boolean; // Velvet/Waxy texture
+    waterRefraction: boolean; // Stem distortion in water
+    stemLogic: boolean; // Stems connect to heads
+    leafFreshness: boolean; // No wilted brown edges
+    wrappingPhysics: boolean; // Paper crinkles naturally
+    pollenDetail: boolean; // Macro center details
+    colorHarmony: boolean; // Complementary colors
+    ribbonFlow: boolean; // Fabric physics
+    depthLayering: boolean; // 3D volume, not flat
+    dewDrops: boolean; // Freshness indicator
+  };
+}
+
+// --- NEW FEATURE: UMRAH & HAJJ VISION (10 BLIND SPOTS) ---
+export interface UmrahHajjOptions {
+  pilgrimType: string; // Man, Woman, Couple, Family
+  location: string; // Kaaba (Mataf), Masjid Nabawi, Desert (Jabal Rahmah)
+  shotType: string; // Portrait, Walking, Dua (Prayer), Crowd
+  fixes: {
+    ihramRealism: boolean; // 2 unstitched sheets for men
+    kaabaTexture: boolean; // Kiswah gold calligraphy accuracy
+    marbleReflect: boolean; // Cool white floor reflection
+    hijabLayering: boolean; // Proper draping without tight fits
+    umbrellaMech: boolean; // Nabawi umbrella structure logic
+    crowdFlow: boolean; // Tawaf counter-clockwise logic
+    handGesture: boolean; // Palms up for Dua, not clasping
+    archAccuracy: boolean; // Ottoman/Modern Islamic arches
+    ihramBelt: boolean; // Belt utility for men
+    faceSerenity: boolean; // Peaceful expression/Tears of joy
   };
 }
 
 // Union Type for flexibility
-export type GenerationOptions = CarouselOptions | PhotoshootOptions | NewbornOptions | PreweddingOptions | FamilyOptions | ProductOptions | RecoveryOptions | DetailingOptions | CinematicRelightingOptions | AnalogFilmOptions | HeadshotOptions | StagingOptions | DoubleExposureOptions | HDROptions | GenFillOptions | FashionEditorialOptions | LogoMascotOptions | ArchitecturalVisionOptions | IndustrialDesignOptions | PersonalColorOptions | ModMotorOptions | ModCarOptions;
+export type GenerationOptions = CarouselOptions | PhotoshootOptions | NewbornOptions | PreweddingOptions | FamilyOptions | ProductOptions | RecoveryOptions | DetailingOptions | CinematicRelightingOptions | AnalogFilmOptions | HeadshotOptions | StagingOptions | DoubleExposureOptions | HDROptions | GenFillOptions | FashionEditorialOptions | LogoMascotOptions | ArchitecturalVisionOptions | IndustrialDesignOptions | PersonalColorOptions | ModMotorOptions | ModCarOptions | SneakerLabOptions | NailArtOptions | TerrariumOptions | CeramicOptions | FloristOptions | UmrahHajjOptions;

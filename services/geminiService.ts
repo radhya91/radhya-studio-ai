@@ -1,5 +1,5 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
-import { AppMode, GenerationResult, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, ArchitecturalVisionOptions, IndustrialDesignOptions, GenerationOptions, PersonalColorOptions, ModMotorOptions, ModCarOptions } from '../types';
+import { AppMode, GenerationResult, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, ArchitecturalVisionOptions, IndustrialDesignOptions, GenerationOptions, PersonalColorOptions, ModMotorOptions, ModCarOptions, SneakerLabOptions, NailArtOptions, TerrariumOptions, CeramicOptions, FloristOptions, UmrahHajjOptions } from '../types';
 import { MODES } from '../constants';
 
 // --- SYSTEM INSTRUCTIONS UNTUK TEXT TOOLS (AI TOOLS) ---
@@ -365,12 +365,35 @@ const getPromptEnhancementInstruction = (mode: AppMode, options?: GenerationOpti
         - Wheels: ${opts?.rimType}
         - Suspension: ${opts?.suspension}
         
-        AUTOMOTIVE REALISM RULES:`;
-        if (opts?.fixes.panelGap) carInstruction += `\n- PANEL GAPS: Ensure door lines, hood lines, and bumper seams are visible and consistent. Don't merge parts into a single blob.`;
-        if (opts?.fixes.reflectionMatch) carInstruction += `\n- REFLECTIONS: The glossy car paint must reflect the environment accurately. No random studio lights if outdoors.`;
-        if (opts?.fixes.camberLogic) carInstruction += `\n- WHEEL FITMENT: Tires must fit inside the wheel wells (or poke out realistically if Widebody). Wheels should not clip through fenders.`;
-        if (opts?.fixes.brakeCaliper) carInstruction += `\n- BRAKES: Brake calipers must be stationary (not spinning with the wheel) and positioned correctly on the rotor.`;
-        if (opts?.fixes.headlightDetail) carInstruction += `\n- LIGHTS: Headlights/Taillights must have internal depth (lenses, reflectors, LEDs), not just a flat colored texture.`;
+        AUTOMOTIVE REALISM & 20 BLIND SPOT FIXES:`;
+        
+        // Group A: Bodywork
+        if (opts?.fixes.panelGap) carInstruction += `\n- PANEL GAPS: Ensure door lines, hood lines, and bumper seams are visible and defined (not melted together).`;
+        if (opts?.fixes.reflectionMatch) carInstruction += `\n- REFLECTION MAP: Reflections on the car body must match the specific environment (sky on hood, ground on doors).`;
+        if (opts?.fixes.symmetryLock) carInstruction += `\n- SYMMETRY: Mirrors, headlights, and body lines must be perfectly symmetrical on both sides.`;
+        if (opts?.fixes.carbonScale) carInstruction += `\n- CARBON FIBER: If present, carbon fiber must show a realistic diagonal weave pattern scale, not generic noise.`;
+        if (opts?.fixes.plateWarp) carInstruction += `\n- LICENSE PLATE: Ensure license plate area is flat and rectangular, not warped or melted into the bumper.`;
+
+        // Group B: Wheels
+        if (opts?.fixes.camberLogic) carInstruction += `\n- CAMBER/FITMENT: Wheels must fit inside the wheel wells. If lowered, use negative camber logic (wheels tilt in). No clipping.`;
+        if (opts?.fixes.lugNutCount) carInstruction += `\n- LUG NUTS: Ensure distinct, counted lug nuts (4 or 5) in the center of the wheel.`;
+        if (opts?.fixes.brakeCaliper) carInstruction += `\n- CALIPER STATIONARITY: Brake calipers must be stationary at 3 or 9 o'clock position, not spinning with the wheel.`;
+        if (opts?.fixes.tireTread) carInstruction += `\n- TIRE TREAD: Tires must have directional tread patterns, not smooth slick surfaces (unless specified race car).`;
+        if (opts?.fixes.wheelWellDepth) carInstruction += `\n- WHEEL WELLS: The area inside the fender must be dark/shadowed, showing suspension hints, not transparent.`;
+
+        // Group C: Lighting
+        if (opts?.fixes.headlightDetail) carInstruction += `\n- HEADLIGHT DEPTH: Show internal projectors, lenses, and chrome reflectors inside the headlight housing.`;
+        if (opts?.fixes.taillightDepth) carInstruction += `\n- TAILLIGHTS: Taillights must look like translucent red plastic/glass with internal LEDs, not flat red paint.`;
+        if (opts?.fixes.indicatorColor) carInstruction += `\n- INDICATORS: Turn signals should be orange/amber or clear, distinct from the brake lights.`;
+        if (opts?.fixes.windowTrans) carInstruction += `\n- TINT/GLASS: Windows should be semi-transparent, hinting at the interior seats/steering wheel, not solid black.`;
+        if (opts?.fixes.windshieldFix) carInstruction += `\n- WINDSHIELD: A-Pillars must be straight. Reflections on glass must be sharp.`;
+
+        // Group D: Physics
+        if (opts?.fixes.shadowContact) carInstruction += `\n- AMBIENT OCCLUSION: The car must cast a realistic contact shadow on the ground. It cannot float.`;
+        if (opts?.fixes.exhaustHole) carInstruction += `\n- EXHAUST TIPS: Exhaust pipes must have a hollow black opening, not a flat metal cap.`;
+        if (opts?.fixes.intercoolerVis) carInstruction += `\n- COOLING: For turbo cars, show the intercooler mesh behind the front bumper grill.`;
+        if (opts?.fixes.wiperLogic) carInstruction += `\n- WIPERS: Wipers must sit flush at the bottom of the windshield, not floating or crossing pillars.`;
+        if (opts?.fixes.groundClearance) carInstruction += `\n- UNDERCARRIAGE: Darken the area under the car to simulate chassis depth.`;
 
         carInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
         A modified car build in ${opts?.style} style.
@@ -378,6 +401,203 @@ const getPromptEnhancementInstruction = (mode: AppMode, options?: GenerationOpti
         Details: [USER PROMPT].
         Style: Speedhunters, Top Gear Magazine, 8k Automotive Photography.`;
         return carInstruction;
+    }
+
+    // --- NEW FEATURE: CUSTOM SNEAKER LAB ---
+    case AppMode.SNEAKER_LAB: {
+        const opts = options as SneakerLabOptions;
+        let sneakerInstruction = `${baseInstruction}
+        CONTEXT: CUSTOM SNEAKER DESIGN LABORATORY.
+        OBJECTIVE: Create a hyper-realistic product concept of a custom sneaker based on user preferences.
+        
+        USER CONFIGURATION:
+        - Silhouette: ${opts?.style}
+        - Material: ${opts?.material}
+        - Colorway: ${opts?.colorway}
+        
+        BLIND SPOT FIXES (FOOTWEAR ANATOMY):`;
+        if (opts?.fixes.laceLogic) sneakerInstruction += `\n- LACES: Shoelaces must physically pass THROUGH the eyelets and criss-cross logically. No broken or floating laces.`;
+        if (opts?.fixes.solePhysics) sneakerInstruction += `\n- OUTSOLE: The bottom sole must be flat on the ground with a realistic traction pattern (herringbone/waffle).`;
+        if (opts?.fixes.logoIntegrity) sneakerInstruction += `\n- LOGO: Brand logos/swoshes must follow the curve of the shoe panel and not be cut off by stitching unless intended.`;
+        if (opts?.fixes.materialDistinction) sneakerInstruction += `\n- MATERIAL TEXTURE: Distinctly render ${opts?.material}. Suede = fuzzy, Leather = smooth grain, Knit = woven texture.`;
+        if (opts?.fixes.stitchFlow) sneakerInstruction += `\n- STITCHING: Double stitching lines must be parallel and continuous along panel edges.`;
+        if (opts?.fixes.collarSymmetry) sneakerInstruction += `\n- ANKLE COLLAR: The opening for the foot must be symmetrical and centered.`;
+        if (opts?.fixes.toeBoxShape) sneakerInstruction += `\n- TOE BOX: The front of the shoe should have a natural curve, not too flat (duckbill) or too bulbous (clown).`;
+        if (opts?.fixes.eyeletAlign) sneakerInstruction += `\n- EYELETS: Lace holes must be punched into the eyestay panel, not floating on top.`;
+        if (opts?.fixes.midsoleTexture) sneakerInstruction += `\n- MIDSOLE: If using foam/boost, show the microporous texture. If rubber, show the smooth mold lines.`;
+        if (opts?.fixes.tonguePlacement) sneakerInstruction += `\n- TONGUE: The tongue must be centered under the laces, visible at the top.`;
+
+        sneakerInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A conceptual product shot of a custom ${opts?.style} sneaker.
+        Material: ${opts?.material}. Colorway: ${opts?.colorway}.
+        Details: [USER PROMPT].
+        Style: Hypebeast, Studio Product Photography, 8k, Macro Detail.`;
+        return sneakerInstruction;
+    }
+
+    // --- NEW FEATURE: NAIL ART STUDIO ---
+    case AppMode.NAIL_ART: {
+        const opts = options as NailArtOptions;
+        let nailInstruction = `${baseInstruction}
+        CONTEXT: PROFESSIONAL NAIL ART & MANICURE VISUALIZATION.
+        OBJECTIVE: Apply realistic nail art to a hand, maintaining correct anatomy and texture physics.
+        
+        USER CONFIGURATION:
+        - Style: ${opts?.style}
+        - Shape/Length: ${opts?.length}
+        - Finish: ${opts?.finish}
+        
+        BLIND SPOT FIXES (HAND & NAIL ANATOMY):`;
+        if (opts?.fixes.fingerCount) nailInstruction += `\n- ANATOMY: The hand MUST have exactly 5 fingers (Thumb, Index, Middle, Ring, Pinky). No AI hallucinations.`;
+        if (opts?.fixes.cuticleClean) nailInstruction += `\n- CUTICLES: The nail polish must stop cleanly at the cuticle line. Do not paint over the skin.`;
+        if (opts?.fixes.shapeConsistency) nailInstruction += `\n- SHAPE: All nails must have the same ${opts?.length} shape. Don't mix squares and ovals.`;
+        if (opts?.fixes.textureReality) nailInstruction += `\n- TEXTURE: If Glitter/Chrome, show individual particles or metallic reflection. If Matte, remove specular highlights.`;
+        if (opts?.fixes.glossReflection) nailInstruction += `\n- REFLECTIONS: For Glossy finish, the "wet look" light reflection (bally) must be consistent on each curved nail surface.`;
+        if (opts?.fixes.thumbPerspective) nailInstruction += `\n- THUMB: The thumb nail faces a different angle than the fingers. Render correct perspective.`;
+        if (opts?.fixes.skinRealistic) nailInstruction += `\n- SKIN: Hand skin should have natural pores and knuckles, not look like smooth plastic or wax.`;
+        if (opts?.fixes.patternUniform) nailInstruction += `\n- PATTERN SCALE: If a pattern is requested (e.g. French Tip), the thickness of the tip must be proportional on all fingers.`;
+        if (opts?.fixes.jewelrySeparation) nailInstruction += `\n- JEWELRY: If rings are present, the nail/polish must clearly be separate and not merge into the metal.`;
+        if (opts?.fixes.lengthLogic) nailInstruction += `\n- PHYSICS: Long nails should cast a small shadow on the finger tip if lighting is overhead.`;
+
+        nailInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A close-up beauty shot of a hand with a fresh manicure.
+        Nail Art: ${opts?.style}, ${opts?.length}, ${opts?.finish} finish.
+        Details: [USER PROMPT].
+        Style: High-end Beauty Campaign, Macro Photography, 8k.`;
+        return nailInstruction;
+    }
+
+    // --- NEW FEATURE: TERRARIUM BUILDER ---
+    case AppMode.TERRARIUM_BUILDER: {
+        const opts = options as TerrariumOptions;
+        let terrariumInstruction = `${baseInstruction}
+        CONTEXT: MINIATURE TERRARIUM ECOSYSTEM DESIGN.
+        OBJECTIVE: Create a hyper-realistic close-up of a closed or open terrarium with distinct layers and healthy plants.
+        
+        USER CONFIGURATION:
+        - Container: ${opts?.container}
+        - Ecosystem: ${opts?.ecosystem}
+        - Decor: ${opts?.decor}
+        
+        BLIND SPOT FIXES (ECOSYSTEM & GLASS PHYSICS):`;
+        if (opts?.fixes.glassPhysics) terrariumInstruction += `\n- GLASS REFRACTION: The glass container walls must show subtle refraction and thickness (dielectric material). Not invisible or plastic.`;
+        if (opts?.fixes.layerLogic) terrariumInstruction += `\n- SOIL LAYERS: Visible cross-section of layers from bottom up: 1. Drainage Stones/Gravel -> 2. Activated Charcoal (thin black line) -> 3. Soil -> 4. Plants/Moss.`;
+        if (opts?.fixes.scaleConsistency) terrariumInstruction += `\n- SCALE: Plants must look miniature relative to the ${opts?.container}. They cannot be giant houseplants stuffed in a jar.`;
+        if (opts?.fixes.condensation) terrariumInstruction += `\n- HUMIDITY: If closed jar, add subtle condensation mist on the inner upper glass walls to indicate humidity.`;
+        if (opts?.fixes.plantCollision) terrariumInstruction += `\n- NO CLIPPING: Leaves should press against the glass slightly or bend, not pass through the solid glass wall.`;
+        if (opts?.fixes.rootVisibility) terrariumInstruction += `\n- ROOTS: White roots should be visible growing through the soil layer against the glass, realistic root systems.`;
+        if (opts?.fixes.lightingInterior) terrariumInstruction += `\n- INTERIOR LIGHT: Light must penetrate the glass and illuminate the plants inside. Shadows fall on the soil surface.`;
+        if (opts?.fixes.waterLevel) terrariumInstruction += `\n- WATER LOGIC: If aquatic, the water surface line must be flat and horizontal. If terrestrial, no standing water pool (unless bog).`;
+        if (opts?.fixes.lidLogic) terrariumInstruction += `\n- LID/CORK: If jar/bottle, show the cork or glass lid sealing the top.`;
+        if (opts?.fixes.mossTexture) terrariumInstruction += `\n- MOSS DETAIL: Moss must look fuzzy and soft (velvet texture), not like flat green ground paint.`;
+
+        terrariumInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A macro studio shot of a ${opts?.container} terrarium containing a ${opts?.ecosystem} ecosystem.
+        Decor: ${opts?.decor}.
+        Details: [USER PROMPT].
+        Style: Macro Nature Photography, 8k, Lush Greenery.`;
+        return terrariumInstruction;
+    }
+
+    // --- NEW FEATURE: CERAMIC & POTTERY STUDIO ---
+    case AppMode.CERAMIC_POTTERY: {
+        const opts = options as CeramicOptions;
+        let potteryInstruction = `${baseInstruction}
+        CONTEXT: CERAMIC STUDIO & POTTERY DESIGN.
+        OBJECTIVE: Visualize a handcrafted ceramic piece with realistic glaze chemistry and clay texture.
+        
+        USER CONFIGURATION:
+        - Item: ${opts?.itemType}
+        - Clay: ${opts?.clayStyle}
+        - Glaze: ${opts?.glazeStyle}
+        
+        BLIND SPOT FIXES (KILN & CLAY PHYSICS):`;
+        if (opts?.fixes.radialSymmetry) potteryInstruction += `\n- SYMMETRY: The ${opts?.itemType} must be wheel-thrown symmetrical (unless wabi-sabi specified). No warped rims.`;
+        if (opts?.fixes.glazeDripPhysics) potteryInstruction += `\n- GLAZE DRIPS: If ${opts?.glazeStyle}, glaze drips must flow downwards with gravity and thicken at the bottom of the drip (meniscus).`;
+        if (opts?.fixes.textureMapping) potteryInstruction += `\n- MATERIAL SEPARATION: Clearly distinguish between the raw matte ${opts?.clayStyle} clay body and the glassy/smooth glaze areas.`;
+        if (opts?.fixes.rimThickness) potteryInstruction += `\n- RIM VOLUME: The rim of the pot/mug must have thickness/volume, not be a razor-thin paper edge.`;
+        if (opts?.fixes.bottomShadow) potteryInstruction += `\n- CONTACT SHADOW: Heavy ambient occlusion where the pot meets the table. Ceramics are heavy objects.`;
+        if (opts?.fixes.handleGeometry) potteryInstruction += `\n- HANDLE LOGIC: If mug/jug, the handle must be attached firmly and have a clear opening for fingers.`;
+        if (opts?.fixes.kilnEffects) potteryInstruction += `\n- KILN MARKS: Add subtle reduction spots, scorch marks, or glaze bubbles characteristic of firing.`;
+        if (opts?.fixes.interiorLighting) potteryInstruction += `\n- INTERIOR: The inside of the vessel must be visible (shadowed but detailed), not a void black hole.`;
+        if (opts?.fixes.baseFooting) potteryInstruction += `\n- FOOT RING: The base must sit flat on a trimmed foot ring (typical of pottery).`;
+        if (opts?.fixes.reflectivity) potteryInstruction += `\n- REFLECTION MAP: Glazed areas should catch sharp specular highlights (wet look), unglazed areas remain matte.`;
+
+        potteryInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A studio photograph of a handcrafted ${opts?.clayStyle} ${opts?.itemType}.
+        Finish: ${opts?.glazeStyle} glaze.
+        Details: [USER PROMPT].
+        Style: Ceramic Art Magazine, Studio Lighting, 8k.`;
+        return potteryInstruction;
+    }
+
+    // --- NEW FEATURE: FLORIST ATELIER ---
+    case AppMode.FLORIST_ATELIER: {
+        const opts = options as FloristOptions;
+        let floristInstruction = `${baseInstruction}
+        CONTEXT: PROFESSIONAL FLORIST ATELIER & FLORAL DESIGN.
+        OBJECTIVE: Create a high-end floral arrangement with realistic botanical textures and artistic composition.
+        
+        USER CONFIGURATION:
+        - Style: ${opts?.style}
+        - Flower Type: ${opts?.flowerType}
+        - Material/Vase: ${opts?.material}
+        
+        BOTANICAL REALISM & PHYSICS FIXES (10 BLIND SPOTS):`;
+        if (opts?.fixes.petalTexture) floristInstruction += `\n- PETAL TEXTURE: Distinguish between the velvet texture of roses, the waxy texture of lilies, and the delicate silk of poppies. No plastic look.`;
+        if (opts?.fixes.waterRefraction) floristInstruction += `\n- WATER REFRACTION: If in a glass vase, flower stems must appear visually distorted/displaced by the water and glass refraction.`;
+        if (opts?.fixes.stemLogic) floristInstruction += `\n- STEM LOGIC: Every flower head must have a traceable stem going down into the vase or wrapping. No floating flower heads.`;
+        if (opts?.fixes.leafFreshness) floristInstruction += `\n- FOLIAGE QUALITY: Leaves should be lush green and turgid, without brown wilted edges, unless 'dried flower' style is requested.`;
+        if (opts?.fixes.wrappingPhysics) floristInstruction += `\n- WRAPPING: Paper or fabric wrapping must crinkle naturally around the stems, showing volume and folds. Not a flat texture overlay.`;
+        if (opts?.fixes.pollenDetail) floristInstruction += `\n- MACRO DETAILS: Show stamens, pistils, and pollen dust in the center of open flowers for macro realism.`;
+        if (opts?.fixes.colorHarmony) floristInstruction += `\n- COLOR THEORY: Ensure the arrangement follows a pleasing color palette (monochromatic, analogous, or complementary). Avoid clashing random neon colors.`;
+        if (opts?.fixes.ribbonFlow) floristInstruction += `\n- RIBBON PHYSICS: Ribbons should drape naturally with gravity, having soft curves, not stiff jagged lines.`;
+        if (opts?.fixes.depthLayering) floristInstruction += `\n- 3D VOLUME: The arrangement must have depth. Some flowers are forward, some recessed in shadow. Not a flat wall of flowers.`;
+        if (opts?.fixes.dewDrops) floristInstruction += `\n- DEW DROPS: Add subtle morning dew droplets on a few petals to indicate extreme freshness.`;
+
+        floristInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A studio photograph of a luxury ${opts?.style} featuring ${opts?.flowerType}.
+        Container/Wrapping: ${opts?.material}.
+        Details: [USER PROMPT].
+        Style: High-End Florist Portfolio, Soft Natural Lighting, 8k, Botanical Art.`;
+        return floristInstruction;
+    }
+
+    // --- NEW FEATURE: UMRAH & HAJJ VISION ---
+    case AppMode.UMRAH_HAJJ: {
+        const opts = options as UmrahHajjOptions;
+        let umrahInstruction = `${baseInstruction}
+        CONTEXT: UMRAH & HAJJ PILGRIMAGE VISUALIZATION.
+        OBJECTIVE: Create a spiritually resonant and physically accurate visualization of pilgrims in Makkah or Madinah.
+        
+        USER CONFIGURATION:
+        - Pilgrim: ${opts?.pilgrimType}
+        - Location: ${opts?.location}
+        - Shot Type: ${opts?.shotType}
+        
+        ISLAMIC ARCHITECTURE & PILGRIM REALISM (10 BLIND SPOTS):`;
+        
+        if (opts?.fixes.ihramRealism) {
+            umrahInstruction += `\n- IHRAM (MEN): If subject is male, he MUST wear two pieces of seamless white unstitched cloth (Izār and Ridā'). NO sewn shirts, NO collars, NO buttons. Right shoulder uncovered (Idtiba) if walking/Tawaf.`;
+        } else {
+            umrahInstruction += `\n- CLOTHING: Modest Islamic attire.`;
+        }
+        
+        if (opts?.fixes.kaabaTexture) umrahInstruction += `\n- KAABA KISWAH: The black cloth (Kiswah) must feature distinct Gold Quranic Calligraphy embroidery in the correct Thuluth script band near the top.`;
+        if (opts?.fixes.marbleReflect) umrahInstruction += `\n- COOL MARBLE: The floor of Masjid al-Haram is Thassos marble which reflects cool white light even in the sun. It is NOT yellow sand color.`;
+        if (opts?.fixes.hijabLayering) umrahInstruction += `\n- HIJAB PHYSICS: Women's headscarves must drape naturally over the shoulders without defying gravity. Loose fitting Abaya, not tight.`;
+        if (opts?.fixes.umbrellaMech) umrahInstruction += `\n- NABAWI UMBRELLAS: If in Madinah, the giant convertible umbrellas must have their specific architectural membrane structure and distinct decorative arm patterns.`;
+        if (opts?.fixes.crowdFlow) umrahInstruction += `\n- TAWAF DIRECTION: The crowd circling the Kaaba moves counter-clockwise. Motion blur should reflect this direction.`;
+        if (opts?.fixes.handGesture) umrahInstruction += `\n- DUA HANDS: Hands raised in supplication (Dua) should have palms facing UP and slightly inward, fingers natural. NOT clasped together.`;
+        if (opts?.fixes.archAccuracy) umrahInstruction += `\n- ARCHITECTURE: Use correct Ottoman or Modern Islamic arches specific to the ${opts?.location}. Do not use generic Taj Mahal or Indian Mughal domes.`;
+        if (opts?.fixes.ihramBelt) umrahInstruction += `\n- IHRAM BELT: Men in Ihram often wear a functional money belt/pouch around the waist to hold the lower cloth. This adds realism.`;
+        if (opts?.fixes.faceSerenity) umrahInstruction += `\n- EXPRESSION: Faces should radiate peace, humility, and spiritual emotion (Khushoo).`;
+
+        umrahInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A ${opts?.shotType} of a ${opts?.pilgrimType} performing pilgrimage at ${opts?.location}.
+        Details: [USER PROMPT].
+        Style: Cinematic Islamic Photography, Golden Hour or Bright Noon Lighting, 8k, Spiritual Atmosphere.`;
+        return umrahInstruction;
     }
 
     default:
@@ -532,6 +752,12 @@ export const generateCreativeContent = async (
              contextPrompt = `Analyze this motorcycle photo. Identify the model type and key features (tank, frame). Write a prompt to MODIFY this bike into a ${(options as ModMotorOptions)?.style} style custom build. Change the seat to a ${(options as ModMotorOptions)?.seatStyle} style and the exhaust to ${(options as ModMotorOptions)?.exhaustType}. Keep the engine details realistic but upgrade the aesthetics. User request: "${prompt}".`;
         } else if (activeMode === AppMode.MOD_CAR) {
              contextPrompt = `Analyze this car photo. Identify the body lines and model. Write a prompt to TUNE/MODIFY this car into a ${(options as ModCarOptions)?.style} build. Install ${(options as ModCarOptions)?.rimType} wheels and adjust suspension to ${(options as ModCarOptions)?.suspension}. Ensure realistic reflections and body kit integration. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.SNEAKER_LAB) {
+             contextPrompt = `Analyze this reference image. Identify the shoe structure or the person's feet. Write a prompt to GENERATE a custom sneaker design in the ${(options as SneakerLabOptions)?.style} style. Apply ${(options as SneakerLabOptions)?.material} material and the ${(options as SneakerLabOptions)?.colorway} colorway. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.NAIL_ART) {
+             contextPrompt = `Analyze this hand photo. Identify the fingers and nail beds. Write a prompt to APPLY a realistic manicure in the ${(options as NailArtOptions)?.style} style. Use ${(options as NailArtOptions)?.length} length and a ${(options as NailArtOptions)?.finish} finish. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.UMRAH_HAJJ) {
+             contextPrompt = `Analyze this face photo. Identify the facial features, skin tone, and gender. Write a prompt to place this person in a SPIRITUAL PILGRIMAGE SCENE in ${(options as UmrahHajjOptions)?.location}. Dress them in accurate ${(options as UmrahHajjOptions)?.pilgrimType} attire (Ihram for men, Abaya for women). Keep the face recognizable but serene. User request: "${prompt}".`;
         } else {
              contextPrompt = `Analyze the visual content of the attached image(s). Then, write a NEW, highly detailed generation prompt based on the user's request: "${prompt}". Ensure you incorporate the style/subject of the reference image but apply the specific visual enhancements required by the current mode.`;
         }

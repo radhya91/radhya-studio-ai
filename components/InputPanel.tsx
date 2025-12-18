@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Loader2, Image as ImageIcon, Type, Square, RectangleHorizontal, RectangleVertical, Settings2, Trash2, Camera, Sun, Zap, Crosshair, Box, Palette, Aperture, Users, Mountain, Building2, Armchair, Hand, Eye, Layers, Fingerprint, Baby, Heart, ShieldCheck, Moon, Microscope, ScanFace, Scale, Video, CloudRain, Wind, UserCheck, Flame, Infinity, Clapperboard, Film, Users2, Home, Shirt, UploadCloud, X, Footprints, Smile, UserPlus, Droplets, Target, ShoppingBag, History, Bandage, User, Wand2, ZoomIn, Cpu, Maximize2, Lightbulb, Scissors, Briefcase, Expand, PenTool, Wrench, Car } from 'lucide-react';
-import { ModeConfig, GeneratedImage, AppMode, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, ArchitecturalVisionOptions, IndustrialDesignOptions, GenerationOptions, PersonalColorOptions, ModMotorOptions, ModCarOptions } from '../types';
+import { Sparkles, Loader2, Image as ImageIcon, Type, Square, RectangleHorizontal, RectangleVertical, Settings2, Trash2, Camera, Sun, Zap, Crosshair, Box, Palette, Aperture, Users, Mountain, Building2, Armchair, Hand, Eye, Layers, Fingerprint, Baby, Heart, ShieldCheck, Moon, Microscope, ScanFace, Scale, Video, CloudRain, Wind, UserCheck, Flame, Infinity, Clapperboard, Film, Users2, Home, Shirt, UploadCloud, X, Footprints, Smile, UserPlus, Droplets, Target, ShoppingBag, History, Bandage, User, Wand2, ZoomIn, Cpu, Maximize2, Lightbulb, Scissors, Briefcase, Expand, PenTool, Wrench, Car, Sprout, Disc, Flower, Compass } from 'lucide-react';
+import { ModeConfig, GeneratedImage, AppMode, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, ArchitecturalVisionOptions, IndustrialDesignOptions, GenerationOptions, PersonalColorOptions, ModMotorOptions, ModCarOptions, SneakerLabOptions, NailArtOptions, TerrariumOptions, CeramicOptions, FloristOptions, UmrahHajjOptions } from '../types';
 import ImageUploader from './ImageUploader';
 import Gallery from './Gallery';
 
@@ -442,16 +442,133 @@ const InputPanel: React.FC<InputPanelProps> = ({
     mirrorReflection: true
   });
 
-  // Mod Car States
+  // Mod Car States (Updated for 20 Blind Spots)
   const [carStyle, setCarStyle] = useState('jdm');
   const [carRim, setCarRim] = useState('te37');
   const [carSusp, setCarSusp] = useState('lowered');
   const [carFixes, setCarFixes] = useState({
     panelGap: true,
     reflectionMatch: true,
+    symmetryLock: true,
+    carbonScale: true,
+    plateWarp: true,
     camberLogic: true,
+    lugNutCount: true,
     brakeCaliper: true,
+    tireTread: true,
+    wheelWellDepth: true,
     headlightDetail: true,
+    taillightDepth: true,
+    indicatorColor: true,
+    windowTrans: true,
+    windshieldFix: true,
+    shadowContact: true,
+    exhaustHole: true,
+    intercoolerVis: true,
+    wiperLogic: true,
+    groundClearance: true,
+  });
+
+  // Sneaker Lab States (New)
+  const [sneakerStyle, setSneakerStyle] = useState('high-top');
+  const [sneakerMaterial, setSneakerMaterial] = useState('leather');
+  const [sneakerColor, setSneakerColor] = useState('panda');
+  const [sneakerFixes, setSneakerFixes] = useState({
+    laceLogic: true,
+    solePhysics: true,
+    logoIntegrity: true,
+    materialDistinction: true,
+    stitchFlow: true,
+    collarSymmetry: true,
+    toeBoxShape: true,
+    eyeletAlign: true,
+    midsoleTexture: true,
+    tonguePlacement: true
+  });
+
+  // Nail Art States (New)
+  const [nailStyle, setNailStyle] = useState('french-tip');
+  const [nailLength, setNailLength] = useState('medium');
+  const [nailFinish, setNailFinish] = useState('glossy');
+  const [nailFixes, setNailFixes] = useState({
+    fingerCount: true,
+    cuticleClean: true,
+    shapeConsistency: true,
+    textureReality: true,
+    glossReflection: true,
+    thumbPerspective: true,
+    skinRealistic: true,
+    patternUniform: true,
+    jewelrySeparation: true,
+    lengthLogic: true
+  });
+
+  // Terrarium Builder States (New)
+  const [terraContainer, setTerraContainer] = useState('jar');
+  const [terraEco, setTerraEco] = useState('tropical');
+  const [terraDecor, setTerraDecor] = useState('stones');
+  const [terraFixes, setTerraFixes] = useState({
+    glassPhysics: true,
+    layerLogic: true,
+    scaleConsistency: true,
+    condensation: true,
+    plantCollision: true,
+    rootVisibility: true,
+    lightingInterior: true,
+    waterLevel: true,
+    lidLogic: true,
+    mossTexture: true
+  });
+
+  // Ceramic Pottery States (New)
+  const [potItem, setPotItem] = useState('vase');
+  const [potClay, setPotClay] = useState('terracotta');
+  const [potGlaze, setPotGlaze] = useState('drip');
+  const [potFixes, setPotFixes] = useState({
+    radialSymmetry: true,
+    glazeDripPhysics: true,
+    textureMapping: true,
+    rimThickness: true,
+    bottomShadow: true,
+    handleGeometry: true,
+    kilnEffects: true,
+    interiorLighting: true,
+    baseFooting: true,
+    reflectivity: true
+  });
+
+  // Florist Atelier States (New)
+  const [floristStyle, setFloristStyle] = useState('hand-bouquet');
+  const [floristFlower, setFloristFlower] = useState('roses');
+  const [floristMaterial, setFloristMaterial] = useState('kraft-paper');
+  const [floristFixes, setFloristFixes] = useState({
+    petalTexture: true,
+    waterRefraction: true,
+    stemLogic: true,
+    leafFreshness: true,
+    wrappingPhysics: true,
+    pollenDetail: true,
+    colorHarmony: true,
+    ribbonFlow: true,
+    depthLayering: true,
+    dewDrops: true,
+  });
+
+  // Umrah & Hajj Vision States (New)
+  const [umrahPilgrim, setUmrahPilgrim] = useState('man');
+  const [umrahLocation, setUmrahLocation] = useState('kaaba');
+  const [umrahShot, setUmrahShot] = useState('portrait');
+  const [umrahFixes, setUmrahFixes] = useState({
+    ihramRealism: true,
+    kaabaTexture: true,
+    marbleReflect: true,
+    hijabLayering: true,
+    umbrellaMech: true,
+    crowdFlow: true,
+    handGesture: true,
+    archAccuracy: true,
+    ihramBelt: true,
+    faceSerenity: true
   });
 
   const hasResults = generatedImages.length > 0 || !!textContent;
@@ -490,6 +607,12 @@ const InputPanel: React.FC<InputPanelProps> = ({
   
   const isModMotor = config.id === AppMode.MOD_MOTOR;
   const isModCar = config.id === AppMode.MOD_CAR;
+  const isSneakerLab = config.id === AppMode.SNEAKER_LAB;
+  const isNailArt = config.id === AppMode.NAIL_ART;
+  const isTerrarium = config.id === AppMode.TERRARIUM_BUILDER;
+  const isCeramic = config.id === AppMode.CERAMIC_POTTERY;
+  const isFlorist = config.id === AppMode.FLORIST_ATELIER;
+  const isUmrah = config.id === AppMode.UMRAH_HAJJ;
 
   useEffect(() => {
     // Reset inputs only when mode changes, not when generating
@@ -551,6 +674,18 @@ const InputPanel: React.FC<InputPanelProps> = ({
         options = { style: motorStyle, exhaustType: motorExhaust, seatStyle: motorSeat, fixes: motorFixes } as ModMotorOptions;
     } else if (isModCar) {
         options = { style: carStyle, rimType: carRim, suspension: carSusp, fixes: carFixes } as ModCarOptions;
+    } else if (isSneakerLab) {
+        options = { style: sneakerStyle, material: sneakerMaterial, colorway: sneakerColor, fixes: sneakerFixes } as SneakerLabOptions;
+    } else if (isNailArt) {
+        options = { style: nailStyle, length: nailLength, finish: nailFinish, fixes: nailFixes } as NailArtOptions;
+    } else if (isTerrarium) {
+        options = { container: terraContainer, ecosystem: terraEco, decor: terraDecor, fixes: terraFixes } as TerrariumOptions;
+    } else if (isCeramic) {
+        options = { itemType: potItem, clayStyle: potClay, glazeStyle: potGlaze, fixes: potFixes } as CeramicOptions;
+    } else if (isFlorist) {
+        options = { style: floristStyle, flowerType: floristFlower, material: floristMaterial, fixes: floristFixes } as FloristOptions;
+    } else if (isUmrah) {
+        options = { pilgrimType: umrahPilgrim, location: umrahLocation, shotType: umrahShot, fixes: umrahFixes } as UmrahHajjOptions;
     }
 
     onGenerate(prompt, image1, image2, aspectRatio, options);
@@ -579,6 +714,12 @@ const InputPanel: React.FC<InputPanelProps> = ({
   const togglePcFix = (key: keyof typeof pcFixes) => setPcFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleMotorFix = (key: keyof typeof motorFixes) => setMotorFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleCarFix = (key: keyof typeof carFixes) => setCarFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleSneakerFix = (key: keyof typeof sneakerFixes) => setSneakerFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleNailFix = (key: keyof typeof nailFixes) => setNailFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleTerraFix = (key: keyof typeof terraFixes) => setTerraFixes(prev => ({...prev, [key]: !prev[key]}));
+  const togglePotFix = (key: keyof typeof potFixes) => setPotFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleFloristFix = (key: keyof typeof floristFixes) => setFloristFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleUmrahFix = (key: keyof typeof umrahFixes) => setUmrahFixes(prev => ({...prev, [key]: !prev[key]}));
 
   // Multi-Image Handler for Family
   const handleFamilyFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -649,18 +790,18 @@ const InputPanel: React.FC<InputPanelProps> = ({
                 <div className="lg:col-span-12 space-y-6">
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-6">
                          {/* Standard Image Inputs (hidden for Multi-Upload Modes: Family & Product) */}
-                        {!isFamily && !isProduct && (config.inputType === 'single-image' || config.inputType === 'dual-image') && (
+                        {!isFamily && !isProduct && !isTerrarium && !isCeramic && !isFlorist && !isUmrah && (config.inputType === 'single-image' || config.inputType === 'dual-image') && (
                             <div className="space-y-3">
                                 <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider">
                                     <ImageIcon size={14} className="text-indigo-500" />
                                     {isPhotoshoot ? 'Product Reference' : 
-                                     (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar) 
+                                     (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar || isSneakerLab || isNailArt || isUmrah) 
                                      ? 'Input Image' : 'Reference Content'}
                                 </label>
                             
                                 <div className={`grid gap-4 ${config.inputType === 'dual-image' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
                                     <ImageUploader
-                                        label={isPhotoshoot ? "Product Image" : (config.inputType === 'dual-image' ? 'First Image' : (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar) ? 'Upload Source' : 'Reference Image')}
+                                        label={isPhotoshoot ? "Product Image" : (config.inputType === 'dual-image' ? 'First Image' : (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar || isSneakerLab || isNailArt || isUmrah) ? 'Upload Source' : 'Reference Image')}
                                         imageFile={image1}
                                         onFileChange={setImage1}
                                     />
@@ -671,6 +812,336 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                             onFileChange={setImage2}
                                         />
                                     )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- TERRARIUM BUILDER UI --- */}
+                        {isTerrarium && (
+                            <div className="bg-green-50/50 p-5 rounded-xl border border-green-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-green-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Sprout size={14} /> Mini Ecosystem Lab
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Container Shape</label>
+                                        <select value={terraContainer} onChange={(e) => setTerraContainer(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="jar">Mason Jar (Vintage)</option>
+                                            <option value="bulb">Light Bulb</option>
+                                            <option value="geometric">Geometric Prism (Polyhedron)</option>
+                                            <option value="aquarium">Mini Aquarium Cube</option>
+                                            <option value="bottle">Wine Bottle (Narrow Neck)</option>
+                                            <option value="teardrop">Teardrop Hanging Glass</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Ecosystem Type</label>
+                                        <select value={terraEco} onChange={(e) => setTerraEco(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="tropical">Tropical (Moss, Ferns, Fittonia)</option>
+                                            <option value="desert">Desert (Succulents, Cacti, Sand)</option>
+                                            <option value="aquatic">Aquatic (Marimo, Water Plants)</option>
+                                            <option value="carnivorous">Carnivorous Bog (Venus Flytrap)</option>
+                                            <option value="forest">Temperate Forest (Bark, Lichen)</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Decor Element</label>
+                                        <select value={terraDecor} onChange={(e) => setTerraDecor(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="stones">River Stones / Pebbles</option>
+                                            <option value="driftwood">Miniature Driftwood</option>
+                                            <option value="crystals">Raw Crystals / Geodes</option>
+                                            <option value="house">Tiny House / Cottage</option>
+                                            <option value="figurine">Ghibli Style Figurine</option>
+                                            <option value="ruins">Ancient Ruins</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2 pt-2 border-t border-green-200/50">
+                                    <h4 className="text-[10px] font-bold text-green-600 uppercase mb-2">Physics & Biology Fixes</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {Object.entries(terraFixes).map(([key, active]) => (
+                                            <button key={key} onClick={() => toggleTerraFix(key as keyof typeof terraFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-green-100 text-green-800 border-green-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- CERAMIC POTTERY UI --- */}
+                        {isCeramic && (
+                            <div className="bg-amber-50/50 p-5 rounded-xl border border-amber-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-amber-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Disc size={14} /> Ceramic & Pottery Studio
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Item Type</label>
+                                        <select value={potItem} onChange={(e) => setPotItem(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="vase">Flower Vase</option>
+                                            <option value="mug">Coffee Mug</option>
+                                            <option value="bowl">Ramen Bowl</option>
+                                            <option value="plate">Dinner Plate</option>
+                                            <option value="plant-pot">Plant Pot (Planter)</option>
+                                            <option value="tea-set">Tea Set (Teapot + Cups)</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Clay Style</label>
+                                        <select value={potClay} onChange={(e) => setPotClay(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="terracotta">Terracotta (Red Earthy)</option>
+                                            <option value="porcelain">Porcelain (White Delicate)</option>
+                                            <option value="stoneware">Stoneware (Speckled)</option>
+                                            <option value="raku">Raku (Burnt/Iridescent)</option>
+                                            <option value="black-clay">Black Clay</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Glaze Technique</label>
+                                        <select value={potGlaze} onChange={(e) => setPotGlaze(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="drip">Drip Glaze (Lelehan)</option>
+                                            <option value="crackle">Crackle Glaze (Retak Seribu)</option>
+                                            <option value="matte">Matte Finish (No Shine)</option>
+                                            <option value="celadon">Celadon (Jade Green)</option>
+                                            <option value="crystalline">Crystalline (Starry)</option>
+                                            <option value="unglazed">Unglazed (Raw)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2 pt-2 border-t border-amber-200/50">
+                                    <h4 className="text-[10px] font-bold text-amber-600 uppercase mb-2">Wheel & Kiln Physics Fixes</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {Object.entries(potFixes).map(([key, active]) => (
+                                            <button key={key} onClick={() => togglePotFix(key as keyof typeof potFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- FLORIST ATELIER UI --- */}
+                        {isFlorist && (
+                            <div className="bg-rose-50/50 p-5 rounded-xl border border-rose-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-rose-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Flower size={14} /> Florist Atelier
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Arrangement Style</label>
+                                        <select value={floristStyle} onChange={(e) => setFloristStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="hand-bouquet">Hand Bouquet (Wrapped)</option>
+                                            <option value="table-vase">Table Vase Arrangement</option>
+                                            <option value="flower-box">Luxury Flower Box</option>
+                                            <option value="standing">Standing Flower (Papan/Rak)</option>
+                                            <option value="bridal">Bridal Bouquet (Compact)</option>
+                                            <option value="boutonniere">Boutonniere (Jas Pria)</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Primary Flower</label>
+                                        <select value={floristFlower} onChange={(e) => setFloristFlower(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="roses">Roses (Mawar)</option>
+                                            <option value="tulips">Tulips (Belanda)</option>
+                                            <option value="peonies">Peonies (Mewah)</option>
+                                            <option value="lilies">Lilies (Besar)</option>
+                                            <option value="wildflowers">Mixed Wildflowers (Rustic)</option>
+                                            <option value="orchids">Orchids (Anggrek)</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Wrapping / Vase</label>
+                                        <select value={floristMaterial} onChange={(e) => setFloristMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="kraft-paper">Brown Kraft Paper (Rustic)</option>
+                                            <option value="clear-glass">Clear Glass Vase</option>
+                                            <option value="ceramic">White Ceramic Vase</option>
+                                            <option value="velvet-box">Round Velvet Box</option>
+                                            <option value="korean-paper">Korean Waterproof Paper (Pastel)</option>
+                                            <option value="burlap">Burlap / Goni</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2 pt-2 border-t border-rose-200/50">
+                                    <h4 className="text-[10px] font-bold text-rose-600 uppercase mb-2">Botanical Realism Fixes</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {Object.entries(floristFixes).map(([key, active]) => (
+                                            <button key={key} onClick={() => toggleFloristFix(key as keyof typeof floristFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-rose-100 text-rose-800 border-rose-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- UMRAH & HAJJ VISION UI --- */}
+                        {isUmrah && (
+                            <div className="bg-emerald-50/50 p-5 rounded-xl border border-emerald-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-emerald-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Moon size={14} /> Umrah & Hajj Vision
+                                </h3>
+                                {/* Image Uploader for Face Swap */}
+                                <div className="mb-4">
+                                    <ImageUploader 
+                                        label="Upload Face Photo (Selfie)"
+                                        imageFile={image1}
+                                        onFileChange={setImage1}
+                                    />
+                                    <p className="text-[10px] text-gray-400 mt-2 text-center">
+                                        *Upload a clear selfie to visualize yourself in the Holy Land.
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Pilgrim Type</label>
+                                        <select value={umrahPilgrim} onChange={(e) => setUmrahPilgrim(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="man">Man (Ihram Clothing)</option>
+                                            <option value="woman">Woman (Abaya/Hijab)</option>
+                                            <option value="couple">Couple (Husband & Wife)</option>
+                                            <option value="family">Family (Parents + Kids)</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Location</label>
+                                        <select value={umrahLocation} onChange={(e) => setUmrahLocation(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="kaaba">Makkah - Kaaba (Mataf)</option>
+                                            <option value="nabawi">Madinah - Masjid Nabawi</option>
+                                            <option value="jabal-rahmah">Arafah - Jabal Rahmah</option>
+                                            <option value="quba">Masjid Quba</option>
+                                            <option value="taif">Taif Mountains</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Shot Type</label>
+                                        <select value={umrahShot} onChange={(e) => setUmrahShot(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="portrait">Close-up Portrait (Peaceful)</option>
+                                            <option value="dua">Raising Hands in Dua</option>
+                                            <option value="walking">Walking / Tawaf</option>
+                                            <option value="crowd">Amidst the Crowd</option>
+                                            <option value="sujud">Sujud / Prostration</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2 pt-2 border-t border-emerald-200/50">
+                                    <h4 className="text-[10px] font-bold text-emerald-600 uppercase mb-2">Spiritual Accuracy & Physics Fixes</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {Object.entries(umrahFixes).map(([key, active]) => (
+                                            <button key={key} onClick={() => toggleUmrahFix(key as keyof typeof umrahFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- SNEAKER LAB UI --- */}
+                        {isSneakerLab && (
+                            <div className="bg-orange-50/50 p-5 rounded-xl border border-orange-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-orange-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Footprints size={14} /> Custom Sneaker Laboratory
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Silhouette Style</label>
+                                        <select value={sneakerStyle} onChange={(e) => setSneakerStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="high-top">High-Top (Jordan Style)</option>
+                                            <option value="low-top">Low-Top (Dunk Style)</option>
+                                            <option value="runner">Retro Runner (New Balance Style)</option>
+                                            <option value="chunky">Chunky / Dad Shoe</option>
+                                            <option value="futuristic">Futuristic / YZY Style</option>
+                                            <option value="skate">Skate Shoe (Vans Style)</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Primary Material</label>
+                                        <select value={sneakerMaterial} onChange={(e) => setSneakerMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="leather">Premium Leather</option>
+                                            <option value="suede">Hairy Suede</option>
+                                            <option value="knit">Flyknit / Primeknit</option>
+                                            <option value="canvas">Canvas</option>
+                                            <option value="patent">Patent Leather (Glossy)</option>
+                                            <option value="mesh">Sport Mesh</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Colorway Theme</label>
+                                        <select value={sneakerColor} onChange={(e) => setSneakerColor(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="panda">Black & White (Panda)</option>
+                                            <option value="triple-black">Triple Black</option>
+                                            <option value="triple-white">Triple White</option>
+                                            <option value="chicago">Red/White/Black (Chicago)</option>
+                                            <option value="pastel">Pastel / Easter</option>
+                                            <option value="neon">Neon / Cyberpunk</option>
+                                            <option value="earth">Earth Tones (Travis Style)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2 pt-2 border-t border-orange-200/50">
+                                    <h4 className="text-[10px] font-bold text-orange-600 uppercase mb-2">Quality Check (Blind Spot Fixes)</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {Object.entries(sneakerFixes).map(([key, active]) => (
+                                            <button key={key} onClick={() => toggleSneakerFix(key as keyof typeof sneakerFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-orange-100 text-orange-800 border-orange-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- NAIL ART STUDIO UI --- */}
+                        {isNailArt && (
+                            <div className="bg-pink-50/50 p-5 rounded-xl border border-pink-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-pink-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Sparkles size={14} /> Nail Art Studio
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Nail Style</label>
+                                        <select value={nailStyle} onChange={(e) => setNailStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="solid">Solid Color</option>
+                                            <option value="french-tip">French Tip (Classic/Modern)</option>
+                                            <option value="ombre">Ombre / Gradient</option>
+                                            <option value="chrome">Chrome / Metallic</option>
+                                            <option value="cat-eye">Cat Eye (Magnetic)</option>
+                                            <option value="3d-art">3D Art / Charms</option>
+                                            <option value="marble">Marble Stone</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Shape & Length</label>
+                                        <select value={nailLength} onChange={(e) => setNailLength(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="short-square">Short Square</option>
+                                            <option value="short-oval">Short Oval</option>
+                                            <option value="medium-almond">Medium Almond</option>
+                                            <option value="medium-coffin">Medium Coffin</option>
+                                            <option value="long-stiletto">Long Stiletto</option>
+                                            <option value="long-coffin">Long Coffin</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Finish</label>
+                                        <select value={nailFinish} onChange={(e) => setNailFinish(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="glossy">High Gloss (Gel)</option>
+                                            <option value="matte">Matte / Velvet</option>
+                                            <option value="shimmer">Shimmer / Pearl</option>
+                                            <option value="glitter">Chunky Glitter</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2 pt-2 border-t border-pink-200/50">
+                                    <h4 className="text-[10px] font-bold text-pink-600 uppercase mb-2">Anatomy & Physics Fixes</h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {Object.entries(nailFixes).map(([key, active]) => (
+                                            <button key={key} onClick={() => toggleNailFix(key as keyof typeof nailFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-pink-100 text-pink-800 border-pink-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -762,370 +1233,54 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                         </select>
                                     </div>
                                 </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-blue-200/50">
-                                    {Object.entries(carFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+                                <div className="space-y-4 pt-2 border-t border-blue-200/50">
+                                    {/* Group: Bodywork */}
+                                    <div>
+                                        <h4 className="text-[10px] font-bold text-blue-600 uppercase mb-2">Bodywork & Paint</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {['panelGap', 'reflectionMatch', 'symmetryLock', 'carbonScale', 'plateWarp'].map(key => (
+                                                <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${carFixes[key as keyof typeof carFixes] ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                    {carFixes[key as keyof typeof carFixes] ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Group: Wheels */}
+                                    <div>
+                                        <h4 className="text-[10px] font-bold text-blue-600 uppercase mb-2">Wheels & Stance</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {['camberLogic', 'lugNutCount', 'brakeCaliper', 'tireTread', 'wheelWellDepth'].map(key => (
+                                                <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${carFixes[key as keyof typeof carFixes] ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                    {carFixes[key as keyof typeof carFixes] ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
 
-                        {/* --- PERSONAL COLOR ANALYST UI (NEW) --- */}
-                        {isPersonalColor && (
-                            <div className="bg-purple-50/50 p-5 rounded-xl border border-purple-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-purple-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Palette size={14} /> Professional Analysis Controls
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Lighting Condition</label>
-                                        <select value={pcLighting} onChange={(e) => setPcLighting(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="unknown">Unsure (Auto Detect)</option>
-                                            <option value="natural">Natural Daylight (Best)</option>
-                                            <option value="indoor-warm">Indoor (Warm/Yellow Light)</option>
-                                            <option value="indoor-cool">Indoor (Cool/Fluorescent)</option>
-                                            <option value="studio">Studio Lighting</option>
-                                        </select>
+                                    {/* Group: Lighting & Glass */}
+                                    <div>
+                                        <h4 className="text-[10px] font-bold text-blue-600 uppercase mb-2">Lighting & Glass</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {['headlightDetail', 'taillightDepth', 'indicatorColor', 'windowTrans', 'windshieldFix'].map(key => (
+                                                <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${carFixes[key as keyof typeof carFixes] ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                    {carFixes[key as keyof typeof carFixes] ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Hair Status</label>
-                                        <select value={pcHair} onChange={(e) => setPcHair(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="natural">Natural Color</option>
-                                            <option value="dyed">Dyed / Colored</option>
-                                            <option value="covered">Hijab / Covered</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Vein Color (Wrist Test)</label>
-                                        <select value={pcVein} onChange={(e) => setPcVein(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="unsure">I don't know</option>
-                                            <option value="blue">Blue / Purple (Cool)</option>
-                                            <option value="green">Green / Olive (Warm)</option>
-                                            <option value="purple">Blue & Green Mix (Neutral)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="space-y-2 pt-2 border-t border-purple-100">
-                                    <label className="text-[10px] font-bold text-gray-500 uppercase">Eye Color (Optional)</label>
-                                    <input 
-                                        type="text" 
-                                        value={pcEye} 
-                                        onChange={(e) => setPcEye(e.target.value)} 
-                                        placeholder="e.g. Dark Brown, Hazel, Grey-Blue..."
-                                        className="w-full text-xs p-2 rounded-lg border border-gray-200"
-                                    />
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-purple-200/50">
-                                    {Object.entries(pcFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => togglePcFix(key as keyof typeof pcFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
 
-                        {/* --- PHOTO PROFILE UI (RENAMED FROM PROFESSIONAL HEADSHOT) --- */}
-                        {isHeadshot && (
-                            <div className="bg-blue-50/50 p-5 rounded-xl border border-blue-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-blue-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Briefcase size={14} /> Profile Picture Studio
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Outfit Style</label>
-                                        <select value={hsOutfit} onChange={(e) => setHsOutfit(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="suit">Business Suit (Formal)</option>
-                                            <option value="blazer">Smart Blazer (Business Casual)</option>
-                                            <option value="casual">Tech Casual (T-Shirt/Hoodie)</option>
-                                            <option value="polo">Polo Shirt (Semi-Formal)</option>
-                                            <option value="turtle-neck">Turtle Neck (Creative/Modern)</option>
-                                            <option value="sweater">Sweater / Knitwear (Cozy)</option>
-                                            <option value="leather-jacket">Leather Jacket (Edgy)</option>
-                                            <option value="denim-jacket">Denim Jacket (Casual)</option>
-                                            <option value="traditional">Traditional (Batik/Kebaya/Kimono)</option>
-                                            <option value="medical-coat">Medical White Coat (Doctor)</option>
-                                            <option value="uniform-pilot">Pilot Uniform</option>
-                                            <option value="uniform-chef">Chef Uniform</option>
-                                            <option value="sportswear">Sportswear / Gym</option>
-                                        </select>
+                                    {/* Group: Physics */}
+                                    <div>
+                                        <h4 className="text-[10px] font-bold text-blue-600 uppercase mb-2">Physics & Details</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {['shadowContact', 'exhaustHole', 'intercoolerVis', 'wiperLogic', 'groundClearance'].map(key => (
+                                                <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${carFixes[key as keyof typeof carFixes] ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                                    {carFixes[key as keyof typeof carFixes] ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Background</label>
-                                        <select value={hsBackground} onChange={(e) => setHsBackground(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="office">Modern Office Blur</option>
-                                            <option value="studio-grey">Studio Grey (Classic)</option>
-                                            <option value="studio-white">Studio White (High Key)</option>
-                                            <option value="studio-black">Studio Black (Low Key)</option>
-                                            <option value="city">City Skyline Bokeh</option>
-                                            <option value="nature">Nature / Park (Greenery)</option>
-                                            <option value="library">Library / Bookshelf</option>
-                                            <option value="cafe">Coffee Shop / Cafe</option>
-                                            <option value="minimal-blue">Solid Blue (Professional)</option>
-                                            <option value="minimal-yellow">Solid Yellow (Vibrant)</option>
-                                            <option value="gradient">Gradient Abstract</option>
-                                            <option value="brick-wall">Brick Wall (Industrial)</option>
-                                            <option value="neon">Neon Lights (Cyberpunk)</option>
-                                            <option value="luxury-living">Luxury Living Room</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-blue-200/50">
-                                    {Object.entries(hsFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleHsFix(key as keyof typeof hsFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- VIRTUAL STAGING UI --- */}
-                        {isStaging && (
-                            <div className="bg-emerald-50/50 p-5 rounded-xl border border-emerald-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-emerald-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Armchair size={14} /> Interior Design Studio
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Room Type</label>
-                                        <select value={stgRoom} onChange={(e) => setStgRoom(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="living">Living Room</option>
-                                            <option value="bedroom">Bedroom</option>
-                                            <option value="dining">Dining Room</option>
-                                            <option value="office">Home Office</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Interior Style</label>
-                                        <select value={stgStyle} onChange={(e) => setStgStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="modern">Modern</option>
-                                            <option value="minimalist">Minimalist</option>
-                                            <option value="scandinavian">Scandinavian</option>
-                                            <option value="industrial">Industrial</option>
-                                            <option value="mid-century">Mid-Century Modern</option>
-                                            <option value="contemporary">Contemporary</option>
-                                            <option value="transitional">Transitional</option>
-                                            <option value="traditional">Traditional / Classic</option>
-                                            <option value="rustic">Rustic</option>
-                                            <option value="bohemian">Bohemian (Boho)</option>
-                                            <option value="coastal">Coastal / Hamptons</option>
-                                            <option value="farmhouse">Modern Farmhouse</option>
-                                            <option value="art-deco">Art Deco</option>
-                                            <option value="zen">Zen / Asian</option>
-                                            <option value="japandi">Japandi</option>
-                                            <option value="bauhaus">Bauhaus</option>
-                                            <option value="brutalist">Brutalist</option>
-                                            <option value="gothic">Gothic Revival</option>
-                                            <option value="victorian">Victorian</option>
-                                            <option value="mediterranean">Mediterranean</option>
-                                            <option value="tropical">Tropical / Bali</option>
-                                            <option value="eclectic">Eclectic</option>
-                                            <option value="shabby-chic">Shabby Chic</option>
-                                            <option value="french-country">French Country</option>
-                                            <option value="luxury">Luxury</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-emerald-200/50">
-                                    {Object.entries(stgFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleStgFix(key as keyof typeof stgFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                        
-                        {/* --- FASHION EDITORIAL UI (UPDATED) --- */}
-                        {isFashionEditorial && (
-                            <div className="bg-pink-50/50 p-5 rounded-xl border border-pink-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-pink-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Shirt size={14} /> Fashion Editorial Magazine
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Editorial Concept</label>
-                                        <select value={edStyle} onChange={(e) => setEdStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="haute-couture">Haute Couture (High Fashion)</option>
-                                            <option value="avant-garde">Avant-Garde (Artistic)</option>
-                                            <option value="street-style">Hypebeast / Street Style</option>
-                                            <option value="minimalist">Minimalist Chic</option>
-                                            <option value="boho-luxe">Bohemian Luxury</option>
-                                            <option value="techwear">Cyber / Techwear</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Set Location</label>
-                                        <select value={edLocation} onChange={(e) => setEdLocation(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="runway">Paris Fashion Runway</option>
-                                            <option value="studio-infinity">Infinite White Studio</option>
-                                            <option value="urban-decay">Urban Industrial</option>
-                                            <option value="nature-surreal">Surreal Nature</option>
-                                            <option value="neon-city">Neon Night City</option>
-                                            <option value="palace">Historic Palace</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Fashion Era</label>
-                                        <select value={edEra} onChange={(e) => setEdEra(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="modern">Modern Contemporary</option>
-                                            <option value="y2k">Y2K (Early 2000s)</option>
-                                            <option value="90s-grunge">90s Grunge</option>
-                                            <option value="80s-power">80s Power Dressing</option>
-                                            <option value="20s-art-deco">20s Art Deco</option>
-                                            <option value="future">Futuristic</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-pink-200/50">
-                                    {Object.entries(edFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleEdFix(key as keyof typeof edFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-pink-100 text-pink-800 border-pink-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                        
-                        {/* --- LOGO & MASCOT WIZARD UI --- */}
-                        {isLogoMascot && (
-                            <div className="bg-orange-50/50 p-5 rounded-xl border border-orange-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-orange-800 uppercase tracking-widest flex items-center gap-2">
-                                    <PenTool size={14} /> Brand Identity Lab
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Design Style</label>
-                                        <select value={logoStyle} onChange={(e) => setLogoStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="mascot">Mascot Character</option>
-                                            <option value="minimalist">Minimalist / Symbol</option>
-                                            <option value="emblem">Emblem / Badge</option>
-                                            <option value="abstract">Abstract Geometric</option>
-                                            <option value="lettermark">Lettermark / Typography</option>
-                                            <option value="hand-drawn">Hand Drawn / Organic</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Complexity</label>
-                                        <select value={logoComplexity} onChange={(e) => setLogoComplexity(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="simple">Simple (Iconic)</option>
-                                            <option value="medium">Medium (Balanced)</option>
-                                            <option value="detailed">Detailed (Illustration)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-orange-200/50">
-                                    {Object.entries(logoFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleLogoFix(key as keyof typeof logoFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-orange-100 text-orange-800 border-orange-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- ARCHITECTURAL VISION UI (NEW) --- */}
-                        {isArchViz && (
-                            <div className="bg-teal-50/50 p-5 rounded-xl border border-teal-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-teal-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Building2 size={14} /> Pro ArchViz Studio
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Viewpoint</label>
-                                        <select value={archiView} onChange={(e) => setArchiView(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="eye-level">Eye-Level (Human Scale)</option>
-                                            <option value="drone">Drone / Aerial</option>
-                                            <option value="worms-eye">Worm's Eye (Heroic)</option>
-                                            <option value="interior">Interior Perspective</option>
-                                            <option value="isometric">Isometric / Model</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Environment</label>
-                                        <select value={archiEnv} onChange={(e) => setArchiEnv(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="sunny-noon">Sunny Noon (Clear)</option>
-                                            <option value="golden-hour">Golden Hour (Warm)</option>
-                                            <option value="overcast">Overcast (Soft Light)</option>
-                                            <option value="rainy-mood">Rainy Mood</option>
-                                            <option value="night-city">Night City</option>
-                                            <option value="tropical-forest">Tropical Forest</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Architecture Style</label>
-                                        <select value={archiStyle} onChange={(e) => setArchiStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="modern">Modern Minimalist</option>
-                                            <option value="industrial">Industrial</option>
-                                            <option value="brutalist">Brutalist (Concrete)</option>
-                                            <option value="biophilic">Biophilic (Green)</option>
-                                            <option value="tropical">Tropical Contemporary</option>
-                                            <option value="classic">Neo-Classic</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-teal-200/50">
-                                    {Object.entries(archiFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleArchiFix(key as keyof typeof archiFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-teal-100 text-teal-800 border-teal-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- INDUSTRIAL DESIGN UI (NEW) --- */}
-                        {isIndustrial && (
-                            <div className="bg-zinc-100 p-5 rounded-xl border border-zinc-200 space-y-5">
-                                <h3 className="text-xs font-bold text-zinc-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Box size={14} /> Industrial Design Lab
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Primary Material</label>
-                                        <select value={indMaterial} onChange={(e) => setIndMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="plastic-matte">Plastic (Matte)</option>
-                                            <option value="plastic-gloss">Plastic (Glossy)</option>
-                                            <option value="aluminum">Brushed Aluminum</option>
-                                            <option value="steel">Stainless Steel</option>
-                                            <option value="wood-oak">Oak Wood</option>
-                                            <option value="wood-walnut">Walnut Wood</option>
-                                            <option value="leather">Leather</option>
-                                            <option value="glass">Tempered Glass</option>
-                                            <option value="carbon-fiber">Carbon Fiber</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Design Aesthetics</label>
-                                        <select value={indStyle} onChange={(e) => setIndStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="minimalist">Minimalist (Braun/Apple)</option>
-                                            <option value="bauhaus">Bauhaus (Geometric)</option>
-                                            <option value="cyberpunk">Cyberpunk (Tech)</option>
-                                            <option value="retro-futurism">Retro Futurism</option>
-                                            <option value="scandinavian">Scandinavian (Soft)</option>
-                                            <option value="utilitarian">Utilitarian (Rugged)</option>
-                                            <option value="organic">Organic (Curved)</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Render View</label>
-                                        <select value={indView} onChange={(e) => setIndView(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="studio">Studio (Clean BG)</option>
-                                            <option value="exploded">Exploded View (Technical)</option>
-                                            <option value="in-context">In-Context (Lifestyle)</option>
-                                            <option value="blueprint">Blueprint / Wireframe</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-zinc-200">
-                                    {Object.entries(indFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleIndFix(key as keyof typeof indFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-zinc-800 text-white border-zinc-900' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
                                 </div>
                             </div>
                         )}
