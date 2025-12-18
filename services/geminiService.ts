@@ -65,7 +65,9 @@ export const generateCreativeContent = async (
   } else if (activeMode === AppMode.UMRAH_HAJJ) {
        const umrahOpts = options as UmrahHajjOptions;
        if (umrahOpts) {
-           if (umrahOpts.files && umrahOpts.files.length > 0) {
+           if (umrahOpts.shotType === 'landscape') {
+               finalPrompt = `Analyze style. Generate a STUNNING LANDSCAPE/ARCHITECTURAL VIEW of ${umrahOpts.location}, Holy Land. Focus on the architecture, atmosphere, and spirituality. NO specific focus on individual pilgrims. Mood: Serene & Spiritual. Context: "${prompt}".`;
+           } else if (umrahOpts.files && umrahOpts.files.length > 0) {
               finalPrompt = `Reference photos provided. Generate a SPIRITUAL JOURNEY PHOTO of this person/group in ${umrahOpts.location}, Holy Land. Pilgrim Type: ${umrahOpts.pilgrimType}. Action: ${umrahOpts.shotType}. Wear Ihram/Hijab appropriately. Mood: Serene & Spiritual. Context: "${prompt}".`;
               for (const f of umrahOpts.files) parts.push(await fileToPart(f));
            } else {

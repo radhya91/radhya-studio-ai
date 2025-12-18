@@ -929,42 +929,53 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                     <Users size={14} className="text-indigo-500" />
                                     {isFamily ? 'Family Members' : isProduct ? 'Product Angles' : 'Pilgrims'}
                                 </label>
-                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                                    <div 
-                                        onClick={() => {
-                                            if (isFamily) familyFileInputRef.current?.click();
-                                            else if (isProduct) productFileInputRef.current?.click();
-                                            else if (isUmrah) umrahFileInputRef.current?.click();
-                                        }}
-                                        className="aspect-square border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-indigo-400 transition-colors"
-                                    >
-                                        <UserPlus size={24} className="text-gray-400 mb-1" />
-                                        <span className="text-[10px] font-bold text-gray-500 uppercase">Add Photo</span>
-                                    </div>
-                                    <input 
-                                        type="file" 
-                                        ref={isFamily ? familyFileInputRef : isProduct ? productFileInputRef : umrahFileInputRef} 
-                                        className="hidden" 
-                                        multiple 
-                                        accept="image/*"
-                                        onChange={isFamily ? handleFamilyFiles : isProduct ? handleProductFiles : handleUmrahFiles}
-                                    />
-                                    {(isFamily ? familyImages : isProduct ? productImages : umrahImages).map((file, index) => (
-                                        <div key={index} className="aspect-square relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
-                                            <img src={URL.createObjectURL(file)} alt="Upload" className="w-full h-full object-cover" />
-                                            <button 
-                                                onClick={() => {
-                                                    if (isFamily) removeFamilyImage(index);
-                                                    else if (isProduct) removeProductImage(index);
-                                                    else if (isUmrah) removeUmrahImage(index);
-                                                }}
-                                                className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                                            >
-                                                <X size={12} />
-                                            </button>
+                                
+                                {/* Hide Uploader if Landscape Only is selected for Umrah */}
+                                {!(isUmrah && umrahShot === 'landscape') && (
+                                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                                        <div 
+                                            onClick={() => {
+                                                if (isFamily) familyFileInputRef.current?.click();
+                                                else if (isProduct) productFileInputRef.current?.click();
+                                                else if (isUmrah) umrahFileInputRef.current?.click();
+                                            }}
+                                            className="aspect-square border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-indigo-400 transition-colors"
+                                        >
+                                            <UserPlus size={24} className="text-gray-400 mb-1" />
+                                            <span className="text-[10px] font-bold text-gray-500 uppercase">Add Photo</span>
                                         </div>
-                                    ))}
-                                </div>
+                                        <input 
+                                            type="file" 
+                                            ref={isFamily ? familyFileInputRef : isProduct ? productFileInputRef : umrahFileInputRef} 
+                                            className="hidden" 
+                                            multiple 
+                                            accept="image/*"
+                                            onChange={isFamily ? handleFamilyFiles : isProduct ? handleProductFiles : handleUmrahFiles}
+                                        />
+                                        {(isFamily ? familyImages : isProduct ? productImages : umrahImages).map((file, index) => (
+                                            <div key={index} className="aspect-square relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                                                <img src={URL.createObjectURL(file)} alt="Upload" className="w-full h-full object-cover" />
+                                                <button 
+                                                    onClick={() => {
+                                                        if (isFamily) removeFamilyImage(index);
+                                                        else if (isProduct) removeProductImage(index);
+                                                        else if (isUmrah) removeUmrahImage(index);
+                                                    }}
+                                                    className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                                >
+                                                    <X size={12} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                                
+                                {isUmrah && umrahShot === 'landscape' && (
+                                     <div className="bg-emerald-50 border border-emerald-100 p-4 rounded-xl text-center">
+                                         <p className="text-emerald-700 font-medium text-xs">Landscape Mode Active: Person upload disabled to focus on scenery.</p>
+                                     </div>
+                                )}
+
                                 <p className="text-[10px] text-gray-400 mt-2">*Upload clear photos. Max {isFamily ? '25' : isProduct ? '5' : '10'} images.</p>
                             </div>
                         )}
@@ -977,31 +988,44 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Pilgrim Type</label>
-                                        <select value={umrahPilgrim} onChange={(e) => setUmrahPilgrim(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="man">Man (Ihram)</option>
-                                            <option value="woman">Woman (Hijab/Abaya)</option>
-                                            <option value="couple">Couple</option>
-                                            <option value="family">Family</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Location</label>
                                         <select value={umrahLocation} onChange={(e) => setUmrahLocation(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="kaaba">Kaaba (Mataf)</option>
-                                            <option value="masjid-nabawi">Masjid Nabawi (Green Dome)</option>
-                                            <option value="safa-marwah">Safa & Marwah</option>
-                                            <option value="jabal-rahmah">Jabal Rahmah (Arafat)</option>
-                                            <option value="mina">Mina Tents</option>
+                                            <optgroup label="Makkah Al-Mukarramah">
+                                                <option value="kaaba">Kaaba (Mataf Area)</option>
+                                                <option value="maqam-ibrahim">Maqam Ibrahim</option>
+                                                <option value="safa-marwah">Safa & Marwah (Mas'a)</option>
+                                                <option value="mina">Mina Tents (Jamarat)</option>
+                                                <option value="arafat">Arafat (Jabal Rahmah)</option>
+                                                <option value="jabal-noor">Jabal Noor (Hira Cave)</option>
+                                                <option value="jabal-thawr">Jabal Thawr</option>
+                                                <option value="muzdalifah">Muzdalifah (Open Sky)</option>
+                                            </optgroup>
+                                            <optgroup label="Madinah Al-Munawwarah">
+                                                <option value="masjid-nabawi">Masjid Nabawi (Green Dome)</option>
+                                                <option value="raudhah">Raudhah (Inside Mosque)</option>
+                                                <option value="masjid-quba">Masjid Quba</option>
+                                                <option value="jabal-uhud">Jabal Uhud (Archers Hill)</option>
+                                                <option value="masjid-qiblatain">Masjid Qiblatain</option>
+                                            </optgroup>
                                         </select>
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-bold text-gray-500 uppercase">Shot Type</label>
                                         <select value={umrahShot} onChange={(e) => setUmrahShot(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
                                             <option value="portrait">Close-up Portrait</option>
-                                            <option value="praying">Praying (Dua)</option>
-                                            <option value="walking">Walking (Tawaf)</option>
+                                            <option value="praying">Praying (Dua Moment)</option>
+                                            <option value="walking">Walking (Tawaf/Sa'i)</option>
                                             <option value="wide">Wide Atmospheric</option>
+                                            <option value="landscape">Landscape Only (No People)</option>
+                                        </select>
+                                    </div>
+                                    <div className={`space-y-2 ${umrahShot === 'landscape' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Pilgrim Type</label>
+                                        <select value={umrahPilgrim} onChange={(e) => setUmrahPilgrim(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="man">Man (Ihram)</option>
+                                            <option value="woman">Woman (Hijab/Abaya)</option>
+                                            <option value="couple">Couple</option>
+                                            <option value="family">Family</option>
                                         </select>
                                     </div>
                                 </div>

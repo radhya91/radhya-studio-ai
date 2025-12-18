@@ -2,7 +2,7 @@ import { AppMode, ModeConfig } from './types';
 
 export const MODES: ModeConfig[] = [
   // ==========================================================================================
-  // 1. STUDIO UTAMA (20 Core Features)
+  // 1. STUDIO UTAMA (Core Features)
   // ==========================================================================================
   { 
     id: AppMode.TEXT_TO_IMAGE, 
@@ -11,6 +11,14 @@ export const MODES: ModeConfig[] = [
     description: 'Generasi gambar AI kualitas tinggi dari deskripsi teks sederhana.', 
     inputType: 'none', 
     promptPlaceholder: 'Describe the image you want to create...' 
+  },
+  { 
+    id: AppMode.PRODUCT, 
+    label: 'Product Photography', 
+    category: 'Studio Utama', 
+    description: 'Fotografi produk komersial high-end (Studio/Lifestyle).', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the product shot and background...' 
   },
   { 
     id: AppMode.PROFESSIONAL_HEADSHOT, 
@@ -40,7 +48,7 @@ export const MODES: ModeConfig[] = [
     id: AppMode.PHOTOSHOOT_AI, 
     label: 'Photoshoot AI', 
     category: 'Studio Utama', 
-    description: 'Studio foto virtual untuk model atau produk tanpa fotografer fisik.', 
+    description: 'Studio foto virtual untuk model manusia tanpa fotografer fisik.', 
     inputType: 'single-image', 
     promptPlaceholder: 'Describe the shoot vibe (e.g., Luxury, Outdoor, Studio)...' 
   },
@@ -149,14 +157,6 @@ export const MODES: ModeConfig[] = [
     promptPlaceholder: 'Describe the fashion look and pose...' 
   },
   { 
-    id: AppMode.PIXEL_ART, 
-    label: 'Pixel Art', 
-    category: 'Studio Utama', 
-    description: 'Generasi seni piksel retro 8-bit/16-bit.', 
-    inputType: 'single-image', 
-    promptPlaceholder: 'Describe the pixel art scene...' 
-  },
-  { 
     id: AppMode.STYLE_TRANSFER, 
     label: 'Style Transfer', 
     category: 'Studio Utama', 
@@ -220,6 +220,14 @@ export const MODES: ModeConfig[] = [
   // ==========================================================================================
   // 3. STUDIO PELUKIS (Artistic Styles)
   // ==========================================================================================
+  { 
+    id: AppMode.PIXEL_ART, 
+    label: 'Pixel Art', 
+    category: 'Studio Pelukis', 
+    description: 'Generasi seni piksel retro 8-bit/16-bit.', 
+    inputType: 'single-image', 
+    promptPlaceholder: 'Describe the pixel art scene...' 
+  },
   { id: AppMode.PAINTING_GENERATOR, label: 'Custom Painting', category: 'Studio Pelukis', description: 'Buat lukisan dengan gaya kustom Anda sendiri.', inputType: 'none', promptPlaceholder: 'Describe the painting style...' },
   { id: AppMode.PAINTING_HERITAGE, label: 'Indonesian Heritage', category: 'Studio Pelukis', description: 'Gaya lukisan klasik nusantara (Raden Saleh, Bali Traditional).', inputType: 'none', promptPlaceholder: 'Describe the scene...' },
   { id: AppMode.PAINTING_IMPASTO, label: 'Impasto (Thick Paint)', category: 'Studio Pelukis', description: 'Teknik cat minyak tebal dengan tekstur timbul.', inputType: 'none', promptPlaceholder: 'Describe the painting...' },
@@ -243,9 +251,9 @@ export const MODES: ModeConfig[] = [
     id: AppMode.UMRAH_HAJJ, 
     label: 'Umrah & Hajj Vision', 
     category: 'Lifestyle', 
-    description: 'Visualisasi di Tanah Suci Makkah/Madinah dengan pakaian Ihram.', 
+    description: 'Visualisasi di Tanah Suci (Makkah/Madinah) lengkap.', 
     inputType: 'single-image', 
-    promptPlaceholder: 'Suasana yang diinginkan...' 
+    promptPlaceholder: 'Suasana atau landmark yang diinginkan...' 
   },
   { 
     id: AppMode.KOREA_TRAVEL, 
@@ -283,7 +291,6 @@ export const MODES: ModeConfig[] = [
   // ==========================================================================================
   // 5. BISNIS & SENI (Commercial & Pop Art)
   // ==========================================================================================
-  { id: AppMode.PRODUCT, label: 'Product Photography', category: 'Bisnis & Seni', description: 'Fotografi produk komersial high-end.', inputType: 'single-image', promptPlaceholder: 'Describe the product shot...' },
   { id: AppMode.MOCKUP, label: 'Mockup Generator', category: 'Bisnis & Seni', description: 'Terapkan desain pada mockup (kaos, mug, layar).', inputType: 'single-image', promptPlaceholder: 'Describe the mockup object...' },
   { id: AppMode.THUMBNAIL, label: 'YouTube Thumbnail', category: 'Bisnis & Seni', description: 'Desain thumbnail YouTube yang menarik klik.', inputType: 'single-image', promptPlaceholder: 'Describe the video topic...' },
   { id: AppMode.CHARSHEET, label: 'Character Sheet', category: 'Bisnis & Seni', description: 'Lembar desain karakter (depan, samping, belakang).', inputType: 'none', promptPlaceholder: 'Describe the character...' },
