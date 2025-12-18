@@ -19,10 +19,10 @@ export enum AppMode {
   DOUBLE_EXPOSURE = 'double-exposure',
   HDR_LANDSCAPE = 'hdr-landscape',
   GEN_FILL = 'gen-fill',
-  
-  // NEW ADDITIONS
-  FASHION_EDITORIAL = 'fashion-editorial', // Renamed from VIRTUAL_FASHION
+  FASHION_EDITORIAL = 'fashion-editorial',
   LOGO_MASCOT = 'logo-mascot',
+  ARCHITECTURAL_VISION = 'architectural-vision',
+  INDUSTRIAL_DESIGN = 'industrial-design',
 
   // Studio Pelukis
   PAINTING_GENERATOR = 'painting-generator',
@@ -56,7 +56,9 @@ export enum AppMode {
   TATTOO = 'tattoo',
   PET_STUDIO = 'pet-studio',
   FOOD_STYLIST = 'food-stylist',
-  VEHICLE = 'vehicle',
+  VEHICLE = 'vehicle', // Generic existing one
+  MOD_MOTOR = 'mod-motor', // NEW
+  MOD_CAR = 'mod-car', // NEW
   AVATAR_3D = 'avatar-3d',
   COSPLAY = 'cosplay',
   PIXEL_ART = 'pixel-art',
@@ -76,7 +78,7 @@ export enum AppMode {
   PACKAGING_DESIGN = 'packaging-design',
   FASHION_SKETCH = 'fashion-sketch',
 
-  // AI Tools
+  // AI Tools (Existing)
   PROMPT_IDEA = 'prompt-idea',
   IMAGE_DESC = 'image-desc',
   REVERSE_PROMPT = 'reverse-prompt',
@@ -88,6 +90,17 @@ export enum AppMode {
   FOOD_TO_RECIPE = 'food-to-recipe',
   MATH_SOLVER = 'math-solver',
   PLANT_CARE = 'plant-care',
+
+  // AI Tools (New Additions)
+  UI_TO_CODE = 'ui-to-code',
+  NUTRITION_TRACKER = 'nutrition-tracker',
+  HANDWRITING_DECIPHER = 'handwriting-decipher',
+  DATA_ANALYST = 'data-analyst',
+  DIY_REPAIR = 'diy-repair',
+  VINTAGE_ID = 'vintage-id',
+  CV_AUDITOR = 'cv-auditor',
+  TRAVEL_GUIDE = 'travel-guide',
+  PERSONAL_COLOR = 'personal-color',
 }
 
 export interface ModeConfig {
@@ -527,8 +540,7 @@ export interface GenFillOptions {
   };
 }
 
-// --- NEW FEATURE 2 REVISION: FASHION EDITORIAL ---
-// Replaces "Virtual Fashion Swap" with a high-end magazine concept
+// Fashion Editorial Options
 export interface FashionEditorialOptions {
   editorialStyle: string; // Haute Couture, Streetwear, Avant-Garde
   location: string; // Runway, Neon City, Desert, Industrial
@@ -542,7 +554,7 @@ export interface FashionEditorialOptions {
   };
 }
 
-// --- NEW FEATURE 4: LOGO & MASCOT WIZARD ---
+// Logo & Mascot Options
 export interface LogoMascotOptions {
   style: string; // Minimalist, Mascot, Emblem
   complexity: string; // Simple, Medium, Detailed
@@ -555,5 +567,81 @@ export interface LogoMascotOptions {
   };
 }
 
+// Architectural Vision Options
+export interface ArchitecturalVisionOptions {
+  viewpoint: string; // Eye-level, Drone, Worms Eye
+  environment: string; // Sunny, Golden Hour, Night, Rainy
+  style: string; // Modern, Industrial, Brutalist
+  fixes: {
+    verticalCorrection: boolean; // 2-point perspective (must have for ArchViz)
+    materialRealism: boolean; // Concrete != Plaster
+    environmentIntegration: boolean; // Reflection logic
+    scaleAccuracy: boolean; // Humans/Cars scale
+    interiorGlow: boolean; // Window warmth at night
+  };
+}
+
+// --- NEW FEATURE: INDUSTRIAL DESIGN RENDER ---
+export interface IndustrialDesignOptions {
+  material: string; // Plastic, Metal, Wood, etc.
+  style: string; // Bauhaus, Cyberpunk, Apple-like
+  view: string; // Studio, Exploded, In-Context
+  fixes: {
+    materialInference: boolean; // Sketch lines to Texture
+    ergonomicSmoothing: boolean; // Wobbly lines to Curves
+    explodedViewLogic: boolean; // If parts separated, render exploded
+    surfaceFinish: boolean; // Matte vs Gloss distinction
+    partLineDefinition: boolean; // Cut lines (parting lines)
+  };
+}
+
+// --- NEW FEATURE: PERSONAL COLOR ANALYST (UPDATED BLIND SPOTS) ---
+export interface PersonalColorOptions {
+  lighting: 'natural' | 'indoor-warm' | 'indoor-cool' | 'studio' | 'unknown'; // Crucial for White Balance
+  hairStatus: 'natural' | 'dyed' | 'covered'; // Hijab/Dye logic
+  veinColor: 'blue' | 'green' | 'purple' | 'unsure'; // Undertone physics test
+  eyeColor: string; // Supplemental data
+  fixes: {
+    whiteBalanceAuto: boolean; // Correct yellow cast
+    makeupNeutralizer: boolean; // Ignore foundation/blush
+    ignoreBackgroundReflections: boolean; // Anti-color cast
+    focusOnIrisPattern: boolean; // Eye pattern analysis
+  };
+}
+
+// --- NEW FEATURE: MOD MOTOR (CUSTOM BIKE - 10 BLIND SPOTS) ---
+export interface ModMotorOptions {
+  style: string; // Cafe Racer, Scrambler, Bobber, Chopper, Drag
+  exhaustType: string; // Underseat, Shorty, Dual, High-mount
+  seatStyle: string; // Single seater, Flat bench, Springer
+  fixes: {
+    // The 10 Major Blind Spots
+    chainRealism: boolean; // Fix Phantom Chain
+    exhaustRouting: boolean; // Fix Floating Exhaust
+    cableManagement: boolean; // Fix Spaghetti Cables
+    brakeLogic: boolean; // Fix Ghost Calipers
+    suspensionMount: boolean; // Fix Impossible Suspension
+    kickstandFix: boolean; // Fix Kickstand Logic
+    tireClearance: boolean; // Fix Fender Clipping
+    engineAirflow: boolean; // Fix Carburetor/Filter blobs
+    footControlSym: boolean; // Fix Footpeg Amnesia
+    mirrorReflection: boolean; // Fix Mirror Asymmetry
+  };
+}
+
+// --- NEW FEATURE: MOD CAR (TUNING STUDIO) ---
+export interface ModCarOptions {
+  style: string; // JDM, Stance, Rally, Offroad, Luxury VIP
+  rimType: string; // TE37, Multi-spoke, Dish, Beadlock
+  suspension: string; // Lowered, Lifted, Stock
+  fixes: {
+    panelGap: boolean; // Celah pintu rapi
+    reflectionMatch: boolean; // Pantulan body
+    camberLogic: boolean; // Posisi roda masuk akal
+    brakeCaliper: boolean; // Posisi rem
+    headlightDetail: boolean; // Detail lampu internal
+  };
+}
+
 // Union Type for flexibility
-export type GenerationOptions = CarouselOptions | PhotoshootOptions | NewbornOptions | PreweddingOptions | FamilyOptions | ProductOptions | RecoveryOptions | DetailingOptions | CinematicRelightingOptions | AnalogFilmOptions | HeadshotOptions | StagingOptions | DoubleExposureOptions | HDROptions | GenFillOptions | FashionEditorialOptions | LogoMascotOptions;
+export type GenerationOptions = CarouselOptions | PhotoshootOptions | NewbornOptions | PreweddingOptions | FamilyOptions | ProductOptions | RecoveryOptions | DetailingOptions | CinematicRelightingOptions | AnalogFilmOptions | HeadshotOptions | StagingOptions | DoubleExposureOptions | HDROptions | GenFillOptions | FashionEditorialOptions | LogoMascotOptions | ArchitecturalVisionOptions | IndustrialDesignOptions | PersonalColorOptions | ModMotorOptions | ModCarOptions;

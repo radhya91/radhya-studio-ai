@@ -1,5 +1,5 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
-import { AppMode, GenerationResult, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, GenerationOptions } from '../types';
+import { AppMode, GenerationResult, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, ArchitecturalVisionOptions, IndustrialDesignOptions, GenerationOptions, PersonalColorOptions, ModMotorOptions, ModCarOptions } from '../types';
 import { MODES } from '../constants';
 
 // --- SYSTEM INSTRUCTIONS UNTUK TEXT TOOLS (AI TOOLS) ---
@@ -27,6 +27,66 @@ const getSystemInstruction = (mode: AppMode): string => {
       return "Anda adalah chef profesional. Identifikasi makanan dalam gambar dan berikan resep lengkap, bahan-bahan, dan cara memasak. Tulis dalam Bahasa Indonesia.";
     case AppMode.MATH_SOLVER:
       return "Anda adalah guru matematika. Selesaikan soal matematika dalam gambar langkah demi langkah. Gunakan LaTeX untuk formula.";
+    
+    // --- NEW AI TOOLS INSTRUCTIONS ---
+    case AppMode.UI_TO_CODE:
+        return "Anda adalah Senior Frontend Developer. Tugas Anda adalah mengkonversi gambar desain UI (screenshot) menjadi kode yang bersih dan fungsional. Gunakan HTML semantik dan Tailwind CSS untuk styling. Jika diminta komponen React, gunakan syntax React functional component. Identifikasi elemen interaktif dan tata letak dengan presisi pixel-perfect. Output kode dalam blok markdown.";
+    case AppMode.NUTRITION_TRACKER:
+        return "Anda adalah Ahli Gizi Klinis. Analisis foto makanan ini. Identifikasi setiap komponen makanan, perkirakan ukuran porsi, dan hitung estimasi total Kalori, Protein (g), Lemak (g), dan Karbohidrat (g). Berikan juga penilaian singkat tentang keseimbangan nutrisinya. Format output sebagai tabel markdown rapi.";
+    case AppMode.HANDWRITING_DECIPHER:
+        return "Anda adalah ahli paleografi dan transkripsi. Tugas Anda adalah membaca dan menyalin tulisan tangan yang sulit dibaca pada gambar. Pertahankan ejaan asli jika itu adalah dokumen sejarah, atau perbaiki jika itu catatan modern yang typo. Berikan transkripsi teks lengkap.";
+    case AppMode.DATA_ANALYST:
+        return "Anda adalah Senior Data Analyst. Analisis visualisasi data (grafik, chart, atau tabel) pada gambar. 1. Jelaskan tren utama. 2. Identifikasi anomali atau outlier. 3. Berikan kesimpulan eksekutif atau insight bisnis yang dapat diambil dari data tersebut. Gunakan bahasa Indonesia profesional.";
+    case AppMode.DIY_REPAIR:
+        return "Anda adalah teknisi handal dan tukang profesional (Handyman). Analisis kerusakan pada foto. 1. Identifikasi masalahnya (diagnosis). 2. Berikan daftar alat dan bahan yang dibutuhkan. 3. Berikan panduan langkah-demi-langkah cara memperbaikinya dengan aman. Selalu sertakan peringatan keselamatan (Safety First).";
+    case AppMode.VINTAGE_ID:
+        return "Anda adalah penilai barang antik profesional (Appraiser). Identifikasi objek pada gambar. Perkirakan era pembuatan (tahun/dekade), gaya seni (misal: Art Deco, Victorian), material, dan kemungkinan asal-usulnya. Berikan estimasi kelangkaan (Common, Rare, Ultra Rare) berdasarkan database pengetahuan Anda.";
+    case AppMode.CV_AUDITOR:
+        return "Anda adalah Senior HR Recruiter di perusahaan teknologi top. Review resume/CV pada gambar. Berikan kritik yang jujur dan konstruktif mengenai: 1. Tata letak dan desain. 2. Kejelasan konten. 3. Penggunaan kata kunci (ATS Friendly). 4. Deteksi typo. Berikan skor 1-10 dan saran perbaikan konkret.";
+    case AppMode.TRAVEL_GUIDE:
+        return "Anda adalah pemandu wisata lokal yang berpengetahuan luas. Identifikasi landmark, gedung, atau lokasi pada gambar. Ceritakan sejarah singkatnya yang menarik. Berikan 3 rekomendasi aktivitas atau kuliner legendaris yang berada dalam radius berjalan kaki dari lokasi tersebut.";
+    case AppMode.PERSONAL_COLOR:
+        return `Anda adalah Konsultan Personal Color Analysis Profesional Tingkat Dunia. 
+        Tugas Anda adalah melakukan analisis mendalam terhadap wajah pengguna untuk menentukan "Seasonal Color Palette" (Musim Warna) mereka.
+
+        LANGKAH ANALISIS:
+        1. **Analisis Undertone & Kontras:**
+           - Tentukan apakah undertone kulit adalah Cool, Warm, atau Neutral.
+           - Gunakan input data "Lighting Condition" yang diberikan untuk mengoreksi bias warna foto (White Balance Mental). Jangan tertipu oleh lampu kuning indoor.
+           - Jika status rambut "Covered" (Hijab), abaikan rambut dan fokus pada kulit dan mata.
+           - Jika status rambut "Dyed", fokus pada akar rambut asli atau alis.
+        
+        2. **Penentuan Musim (Seasonal Determination):**
+           - Tentukan musim spesifik (misal: Light Spring, Deep Autumn, True Winter, dll).
+           - Jelaskan alasan singkat berdasarkan data visual.
+
+        3. **Rekomendasi Warna (Palette):**
+           - **Best Colors (Fashion):** Berikan 5-7 warna terbaik dengan Kode HEX.
+           - **Worst Colors (Avoid):** Berikan 3 warna yang harus dihindari.
+           - **Makeup:** Rekomendasi warna Lipstik dan Blush On.
+           - **Jewelry:** Silver vs Gold?
+
+        FORMAT OUTPUT HARUS MENGGUNAKAN MARKDOWN:
+        ### 🎨 Analisis Personal Color
+        **Undertone:** [Cool/Warm/Neutral] | **Kontras:** [High/Medium/Low]
+        **Musim:** [Nama Musim, misal: Deep Autumn]
+
+        ### 👗 Palet Warna Terbaik (Fashion)
+        | Warna | Kode Hex | Contoh Penggunaan |
+        |-------|----------|-------------------|
+        | Nama Warna | #RRGGBB | Atasan / Dress |
+        ... (Minimal 5 warna)
+
+        ### 💄 Rekomendasi Makeup & Aksesoris
+        * **Lipstik:** [Warna]
+        * **Blush:** [Warna]
+        * **Perhiasan:** [Gold/Silver/Rose Gold]
+
+        ### 🚫 Warna yang Harus Dihindari
+        * [Warna 1] (Membuat kulit terlihat kusam)
+        * [Warna 2] ...
+        `;
+
     default:
       return "Anda adalah AI kreatif Radhya Studio. Ikuti instruksi pengguna dengan cermat dan berikan hasil terbaik. Tulis dalam bahasa Indonesia.";
   }
@@ -205,6 +265,121 @@ const getPromptEnhancementInstruction = (mode: AppMode, options?: GenerationOpti
         return logoInstruction;
     }
 
+    // --- NEW FEATURE: ARCHITECTURAL VISION ---
+    case AppMode.ARCHITECTURAL_VISION: {
+        const opts = options as ArchitecturalVisionOptions;
+        let archInstruction = `${baseInstruction}
+        CONTEXT: PROFESSIONAL ARCHITECTURAL VISUALIZATION (ARCHVIZ).
+        OBJECTIVE: Transform sketches, blueprints, or massing models into photorealistic 3D renders.
+        
+        USER CONFIGURATION:
+        - Viewpoint: ${opts?.viewpoint}
+        - Environment: ${opts?.environment}
+        - Style: ${opts?.style}
+        
+        ARCHITECTURAL PHYSICS & RENDERING RULES:`;
+        if (opts?.fixes.verticalCorrection) archInstruction += `\n- 2-POINT PERSPECTIVE: All vertical lines of the building MUST be perfectly straight up and down (shift lens correction). No converging verticals.`;
+        if (opts?.fixes.materialRealism) archInstruction += `\n- PBR MATERIALS: Distinguish clearly between concrete, glass, wood, and steel. Glass must reflect the environment.`;
+        if (opts?.fixes.environmentIntegration) archInstruction += `\n- CONTEXT: The building must sit grounded in the ${opts?.environment} environment. Shadows must match the sun angle of that time/weather.`;
+        if (opts?.fixes.scaleAccuracy) archInstruction += `\n- SCALE: Human figures and cars must be perfectly scaled to the building dimensions to provide scale reference.`;
+        if (opts?.fixes.interiorGlow) archInstruction += `\n- INTERIOR LIFE: If environment is dark/overcast, show warm artificial light glowing from inside the windows.`;
+
+        archInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A photorealistic architectural render of a ${opts?.style} building based on the input sketch.
+        Subject: [USER PROMPT].
+        Lighting: ${opts?.environment}.
+        View: ${opts?.viewpoint}.
+        Style: ArchDaily, V-Ray Render, 8k.`;
+        return archInstruction;
+    }
+
+    // --- NEW FEATURE: INDUSTRIAL DESIGN RENDER ---
+    case AppMode.INDUSTRIAL_DESIGN: {
+        const opts = options as IndustrialDesignOptions;
+        let indInstruction = `${baseInstruction}
+        CONTEXT: INDUSTRIAL DESIGN & PRODUCT VISUALIZATION.
+        OBJECTIVE: Convert a conceptual sketch, wireframe, or rough drawing into a finished Manufacturer-Ready 3D Render.
+        
+        USER CONFIGURATION:
+        - Material: ${opts?.material}
+        - Style: ${opts?.style}
+        - View: ${opts?.view}
+        
+        DESIGN & ENGINEERING RULES:`;
+        if (opts?.fixes.materialInference) indInstruction += `\n- MATERIAL LOGIC: Interpret sketchy shading as realistic PBR textures (e.g. ${opts?.material}). Differentiate between rubber grips, plastic bodies, and metal accents.`;
+        if (opts?.fixes.ergonomicSmoothing) indInstruction += `\n- GEOMETRY CLEANUP: Fix wobbly hand-drawn lines into perfect geometric curves (G2 continuity). Make it look manufactured, not drawn.`;
+        if (opts?.fixes.explodedViewLogic && opts?.view === 'exploded') indInstruction += `\n- EXPLODED VIEW: Separate the internal components logically (PCB, battery, housing) floating in space with alignment lines.`;
+        if (opts?.fixes.surfaceFinish) indInstruction += `\n- FINISH: Apply correct surface finish (Matte, Gloss, Satin) to the materials to catch light realistically.`;
+        if (opts?.fixes.partLineDefinition) indInstruction += `\n- PARTING LINES: Show realistic shut lines and gaps between assembled parts.`;
+
+        indInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A photorealistic 3D render of a ${opts?.style} product based on the sketch.
+        Subject: [USER PROMPT].
+        Material: ${opts?.material}.
+        View: ${opts?.view}.
+        Style: KeyShot Render, Behance Product Design, 8k.`;
+        return indInstruction;
+    }
+
+    // --- NEW FEATURE: MOD MOTOR (CUSTOM BIKE) ---
+    case AppMode.MOD_MOTOR: {
+        const opts = options as ModMotorOptions;
+        let motorInstruction = `${baseInstruction}
+        CONTEXT: CUSTOM MOTORCYCLE BUILDER.
+        OBJECTIVE: Transform the input motorcycle into a custom build (${opts?.style}). Focus on mechanical realism and correct proportions.
+        
+        USER CONFIGURATION:
+        - Style: ${opts?.style}
+        - Exhaust: ${opts?.exhaustType}
+        - Seat: ${opts?.seatStyle}
+        
+        MECHANICAL FIXES & BLIND SPOTS (10 CRITICAL CHECKS):`;
+        if (opts?.fixes.chainRealism) motorInstruction += `\n- DRIVE CHAIN: Ensure the drive chain is continuous, connected to the rear sprocket, and located on the correct side (usually left). No broken chains.`;
+        if (opts?.fixes.exhaustRouting) motorInstruction += `\n- EXHAUST ROUTING: Headers must bolt to the engine cylinder and flow organically to the ${opts?.exhaustType} muffler. No floating pipes.`;
+        if (opts?.fixes.cableManagement) motorInstruction += `\n- CABLES: Visible brake and clutch cables must route from handlebars to calipers/engine. Clean routing, but present.`;
+        if (opts?.fixes.brakeLogic) motorInstruction += `\n- BRAKE MOUNTING: Calipers must be bolted to the fork leg (front) or swingarm (rear) and clamped over the rotor. No floating calipers.`;
+        if (opts?.fixes.suspensionMount) motorInstruction += `\n- SHOCK GEOMETRY: Rear shocks must connect the swingarm to the main frame. They cannot pierce through the seat or float in space.`;
+        if (opts?.fixes.kickstandFix) motorInstruction += `\n- KICKSTAND: If parked, the kickstand must be down on the left side, supporting the bike's lean. If riding, up.`;
+        if (opts?.fixes.tireClearance) motorInstruction += `\n- FENDER CLEARANCE: Tires must not clip through the fenders or frame. Maintain realistic suspension travel gap.`;
+        if (opts?.fixes.engineAirflow) motorInstruction += `\n- INTAKE SYSTEM: Show carburetors or throttle bodies with air filters/pods attached to the rear of the cylinder head.`;
+        if (opts?.fixes.footControlSym) motorInstruction += `\n- FOOT CONTROLS: Ensure footpegs, shifter (left), and brake lever (right) are present and positioned for a human rider.`;
+        if (opts?.fixes.mirrorReflection) motorInstruction += `\n- MIRRORS: Mirrors should be symmetrical and reflect a plausible background (sky/road), not random textures.`;
+
+        motorInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A fully custom ${opts?.style} motorcycle build based on the input bike.
+        Mods: ${opts?.seatStyle} seat, ${opts?.exhaustType} exhaust system.
+        Details: [USER PROMPT].
+        Style: BikeEXIF Feature, Studio Photography, 8k.`;
+        return motorInstruction;
+    }
+
+    // --- NEW FEATURE: MOD CAR (TUNING STUDIO) ---
+    case AppMode.MOD_CAR: {
+        const opts = options as ModCarOptions;
+        let carInstruction = `${baseInstruction}
+        CONTEXT: AUTOMOTIVE TUNING & MODIFICATION.
+        OBJECTIVE: Modify the car with a specific tuning style (${opts?.style}), changing wheels, suspension, and body kit.
+        
+        USER CONFIGURATION:
+        - Style: ${opts?.style}
+        - Wheels: ${opts?.rimType}
+        - Suspension: ${opts?.suspension}
+        
+        AUTOMOTIVE REALISM RULES:`;
+        if (opts?.fixes.panelGap) carInstruction += `\n- PANEL GAPS: Ensure door lines, hood lines, and bumper seams are visible and consistent. Don't merge parts into a single blob.`;
+        if (opts?.fixes.reflectionMatch) carInstruction += `\n- REFLECTIONS: The glossy car paint must reflect the environment accurately. No random studio lights if outdoors.`;
+        if (opts?.fixes.camberLogic) carInstruction += `\n- WHEEL FITMENT: Tires must fit inside the wheel wells (or poke out realistically if Widebody). Wheels should not clip through fenders.`;
+        if (opts?.fixes.brakeCaliper) carInstruction += `\n- BRAKES: Brake calipers must be stationary (not spinning with the wheel) and positioned correctly on the rotor.`;
+        if (opts?.fixes.headlightDetail) carInstruction += `\n- LIGHTS: Headlights/Taillights must have internal depth (lenses, reflectors, LEDs), not just a flat colored texture.`;
+
+        carInstruction += `\n\nTHE PROMPT MUST DESCRIBE:
+        A modified car build in ${opts?.style} style.
+        Mods: ${opts?.rimType} wheels, ${opts?.suspension} suspension setup.
+        Details: [USER PROMPT].
+        Style: Speedhunters, Top Gear Magazine, 8k Automotive Photography.`;
+        return carInstruction;
+    }
+
     default:
       return `${baseInstruction} Focus on: Artistic style consistency, high visual impact, correct anatomy/perspective, and detailed description of the medium (e.g., oil painting, digital art).`;
   }
@@ -349,6 +524,14 @@ export const generateCreativeContent = async (
              contextPrompt = `Here is a photo of a person. Analyze their body pose, skin tone, and features. Write a prompt to transform this into a HIGH-FASHION MAGAZINE COVER. The person should be wearing "${prompt}" but styled in the requested editorial concept. Ensure the lighting, makeup, and background match the high-end magazine aesthetic.`;
         } else if (activeMode === AppMode.LOGO_MASCOT) {
              contextPrompt = `Analyze this reference sketch or image. Extract the core concept and composition. Write a prompt to generate a polished, professional vector logo/mascot based on this concept but in a cleaner, higher quality style described as: "${prompt}".`;
+        } else if (activeMode === AppMode.ARCHITECTURAL_VISION) {
+             contextPrompt = `Analyze this input sketch, blueprint, or massing model. Understand the structural geometry and perspective. Write a prompt to convert this into a PHOTOREALISTIC 3D RENDER. Apply the ${options && 'style' in options ? options.style : 'modern'} style and correct any perspective distortions to achieve a 2-point perspective look. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.INDUSTRIAL_DESIGN) {
+             contextPrompt = `Analyze this design sketch or wireframe. Understand the product's intended function and form factor. Write a prompt to render this as a FINISHED PRODUCT in 3D. Apply the requested material (${(options as IndustrialDesignOptions)?.material}) and style (${(options as IndustrialDesignOptions)?.style}). Smooth out lines and add realistic lighting. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.MOD_MOTOR) {
+             contextPrompt = `Analyze this motorcycle photo. Identify the model type and key features (tank, frame). Write a prompt to MODIFY this bike into a ${(options as ModMotorOptions)?.style} style custom build. Change the seat to a ${(options as ModMotorOptions)?.seatStyle} style and the exhaust to ${(options as ModMotorOptions)?.exhaustType}. Keep the engine details realistic but upgrade the aesthetics. User request: "${prompt}".`;
+        } else if (activeMode === AppMode.MOD_CAR) {
+             contextPrompt = `Analyze this car photo. Identify the body lines and model. Write a prompt to TUNE/MODIFY this car into a ${(options as ModCarOptions)?.style} build. Install ${(options as ModCarOptions)?.rimType} wheels and adjust suspension to ${(options as ModCarOptions)?.suspension}. Ensure realistic reflections and body kit integration. User request: "${prompt}".`;
         } else {
              contextPrompt = `Analyze the visual content of the attached image(s). Then, write a NEW, highly detailed generation prompt based on the user's request: "${prompt}". Ensure you incorporate the style/subject of the reference image but apply the specific visual enhancements required by the current mode.`;
         }
@@ -374,7 +557,20 @@ export const generateCreativeContent = async (
   } else {
     // --- TEXT / ANALYSIS TOOLS ---
     const systemInstruction = getSystemInstruction(activeMode);
-    const text = await callGeminiText('gemini-2.0-flash', prompt, base64Images, systemInstruction);
+    
+    // Inject the advanced options into the text prompt context if available
+    let finalPrompt = prompt;
+    if (activeMode === AppMode.PERSONAL_COLOR && options && 'lighting' in options) {
+        const opts = options as PersonalColorOptions;
+        finalPrompt += `\n\n[ANALYSIS CONTEXT]\n` +
+                       `Lighting Condition: ${opts.lighting}\n` +
+                       `Hair Status: ${opts.hairStatus}\n` +
+                       `Vein Color (Wrist): ${opts.veinColor}\n` +
+                       `Eye Color (User Input): ${opts.eyeColor}\n` +
+                       `Active Fixes: ${JSON.stringify(opts.fixes)}`;
+    }
+
+    const text = await callGeminiText('gemini-2.0-flash', finalPrompt, base64Images, systemInstruction);
     return {
       images: [],
       text: text

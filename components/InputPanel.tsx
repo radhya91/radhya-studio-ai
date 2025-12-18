@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Loader2, Image as ImageIcon, Type, Square, RectangleHorizontal, RectangleVertical, Settings2, Trash2, Camera, Sun, Zap, Crosshair, Box, Palette, Aperture, Users, Mountain, Building2, Armchair, Hand, Eye, Layers, Fingerprint, Baby, Heart, ShieldCheck, Moon, Microscope, ScanFace, Scale, Video, CloudRain, Wind, UserCheck, Flame, Infinity, Clapperboard, Film, Users2, Home, Shirt, UploadCloud, X, Footprints, Smile, UserPlus, Droplets, Target, ShoppingBag, History, Bandage, User, Wand2, ZoomIn, Cpu, Maximize2, Lightbulb, Scissors, Briefcase, Expand, PenTool } from 'lucide-react';
-import { ModeConfig, GeneratedImage, AppMode, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, GenerationOptions } from '../types';
+import { Sparkles, Loader2, Image as ImageIcon, Type, Square, RectangleHorizontal, RectangleVertical, Settings2, Trash2, Camera, Sun, Zap, Crosshair, Box, Palette, Aperture, Users, Mountain, Building2, Armchair, Hand, Eye, Layers, Fingerprint, Baby, Heart, ShieldCheck, Moon, Microscope, ScanFace, Scale, Video, CloudRain, Wind, UserCheck, Flame, Infinity, Clapperboard, Film, Users2, Home, Shirt, UploadCloud, X, Footprints, Smile, UserPlus, Droplets, Target, ShoppingBag, History, Bandage, User, Wand2, ZoomIn, Cpu, Maximize2, Lightbulb, Scissors, Briefcase, Expand, PenTool, Wrench, Car } from 'lucide-react';
+import { ModeConfig, GeneratedImage, AppMode, CarouselOptions, PhotoshootOptions, NewbornOptions, PreweddingOptions, FamilyOptions, ProductOptions, RecoveryOptions, DetailingOptions, CinematicRelightingOptions, AnalogFilmOptions, HeadshotOptions, StagingOptions, DoubleExposureOptions, HDROptions, GenFillOptions, FashionEditorialOptions, LogoMascotOptions, ArchitecturalVisionOptions, IndustrialDesignOptions, GenerationOptions, PersonalColorOptions, ModMotorOptions, ModCarOptions } from '../types';
 import ImageUploader from './ImageUploader';
 import Gallery from './Gallery';
 
@@ -389,6 +389,71 @@ const InputPanel: React.FC<InputPanelProps> = ({
     printReadiness: true
   });
 
+  // Architectural Vision (New Feature)
+  const [archiView, setArchiView] = useState('eye-level');
+  const [archiEnv, setArchiEnv] = useState('sunny-noon');
+  const [archiStyle, setArchiStyle] = useState('modern');
+  const [archiFixes, setArchiFixes] = useState({
+    verticalCorrection: true,
+    materialRealism: true,
+    environmentIntegration: true,
+    scaleAccuracy: true,
+    interiorGlow: true
+  });
+
+  // Industrial Design (New Feature)
+  const [indMaterial, setIndMaterial] = useState('plastic-matte');
+  const [indStyle, setIndStyle] = useState('minimalist');
+  const [indView, setIndView] = useState('studio');
+  const [indFixes, setIndFixes] = useState({
+    materialInference: true,
+    ergonomicSmoothing: true,
+    explodedViewLogic: true,
+    surfaceFinish: true,
+    partLineDefinition: true
+  });
+
+  // Personal Color Analyst (New States)
+  const [pcLighting, setPcLighting] = useState('unknown');
+  const [pcHair, setPcHair] = useState('natural');
+  const [pcVein, setPcVein] = useState('unsure');
+  const [pcEye, setPcEye] = useState('');
+  const [pcFixes, setPcFixes] = useState({
+    whiteBalanceAuto: true,
+    makeupNeutralizer: true,
+    ignoreBackgroundReflections: true,
+    focusOnIrisPattern: true
+  });
+
+  // Mod Motor States (Updated for 10 Blind Spots)
+  const [motorStyle, setMotorStyle] = useState('cafe-racer');
+  const [motorExhaust, setMotorExhaust] = useState('shorty');
+  const [motorSeat, setMotorSeat] = useState('single');
+  const [motorFixes, setMotorFixes] = useState({
+    chainRealism: true,
+    exhaustRouting: true,
+    cableManagement: true,
+    brakeLogic: true,
+    suspensionMount: true,
+    kickstandFix: true,
+    tireClearance: true,
+    engineAirflow: true,
+    footControlSym: true,
+    mirrorReflection: true
+  });
+
+  // Mod Car States
+  const [carStyle, setCarStyle] = useState('jdm');
+  const [carRim, setCarRim] = useState('te37');
+  const [carSusp, setCarSusp] = useState('lowered');
+  const [carFixes, setCarFixes] = useState({
+    panelGap: true,
+    reflectionMatch: true,
+    camberLogic: true,
+    brakeCaliper: true,
+    headlightDetail: true,
+  });
+
   const hasResults = generatedImages.length > 0 || !!textContent;
   
   // Helpers
@@ -399,6 +464,8 @@ const InputPanel: React.FC<InputPanelProps> = ({
   const isGenFill = config.id === AppMode.GEN_FILL;
   const isFashionEditorial = config.id === AppMode.FASHION_EDITORIAL;
   const isLogoMascot = config.id === AppMode.LOGO_MASCOT;
+  const isArchViz = config.id === AppMode.ARCHITECTURAL_VISION;
+  const isIndustrial = config.id === AppMode.INDUSTRIAL_DESIGN;
   
   const isPhotoCarousel = config.id === AppMode.PHOTO_CAROUSEL;
   const isPhotoshoot = config.id === AppMode.PHOTOSHOOT_AI;
@@ -410,6 +477,19 @@ const InputPanel: React.FC<InputPanelProps> = ({
   const isDetailing = config.id === AppMode.DETAILING;
   const isCinematicRelighting = config.id === AppMode.CINEMATIC_RELIGHTING;
   const isAnalogFilm = config.id === AppMode.ANALOG_FILM;
+
+  const isUiToCode = config.id === AppMode.UI_TO_CODE;
+  const isNutrition = config.id === AppMode.NUTRITION_TRACKER;
+  const isHandwriting = config.id === AppMode.HANDWRITING_DECIPHER;
+  const isDataAnalyst = config.id === AppMode.DATA_ANALYST;
+  const isDiy = config.id === AppMode.DIY_REPAIR;
+  const isVintage = config.id === AppMode.VINTAGE_ID;
+  const isCv = config.id === AppMode.CV_AUDITOR;
+  const isTravel = config.id === AppMode.TRAVEL_GUIDE;
+  const isPersonalColor = config.id === AppMode.PERSONAL_COLOR;
+  
+  const isModMotor = config.id === AppMode.MOD_MOTOR;
+  const isModCar = config.id === AppMode.MOD_CAR;
 
   useEffect(() => {
     // Reset inputs only when mode changes, not when generating
@@ -461,6 +541,16 @@ const InputPanel: React.FC<InputPanelProps> = ({
         options = { editorialStyle: edStyle, location: edLocation, era: edEra, fixes: edFixes } as FashionEditorialOptions;
     } else if (isLogoMascot) {
         options = { style: logoStyle, complexity: logoComplexity, fixes: logoFixes } as LogoMascotOptions;
+    } else if (isArchViz) {
+        options = { viewpoint: archiView, environment: archiEnv, style: archiStyle, fixes: archiFixes } as ArchitecturalVisionOptions;
+    } else if (isIndustrial) {
+        options = { material: indMaterial, style: indStyle, view: indView, fixes: indFixes } as IndustrialDesignOptions;
+    } else if (isPersonalColor) {
+        options = { lighting: pcLighting, hairStatus: pcHair, veinColor: pcVein, eyeColor: pcEye, fixes: pcFixes } as PersonalColorOptions;
+    } else if (isModMotor) {
+        options = { style: motorStyle, exhaustType: motorExhaust, seatStyle: motorSeat, fixes: motorFixes } as ModMotorOptions;
+    } else if (isModCar) {
+        options = { style: carStyle, rimType: carRim, suspension: carSusp, fixes: carFixes } as ModCarOptions;
     }
 
     onGenerate(prompt, image1, image2, aspectRatio, options);
@@ -484,6 +574,11 @@ const InputPanel: React.FC<InputPanelProps> = ({
   const toggleGfFix = (key: keyof typeof gfFixes) => setGfFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleEdFix = (key: keyof typeof edFixes) => setEdFixes(prev => ({...prev, [key]: !prev[key]}));
   const toggleLogoFix = (key: keyof typeof logoFixes) => setLogoFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleArchiFix = (key: keyof typeof archiFixes) => setArchiFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleIndFix = (key: keyof typeof indFixes) => setIndFixes(prev => ({...prev, [key]: !prev[key]}));
+  const togglePcFix = (key: keyof typeof pcFixes) => setPcFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleMotorFix = (key: keyof typeof motorFixes) => setMotorFixes(prev => ({...prev, [key]: !prev[key]}));
+  const toggleCarFix = (key: keyof typeof carFixes) => setCarFixes(prev => ({...prev, [key]: !prev[key]}));
 
   // Multi-Image Handler for Family
   const handleFamilyFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -558,12 +653,14 @@ const InputPanel: React.FC<InputPanelProps> = ({
                             <div className="space-y-3">
                                 <label className="text-xs font-bold text-gray-900 flex items-center gap-2 uppercase tracking-wider">
                                     <ImageIcon size={14} className="text-indigo-500" />
-                                    {isPhotoshoot ? 'Product Reference' : (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial) ? 'Input Photo' : 'Reference Content'}
+                                    {isPhotoshoot ? 'Product Reference' : 
+                                     (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar) 
+                                     ? 'Input Image' : 'Reference Content'}
                                 </label>
                             
                                 <div className={`grid gap-4 ${config.inputType === 'dual-image' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
                                     <ImageUploader
-                                        label={isPhotoshoot ? "Product Image" : (config.inputType === 'dual-image' ? 'First Image' : (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial) ? 'Original Photo' : 'Reference Image')}
+                                        label={isPhotoshoot ? "Product Image" : (config.inputType === 'dual-image' ? 'First Image' : (isRecovery || isDetailing || isCinematicRelighting || isAnalogFilm || isHeadshot || isStaging || isDoubleExposure || isHDR || isGenFill || isFashionEditorial || isArchViz || isIndustrial || isUiToCode || isNutrition || isHandwriting || isDataAnalyst || isDiy || isVintage || isCv || isTravel || isPersonalColor || isModMotor || isModCar) ? 'Upload Source' : 'Reference Image')}
                                         imageFile={image1}
                                         onFileChange={setImage1}
                                     />
@@ -574,6 +671,158 @@ const InputPanel: React.FC<InputPanelProps> = ({
                                             onFileChange={setImage2}
                                         />
                                     )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- MOD MOTOR UI --- */}
+                        {isModMotor && (
+                            <div className="bg-red-50/50 p-5 rounded-xl border border-red-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-red-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Wrench size={14} /> Custom Bike Builder
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Style</label>
+                                        <select value={motorStyle} onChange={(e) => setMotorStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="cafe-racer">Cafe Racer</option>
+                                            <option value="scrambler">Scrambler</option>
+                                            <option value="bobber">Bobber</option>
+                                            <option value="chopper">Chopper</option>
+                                            <option value="drag-bike">Drag Bike</option>
+                                            <option value="tracker">Street Tracker</option>
+                                            <option value="sport-fairing">Full Fairing Sport</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Exhaust Type</label>
+                                        <select value={motorExhaust} onChange={(e) => setMotorExhaust(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="shorty">Shorty / Slash Cut</option>
+                                            <option value="underseat">Underseat</option>
+                                            <option value="dual">Dual Exhaust</option>
+                                            <option value="high-mount">High-mount Scrambler</option>
+                                            <option value="straight-pipe">Straight Pipe</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Seat Style</label>
+                                        <select value={motorSeat} onChange={(e) => setMotorSeat(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="single">Single Seater (Hornet)</option>
+                                            <option value="flat-bench">Flat Bench (Brat)</option>
+                                            <option value="springer">Springer Seat</option>
+                                            <option value="stepped">Stepped Seat</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-red-200/50">
+                                    {Object.entries(motorFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => toggleMotorFix(key as keyof typeof motorFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-red-100 text-red-800 border-red-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- MOD CAR UI --- */}
+                        {isModCar && (
+                            <div className="bg-blue-50/50 p-5 rounded-xl border border-blue-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-blue-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Car size={14} /> Car Tuning Studio
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Tuning Style</label>
+                                        <select value={carStyle} onChange={(e) => setCarStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="jdm">JDM / Street Racing</option>
+                                            <option value="stance">Stance / Hellaflush</option>
+                                            <option value="rally">Rally / WRC</option>
+                                            <option value="offroad">Offroad / Overland</option>
+                                            <option value="luxury-vip">Luxury VIP</option>
+                                            <option value="time-attack">Time Attack</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Rims / Wheels</label>
+                                        <select value={carRim} onChange={(e) => setCarRim(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="te37">6-Spoke Racing (TE37 style)</option>
+                                            <option value="multi-spoke">Multi-spoke (BBS style)</option>
+                                            <option value="dish">Deep Dish</option>
+                                            <option value="five-star">5-Star</option>
+                                            <option value="beadlock">Offroad Beadlock</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Suspension</label>
+                                        <select value={carSusp} onChange={(e) => setCarSusp(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="lowered">Lowered (Sport)</option>
+                                            <option value="slammed">Slammed (Air Suspension)</option>
+                                            <option value="lifted">Lifted (Offroad)</option>
+                                            <option value="stock">Stock Height</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-blue-200/50">
+                                    {Object.entries(carFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => toggleCarFix(key as keyof typeof carFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* --- PERSONAL COLOR ANALYST UI (NEW) --- */}
+                        {isPersonalColor && (
+                            <div className="bg-purple-50/50 p-5 rounded-xl border border-purple-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-purple-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Palette size={14} /> Professional Analysis Controls
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Lighting Condition</label>
+                                        <select value={pcLighting} onChange={(e) => setPcLighting(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="unknown">Unsure (Auto Detect)</option>
+                                            <option value="natural">Natural Daylight (Best)</option>
+                                            <option value="indoor-warm">Indoor (Warm/Yellow Light)</option>
+                                            <option value="indoor-cool">Indoor (Cool/Fluorescent)</option>
+                                            <option value="studio">Studio Lighting</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Hair Status</label>
+                                        <select value={pcHair} onChange={(e) => setPcHair(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="natural">Natural Color</option>
+                                            <option value="dyed">Dyed / Colored</option>
+                                            <option value="covered">Hijab / Covered</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Vein Color (Wrist Test)</label>
+                                        <select value={pcVein} onChange={(e) => setPcVein(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="unsure">I don't know</option>
+                                            <option value="blue">Blue / Purple (Cool)</option>
+                                            <option value="green">Green / Olive (Warm)</option>
+                                            <option value="purple">Blue & Green Mix (Neutral)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="space-y-2 pt-2 border-t border-purple-100">
+                                    <label className="text-[10px] font-bold text-gray-500 uppercase">Eye Color (Optional)</label>
+                                    <input 
+                                        type="text" 
+                                        value={pcEye} 
+                                        onChange={(e) => setPcEye(e.target.value)} 
+                                        placeholder="e.g. Dark Brown, Hazel, Grey-Blue..."
+                                        className="w-full text-xs p-2 rounded-lg border border-gray-200"
+                                    />
+                                </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-purple-200/50">
+                                    {Object.entries(pcFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => togglePcFix(key as keyof typeof pcFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                         )}
@@ -778,273 +1027,107 @@ const InputPanel: React.FC<InputPanelProps> = ({
                             </div>
                         )}
 
-                        {/* --- DOUBLE EXPOSURE UI --- */}
-                        {isDoubleExposure && (
-                            <div className="bg-purple-50/50 p-5 rounded-xl border border-purple-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-purple-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Layers size={14} /> Artistic Blending
+                        {/* --- ARCHITECTURAL VISION UI (NEW) --- */}
+                        {isArchViz && (
+                            <div className="bg-teal-50/50 p-5 rounded-xl border border-teal-200/50 space-y-5">
+                                <h3 className="text-xs font-bold text-teal-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Building2 size={14} /> Pro ArchViz Studio
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Blend Mode</label>
-                                        <select value={deBlend} onChange={(e) => setDeBlend(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="silhouette">Silhouette Fill</option>
-                                            <option value="overlay">Soft Overlay</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Secondary Element</label>
-                                        <select value={deSecond} onChange={(e) => setDeSecond(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="nature">Nature (Forest/Ocean)</option>
-                                            <option value="city">City Architecture</option>
-                                            <option value="galaxy">Space / Galaxy</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-purple-200/50">
-                                    {Object.entries(deFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleDeFix(key as keyof typeof deFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-purple-100 text-purple-800 border-purple-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- HDR LANDSCAPE UI --- */}
-                        {isHDR && (
-                            <div className="bg-yellow-50/50 p-5 rounded-xl border border-yellow-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-yellow-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Sun size={14} /> Dynamic Range Master
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">HDR Style</label>
-                                        <select value={hdrStyle} onChange={(e) => setHdrStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="natural">Natural Balanced</option>
-                                            <option value="dramatic">Dramatic Contrast</option>
-                                            <option value="surreal">Surreal Vivid</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Sky Enhancement</label>
-                                        <div className="flex items-center gap-3">
-                                            <label className="text-xs flex items-center gap-2">
-                                                <input type="checkbox" checked={hdrSky} onChange={(e) => setHdrSky(e.target.checked)} className="rounded text-yellow-600" />
-                                                Auto-Enhance Sky
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-yellow-200/50">
-                                    {Object.entries(hdrFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleHdrFix(key as keyof typeof hdrFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-yellow-100 text-yellow-800 border-yellow-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- GENERATIVE FILL UI --- */}
-                        {isGenFill && (
-                            <div className="bg-indigo-50/50 p-5 rounded-xl border border-indigo-200/50 space-y-5">
-                                <h3 className="text-xs font-bold text-indigo-800 uppercase tracking-widest flex items-center gap-2">
-                                    <Expand size={14} /> Smart Canvas Expand
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Expansion Direction</label>
-                                        <select value={gfDir} onChange={(e) => setGfDir(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="horizontal">Horizontal (Panorama)</option>
-                                            <option value="vertical">Vertical (Tall)</option>
-                                            <option value="surround">All Around (Zoom Out)</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Zoom Level</label>
-                                        <select value={gfZoom} onChange={(e) => setGfZoom(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="1.5x">1.5x Expansion</option>
-                                            <option value="2x">2.0x Expansion</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 pt-2 border-t border-indigo-200/50">
-                                    {Object.entries(gfFixes).map(([key, active]) => (
-                                        <button key={key} onClick={() => toggleGfFix(key as keyof typeof gfFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-indigo-100 text-indigo-800 border-indigo-300' : 'bg-white text-gray-400 border-gray-200'}`}>
-                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- RECOVERY MODE UI --- */}
-                        {isRecovery && (
-                             <div className="bg-amber-50/50 p-5 rounded-xl border border-amber-200/50 space-y-5">
-                                {/* ... existing recovery UI ... */}
-                                <h3 className="text-xs font-bold text-amber-800 uppercase tracking-widest flex items-center gap-2">
-                                    <History size={14} />
-                                    Restoration Lab (Advanced)
-                                </h3>
-
-                                {/* Selectors */}
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Bandage size={10} /> Damage Level</label>
-                                        <select value={recDamage} onChange={(e) => setRecDamage(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="light">Light (Blur/Dust)</option>
-                                            <option value="medium">Medium (Scratches/Fading)</option>
-                                            <option value="heavy">Heavy (Tears/Missing Parts)</option>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Viewpoint</label>
+                                        <select value={archiView} onChange={(e) => setArchiView(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="eye-level">Eye-Level (Human Scale)</option>
+                                            <option value="drone">Drone / Aerial</option>
+                                            <option value="worms-eye">Worm's Eye (Heroic)</option>
+                                            <option value="interior">Interior Perspective</option>
+                                            <option value="isometric">Isometric / Model</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Palette size={10} /> Color Mode</label>
-                                        <select value={recColor} onChange={(e) => setRecColor(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="none">Keep Original Tone</option>
-                                            <option value="auto">Auto Colorize</option>
-                                            <option value="vibrant">Vibrant / Modern</option>
-                                            <option value="bw">Restore B&W Only</option>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Environment</label>
+                                        <select value={archiEnv} onChange={(e) => setArchiEnv(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="sunny-noon">Sunny Noon (Clear)</option>
+                                            <option value="golden-hour">Golden Hour (Warm)</option>
+                                            <option value="overcast">Overcast (Soft Light)</option>
+                                            <option value="rainy-mood">Rainy Mood</option>
+                                            <option value="night-city">Night City</option>
+                                            <option value="tropical-forest">Tropical Forest</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Wand2 size={10} /> Enhance Strength</label>
-                                        <select value={recStrength} onChange={(e) => setRecStrength(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="balanced">Balanced</option>
-                                            <option value="high">High (Max Detail)</option>
-                                            <option value="creative">Creative (Fill Missing)</option>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Architecture Style</label>
+                                        <select value={archiStyle} onChange={(e) => setArchiStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="modern">Modern Minimalist</option>
+                                            <option value="industrial">Industrial</option>
+                                            <option value="brutalist">Brutalist (Concrete)</option>
+                                            <option value="biophilic">Biophilic (Green)</option>
+                                            <option value="tropical">Tropical Contemporary</option>
+                                            <option value="classic">Neo-Classic</option>
                                         </select>
                                     </div>
                                 </div>
-
-                                {/* 20 Blind Spots - Grouped */}
-                                <div className="space-y-4 pt-2 border-t border-amber-200/50">
-                                     <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-2">
-                                        <ShieldCheck size={12} />
-                                        Specific Restoration Fixes (20 Points)
-                                     </label>
-
-                                     {/* Group 1: Surface */}
-                                     <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-amber-700 uppercase tracking-widest flex items-center gap-1"><Bandage size={10} /> Surface Repair</p>
-                                         <div className="flex flex-wrap gap-2">
-                                            {[
-                                                { id: 'scratchKiller', label: 'Scratch Killer', active: recFixes.scratchKiller },
-                                                { id: 'tearPatching', label: 'Tear Patching', active: recFixes.tearPatching },
-                                                { id: 'dustSpeckle', label: 'Dust Clean', active: recFixes.dustSpeckle },
-                                                { id: 'waterDamage', label: 'Water Stain Fix', active: recFixes.waterDamage },
-                                                { id: 'tapeMark', label: 'Tape Removal', active: recFixes.tapeMark },
-                                            ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleRecFix(fix.id as keyof typeof recFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
-                                            ))}
-                                         </div>
-                                     </div>
-
-                                     {/* Group 2: Face */}
-                                     <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-amber-700 uppercase tracking-widest flex items-center gap-1"><User size={10} /> Face & Identity</p>
-                                         <div className="flex flex-wrap gap-2">
-                                            {[
-                                                { id: 'faceIdentityLock', label: 'Identity Lock', active: recFixes.faceIdentityLock },
-                                                { id: 'irisClarity', label: 'Iris Clarity', active: recFixes.irisClarity },
-                                                { id: 'naturalTeeth', label: 'Natural Teeth', active: recFixes.naturalTeeth },
-                                                { id: 'hairTexture', label: 'Hair Texture', active: recFixes.hairTexture },
-                                                { id: 'earStructure', label: 'Ear Structure', active: recFixes.earStructure },
-                                            ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleRecFix(fix.id as keyof typeof recFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-orange-100 text-orange-800 border-orange-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
-                                            ))}
-                                         </div>
-                                     </div>
-
-                                     {/* Group 3: Color */}
-                                     <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-amber-700 uppercase tracking-widest flex items-center gap-1"><Palette size={10} /> Color Science</p>
-                                         <div className="flex flex-wrap gap-2">
-                                            {[
-                                                { id: 'deepColorization', label: 'Deep Colorize', active: recFixes.deepColorization },
-                                                { id: 'sepiaNeutralizer', label: 'Sepia Fix', active: recFixes.sepiaNeutralizer },
-                                                { id: 'fadedInk', label: 'Ink Boost', active: recFixes.fadedInk },
-                                                { id: 'skinToneBalance', label: 'Skin Tone Fix', active: recFixes.skinToneBalance },
-                                                { id: 'redEyeFix', label: 'Red Eye Fix', active: recFixes.redEyeFix },
-                                            ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleRecFix(fix.id as keyof typeof recFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-rose-100 text-rose-800 border-rose-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
-                                            ))}
-                                         </div>
-                                     </div>
-
-                                     {/* Group 4: Digital */}
-                                     <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-amber-700 uppercase tracking-widest flex items-center gap-1"><Aperture size={10} /> Digital Quality</p>
-                                         <div className="flex flex-wrap gap-2">
-                                            {[
-                                                { id: 'motionBlur', label: 'Anti-Shake', active: recFixes.motionBlur },
-                                                { id: 'softFocus', label: 'Sharpen Focus', active: recFixes.softFocus },
-                                                { id: 'isoGrain', label: 'De-Noise', active: recFixes.isoGrain },
-                                                { id: 'jpegArtifacts', label: 'JPEG Cleaner', active: recFixes.jpegArtifacts },
-                                                { id: 'textureUpscale', label: '4K Texture', active: recFixes.textureUpscale },
-                                            ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleRecFix(fix.id as keyof typeof recFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-cyan-100 text-cyan-800 border-cyan-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
-                                            ))}
-                                         </div>
-                                     </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-teal-200/50">
+                                    {Object.entries(archiFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => toggleArchiFix(key as keyof typeof archiFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-teal-100 text-teal-800 border-teal-300' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
                                 </div>
-                             </div>
+                            </div>
                         )}
 
-                        {/* --- DETAILING MODE UI (NEW - 25 FIXES) --- */}
-                        {isDetailing && (
-                             <div className="bg-cyan-50/50 p-5 rounded-xl border border-cyan-200/50 space-y-5">
-                                {/* ... existing detailing UI ... */}
-                                <h3 className="text-xs font-bold text-cyan-800 uppercase tracking-widest flex items-center gap-2">
-                                    <ZoomIn size={14} />
-                                    Ultra-HD Upscaling Engine
+                        {/* --- INDUSTRIAL DESIGN UI (NEW) --- */}
+                        {isIndustrial && (
+                            <div className="bg-zinc-100 p-5 rounded-xl border border-zinc-200 space-y-5">
+                                <h3 className="text-xs font-bold text-zinc-800 uppercase tracking-widest flex items-center gap-2">
+                                    <Box size={14} /> Industrial Design Lab
                                 </h3>
-                                {/* Selectors omitted for brevity, logic remains in main code block */}
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Maximize2 size={10} /> Target Resolution</label>
-                                        <select value={detRes} onChange={(e) => setDetRes(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="2k">2K (High Res)</option>
-                                            <option value="4k">4K (Ultra HD)</option>
-                                            <option value="8k">8K (Print Quality)</option>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Primary Material</label>
+                                        <select value={indMaterial} onChange={(e) => setIndMaterial(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="plastic-matte">Plastic (Matte)</option>
+                                            <option value="plastic-gloss">Plastic (Glossy)</option>
+                                            <option value="aluminum">Brushed Aluminum</option>
+                                            <option value="steel">Stainless Steel</option>
+                                            <option value="wood-oak">Oak Wood</option>
+                                            <option value="wood-walnut">Walnut Wood</option>
+                                            <option value="leather">Leather</option>
+                                            <option value="glass">Tempered Glass</option>
+                                            <option value="carbon-fiber">Carbon Fiber</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Cpu size={10} /> AI Creativity</label>
-                                        <select value={detCreative} onChange={(e) => setDetCreative(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="faithful">Faithful (Denoise/Sharpen Only)</option>
-                                            <option value="balanced">Balanced (Enhance Texture)</option>
-                                            <option value="creative">Creative (Hallucinate Detail)</option>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Design Aesthetics</label>
+                                        <select value={indStyle} onChange={(e) => setIndStyle(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="minimalist">Minimalist (Braun/Apple)</option>
+                                            <option value="bauhaus">Bauhaus (Geometric)</option>
+                                            <option value="cyberpunk">Cyberpunk (Tech)</option>
+                                            <option value="retro-futurism">Retro Futurism</option>
+                                            <option value="scandinavian">Scandinavian (Soft)</option>
+                                            <option value="utilitarian">Utilitarian (Rugged)</option>
+                                            <option value="organic">Organic (Curved)</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Aperture size={10} /> Sharpness Mode</label>
-                                        <select value={detSharp} onChange={(e) => setDetSharp(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
-                                            <option value="soft">Soft / Cinematic</option>
-                                            <option value="natural">Natural / Photographic</option>
-                                            <option value="razor">Razor Sharp / Digital</option>
+                                        <label className="text-[10px] font-bold text-gray-500 uppercase">Render View</label>
+                                        <select value={indView} onChange={(e) => setIndView(e.target.value)} className="w-full text-xs p-2 rounded-lg border border-gray-200">
+                                            <option value="studio">Studio (Clean BG)</option>
+                                            <option value="exploded">Exploded View (Technical)</option>
+                                            <option value="in-context">In-Context (Lifestyle)</option>
+                                            <option value="blueprint">Blueprint / Wireframe</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div className="space-y-4 pt-2 border-t border-cyan-200/50">
-                                     {/* ... Detailing fixes mapping (retained in full render) ... */}
-                                     {/* Just rendering one group for brevity, all are present in main return */}
-                                     <div className="space-y-1.5">
-                                         <p className="text-[9px] font-bold text-cyan-700 uppercase tracking-widest flex items-center gap-1"><User size={10} /> Skin & Biological</p>
-                                         <div className="flex flex-wrap gap-2">
-                                            {[
-                                                { id: 'poreSynthesis', label: 'Pore Synthesis', active: detFixes.poreSynthesis },
-                                                { id: 'irisPattern', label: 'Iris Pattern', active: detFixes.irisPattern },
-                                                { id: 'hairStrandSeparation', label: 'Hair Strands', active: detFixes.hairStrandSeparation },
-                                                { id: 'nailTexture', label: 'Nail Detail', active: detFixes.nailTexture },
-                                                { id: 'wrinkleDepth', label: 'Realistic Age', active: detFixes.wrinkleDepth },
-                                            ].map((fix) => (
-                                                <button key={fix.id} onClick={() => toggleDetFix(fix.id as keyof typeof detFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${fix.active ? 'bg-cyan-100 text-cyan-800 border-cyan-300' : 'bg-white text-gray-400 border-gray-200 hover:bg-gray-50'}`}>{fix.active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>}{fix.label}</button>
-                                            ))}
-                                         </div>
-                                     </div>
+                                <div className="flex flex-wrap gap-2 pt-2 border-t border-zinc-200">
+                                    {Object.entries(indFixes).map(([key, active]) => (
+                                        <button key={key} onClick={() => toggleIndFix(key as keyof typeof indFixes)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all border ${active ? 'bg-zinc-800 text-white border-zinc-900' : 'bg-white text-gray-400 border-gray-200'}`}>
+                                            {active ? <CheckIcon /> : <div className="w-2.5 h-2.5 rounded-full border border-gray-400"></div>} {key.replace(/([A-Z])/g, ' $1').trim()}
+                                        </button>
+                                    ))}
                                 </div>
-                             </div>
+                            </div>
                         )}
 
                         {/* Prompt Input */}
